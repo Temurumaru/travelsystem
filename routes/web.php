@@ -66,9 +66,23 @@ Route::get('/sign_in', function () {
 // Admin segment
 
 // if(@$_SESSION['user'] -> premission == "admin") {
-  Route::get('/admin', function () {
-    return view('admin.home');
-  }) -> name('admin');
+  // Route::get('/admin', function () {
+  //   return view('admin.home');
+  // }) -> name('admin');
+// }
+
+// if(@$_SESSION['user'] -> premission == "agent") {
+  Route::get('/agent', function () {
+    return view('agent.home');
+  }) -> name('agent');
+
+  Route::get('/profile', function () {
+    return view('agent.profile');
+  }) -> name('profile');
+
+  Route::get('/tour', function () {
+    return view('agent.tour');
+  }) -> name('tour');
 // }
 
 
