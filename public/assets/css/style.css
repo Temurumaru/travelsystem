@@ -871,13 +871,15 @@ h6 {
   width: 4px;
   top: 0;
   bottom: 0;
-  background-color: #eceefe;
+  /* background-color: #eceefe; */
+  background-color: transparent;
 }
 
 .dashboard .activity .activity-item .activity-badge {
   margin-top: 3px;
+  margin-left: 6px;
   z-index: 1;
-  font-size: 11px;
+  font-size: 17px;
   line-height: 0;
   border-radius: 50%;
   flex-shrink: 0;

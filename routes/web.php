@@ -76,10 +76,6 @@ Route::get('/sign_in', function () {
     return view('agent.home');
   }) -> name('agent');
 
-  Route::get('/profile', function () {
-    return view('agent.profile');
-  }) -> name('profile');
-
   Route::get('/tour', function () {
     return view('agent.tour');
   }) -> name('tour');

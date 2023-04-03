@@ -16,12 +16,6 @@
         <hr class="dropdown-divider">
       </li>
       <li>
-        <a class="dropdown-item d-flex align-items-center" href="{{route('profile')}}">
-          <i class="bi bi-person"></i>
-          <span>Мой профиль</span>
-        </a>
-      </li>
-      <li>
         <hr class="dropdown-divider">
       </li>
       <li>
@@ -38,49 +32,17 @@
 @section('sidebar')
 
   <li class="nav-item">
-    <a class="nav-link collapsed" data-bs-target="#active-tour" data-bs-toggle="collapse" href="#">
-      <i class="bi bi-airplane"></i><span>Активные Туры</span><i class="bi bi-chevron-down ms-auto"></i>
+    <a class="nav-link collapsed" href="/">
+      <i class="bi bi-airplane"></i>
+      <span>Активные туры</span>
     </a>
-    <div style="overflow-y:scroll; max-height:400px;">
-      <ul id="active-tour" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-      <li>
-        <a href="/tour/[tour_id]">
-          <i class="bi bi-circle"></i><span>Пекин <span class="badge rounded-pill bg-secondary">InTour</span></span>
-        </a>
-      </li>
-
-      <li>
-        <a href="/tour/[tour_id]">
-          <i class="bi bi-circle"></i><span>Гонконг <span class="badge rounded-pill bg-primary">Yetti Travel</span></span>
-        </a>
-      </li>
-
-      <li>
-        <a href="/tour/[tour_id]">
-          <i class="bi bi-circle"></i><span>Гуанджоу <span class="badge rounded-pill bg-secondary">Osmon Travel</span></span>
-        </a>
-      </li>
-    </ul>
-    </div>
-    
   </li>
 
   <li class="nav-item">
-    <a class="nav-link collapsed" data-bs-target="#ended-tour" data-bs-toggle="collapse" href="#">
-      <i class="bi bi-slash-circle"></i><span>Завершённые Туры</span><i class="bi bi-chevron-down ms-auto"></i>
+    <a class="nav-link collapsed" href="/">
+      <i class="bi bi-slash-circle"></i>
+      <span>Завершённые Туры</span>
     </a>
-    <ul id="ended-tour" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-      <li>
-        <a href="/tour/[tour_id]">
-          <i class="bi bi-circle"></i><span>Шанхай <span class="badge rounded-pill bg-secondary">Osmon Travel</span></span>
-        </a>
-      </li>
-      <li>
-        <a href="/tour/[tour_id]">
-          <i class="bi bi-circle"></i><span>Токио <span class="badge rounded-pill bg-secondary">InTour</span></span>
-        </a>
-      </li>
-    </ul>
   </li>
 
 @endsection

@@ -1,3 +1,17 @@
+*::-webkit-scrollbar {
+  width: 12px;               /* ширина scrollbar */
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;        /* цвет дорожки */
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: #4154F1;    /* цвет плашки */
+  border-radius: 20px;       /* закругления плашки */
+  border: 3px solid transparent;  /* padding вокруг плашки */
+}
+
 .card {
   border-radius: 15px !important;
 }
@@ -8,4 +22,18 @@
 
 .dropdown-menu {
   border-radius: 15px !important;
+}
+
+.unselectable {
+  -moz-user-select: -moz-none;
+  -o-user-select: none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+.agent_tour_element > tr {
+  display: flex;
+  align-items: center;
+  margin: 1rem;
 }
