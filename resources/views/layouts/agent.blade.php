@@ -32,14 +32,14 @@
 @section('sidebar')
 
   <li class="nav-item">
-    <a class="nav-link collapsed" href="/">
+    <a class="nav-link collapsed" href="{{route('tour_actives')}}">
       <i class="bi bi-airplane"></i>
       <span>Активные туры</span>
     </a>
   </li>
 
   <li class="nav-item">
-    <a class="nav-link collapsed" href="/">
+    <a class="nav-link collapsed" href="{{route('tour_old')}}">
       <i class="bi bi-slash-circle"></i>
       <span>Завершённые Туры</span>
     </a>

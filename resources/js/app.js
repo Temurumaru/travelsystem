@@ -25,7 +25,3 @@ $('#file_remove').on('click', () => {
 $("#price").on("dblclick", function() {
   alert("Бонус "+$(this).attr('bonus')+'$');
 });
-
-$('#place_slider').on('input', () => {;
-  $('#place_num').text($('#place_slider').val());
-});

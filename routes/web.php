@@ -79,6 +79,14 @@ Route::get('/sign_in', function () {
   Route::get('/tour', function () {
     return view('agent.tour');
   }) -> name('tour');
+
+  Route::get('/tour_actives', function () {
+    return view('agent.tour_actives');
+  }) -> name('tour_actives');
+
+  Route::get('/tour_old', function () {
+    return view('agent.tour_old');
+  }) -> name('tour_old');
 // }
 
 
