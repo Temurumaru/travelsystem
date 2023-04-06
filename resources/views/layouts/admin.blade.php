@@ -5,12 +5,12 @@
   <li class="nav-item dropdown pe-3">
     <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
       <img src="assets/img/profile-img.jpg" alt="Profile" class="rounded-circle">
-      <span class="d-none d-md-block dropdown-toggle ps-2">T.Teshavoyev</span>
+      <span class="d-none d-md-block dropdown-toggle ps-2">K.Ketmonov</span>
     </a><!-- End Profile Iamge Icon -->
     <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
       <li class="dropdown-header">
-        <h6>Teshavoy Teshavoyev</h6>
-        <span>Yetti Travel</span>
+        <h6>Ketmon Ketmonov</h6>
+        <span>Верховный Админ</span>
       </li>
       <li>
         <hr class="dropdown-divider">
@@ -32,21 +32,14 @@
 @section('sidebar')
 
   <li class="nav-item">
-    <a class="nav-link collapsed" href="{{route('tour_booked')}}">
-      <i class="bi bi-shield"></i>
-      <span>Забронированные туры</span>
-    </a>
-  </li>
-
-  <li class="nav-item">
-    <a class="nav-link collapsed" href="{{route('tour_actives')}}">
+    <a class="nav-link collapsed" href="{{route('admin_tour_actives')}}">
       <i class="bi bi-airplane"></i>
       <span>Активные туры</span>
     </a>
   </li>
 
   <li class="nav-item">
-    <a class="nav-link collapsed" href="{{route('tour_old')}}">
+    <a class="nav-link collapsed" href="{{route('admin_tour_old')}}">
       <i class="bi bi-slash-circle"></i>
       <span>Завершённые Туры</span>
     </a>
