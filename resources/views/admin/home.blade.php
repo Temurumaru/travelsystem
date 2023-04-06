@@ -98,7 +98,7 @@
       <div class="card-body">
         <h5 class="card-title">Список Администраторов</h5>
         
-        <button class="btn btn-primary mb-4">Добавить Администратора <i class="bi bi-person-plus-fill"></i></button>
+        <a href="{{route('admin_create')}}" class="btn btn-primary mb-4">Добавить Администратора <i class="bi bi-person-plus-fill"></i></a>
         <!-- Bordered Table -->
         <table class="table table-bordered">
           <thead>
@@ -150,7 +150,7 @@
       <div class="card-body">
         <h5 class="card-title">Список Компаний</h5>
         
-        <button class="btn btn-primary mb-4">Добавить Компанию <i class="bi bi-person-plus-fill"></i></button>
+        <a href="admin_company_create" class="btn btn-primary mb-4">Добавить Компанию <i class="bi bi-person-plus-fill"></i></a>
         <!-- Bordered Table -->
         <table class="table table-bordered">
           <thead>
@@ -189,7 +189,7 @@
               <td>Lufthansa</td>
               <td>6</td>
               <td class="d-none d-lg-block" >Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestiae recusandae rerum corrupti distinctio mollitia atque et in dolorum, facere, animi!</td>
-              <td class="col" ><button class="m-1 btn btn-warning"><i class="bi bi-pencil-fill"></i></button><button class="m-1 btn btn-danger"><i class="bi bi-trash-fill"></i></button></td>
+              <td class="col" ><button class="m-1 btn btn-warning"><i class="bi bi-pencil-fill"></i></button><button class="m-1 btn btn-danger"><i class="bi bi-trash-fill"Three></i></button></td>
             </tr>
             <tr>
               <th scope="row">5</th>
@@ -208,7 +208,7 @@
       <div class="card-body">
         <h5 class="card-title">Список Агентов</h5>
         
-        <button class="btn btn-primary mb-4">Добавить Агента <i class="bi bi-person-plus-fill"></i></button>
+        <a href="{{route('admin_agent_create')}}" class="btn btn-primary mb-4">Добавить Агента <i class="bi bi-person-plus-fill"></i></a>
         <!-- Bordered Table -->
         <table class="table table-bordered">
           <thead>

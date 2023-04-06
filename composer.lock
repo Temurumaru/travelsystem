@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "dff5e9beaee9a0973a82ba7bf463d532",
+    "content-hash": "f1584b4fb04bfaaaec377715376aac50",
     "packages": [
         {
             "name": "brick/math",
@@ -503,51 +503,6 @@
                 }
             ],
             "time": "2022-02-20T15:07:15+00:00"
-        },
-        {
-            "name": "gabordemooij/redbean",
-            "version": "v5.7.4",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/gabordemooij/redbean.git",
-                "reference": "274c426583d91b20a1e39968b2e20969ef83cd1d"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/gabordemooij/redbean/zipball/274c426583d91b20a1e39968b2e20969ef83cd1d",
-                "reference": "274c426583d91b20a1e39968b2e20969ef83cd1d",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.3.4"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "RedBeanPHP\\": "RedBeanPHP"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "BSD-3-Clause"
-            ],
-            "authors": [
-                {
-                    "name": "Gabor de Mooij",
-                    "email": "gabor@redbeanphp.com",
-                    "homepage": "https://redbeanphp.com"
-                }
-            ],
-            "description": "RedBeanPHP ORM",
-            "homepage": "https://redbeanphp.com/",
-            "keywords": [
-                "orm"
-            ],
-            "support": {
-                "issues": "https://github.com/gabordemooij/redbean/issues",
-                "source": "https://github.com/gabordemooij/redbean/tree/v5.7.4"
-            },
-            "time": "2023-03-17T22:39:19+00:00"
         },
         {
             "name": "graham-campbell/result-type",
@@ -7810,6 +7765,56 @@
             "time": "2023-02-16T09:57:23+00:00"
         },
         {
+            "name": "temurumaru/threadbean",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Temurumaru/threadbean.git",
+                "reference": "9ecc76103db27d636548da9824ead1f79a372268"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Temurumaru/threadbean/zipball/9ecc76103db27d636548da9824ead1f79a372268",
+                "reference": "9ecc76103db27d636548da9824ead1f79a372268",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.4"
+            },
+            "default-branch": true,
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "ThreadBeanPHP\\": "ThreadBeanPHP"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Tulenov Temur",
+                    "email": "temurumaru@yandex.com",
+                    "homepage": "https://2204.com"
+                },
+                {
+                    "name": "Gabor de Mooij",
+                    "email": "gabor@redbeanphp.com",
+                    "homepage": "https://redbeanphp.com"
+                }
+            ],
+            "description": "ThreadBeanPHP ORM",
+            "homepage": "https://2204.com/threadbean",
+            "keywords": [
+                "orm"
+            ],
+            "support": {
+                "source": "https://github.com/Temurumaru/threadbean/tree/master"
+            },
+            "time": "2023-04-06T14:45:28+00:00"
+        },
+        {
             "name": "theseer/tokenizer",
             "version": "1.2.1",
             "source": {
@@ -7861,7 +7866,7 @@
         }
     ],
     "aliases": [],
-    "minimum-stability": "stable",
+    "minimum-stability": "dev",
     "stability-flags": [],
     "prefer-stable": true,
     "prefer-lowest": false,

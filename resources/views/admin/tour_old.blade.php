@@ -50,9 +50,7 @@
                 <li class="breadcrumb-item lead">Istanbul</li>
                 <li class="breadcrumb-item lead">London</li>
                 <li class="breadcrumb-item lead active"> Berlin</li>
-                <span class="lead-p" style="margin-left:0.5rem;margin-top:-2px;"><b><i>13.05.2023</i></b>
-                  <button class="btn btn-danger mx-2"><i class="bi bi-trash-fill"></i></button>
-                </span>
+                <span class="lead-p" style="margin-left:0.5rem;margin-top:-2px;"><b><i>13.05.2023</i></b></span>
               </ol>
             </nav>
           </div>
@@ -93,9 +91,7 @@
                 <li class="breadcrumb-item lead">Istanbul</li>
                 <li class="breadcrumb-item lead">London</li>
                 <li class="breadcrumb-item lead active"> Berlin</li>
-                <span class="lead-p" style="margin-left:0.5rem;margin-top:-2px;"><b><i>13.05.2023</i></b>
-                  <button class="btn btn-danger mx-2"><i class="bi bi-trash-fill"></i></button>
-                </span>
+                <span class="lead-p" style="margin-left:0.5rem;margin-top:-2px;"><b><i>13.05.2023</i></b></span>
               </ol>
             </nav>
           </div>
@@ -136,9 +132,7 @@
                 <li class="breadcrumb-item lead">Istanbul</li>
                 <li class="breadcrumb-item lead">London</li>
                 <li class="breadcrumb-item lead active"> Berlin</li>
-                <span class="lead-p" style="margin-left:0.5rem;margin-top:-2px;"><b><i>13.05.2023</i></b>
-                  <button class="btn btn-danger mx-2"><i class="bi bi-trash-fill"></i></button>
-                </span>
+                <span class="lead-p" style="margin-left:0.5rem;margin-top:-2px;"><b><i>13.05.2023</i></b></span>
               </ol>
             </nav>
           </div>

@@ -1,8 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use RedBeanPHP\R as R;
-use RedBeanPHP\Util\DispenseHelper as RDH;
+use ThreadBeanPHP\C as C;
+use ThreadBeanPHP\Util\DispenseHelper as CDH;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,10 +23,10 @@ $DB_NAME = getenv('DB_DATABASE');
 $DB_USER = getenv('DB_USERNAME');
 $DB_PASS = getenv('DB_PASSWORD');
 
-R::setup($DB_TYPE.':host='.$DB_HOST.';dbname='.$DB_NAME, $DB_USER, $DB_PASS);
-RDH::setEnforceNamingPolicy(false);
+C::setup($DB_TYPE.':host='.$DB_HOST.';dbname='.$DB_NAME, $DB_USER, $DB_PASS);
+CDH::setEnforceNamingPolicy(false);
 
-if(!R::testConnection()) {
+if(!C::testConnection()) {
   exit("There is no connection to the database :(");
 }
 
@@ -69,6 +69,18 @@ Route::get('/sign_in', function () {
   Route::get('/admin', function () {
     return view('admin.home');
   }) -> name('admin');
+
+  Route::get('/admin_create', function () {
+    return view('admin.admin_create');
+  }) -> name('admin_create');
+
+  Route::get('/admin_company_create', function () {
+    return view('admin.admin_company_create');
+  }) -> name('admin_company_create');
+
+  Route::get('/admin_agent_create', function () {
+    return view('admin.admin_agent_create');
+  }) -> name('admin_agent_create');
 
   Route::get('/admin_tour_actives', function () {
     return view('admin.tour_actives');
