@@ -5,6 +5,8 @@
 @section('header_title', APP_NAME)
 @section('sub_title', 'Активные туры')
 
+@section('username', 'Ketmon Ketmonov')
+@section('usersubname', 'Верховный Админ')
 
 @section('content')
   <div class="card">

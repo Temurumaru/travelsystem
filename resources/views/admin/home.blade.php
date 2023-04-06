@@ -5,6 +5,9 @@
 @section('header_title', APP_NAME)
 @section('sub_title', '')
 
+@section('username', 'Ketmon Ketmonov')
+@section('usersubname', 'Верховный Админ')
+
 
 @section('content')
   <div class="col-xl-3">

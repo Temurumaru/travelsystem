@@ -5,6 +5,9 @@
 @section('header_title', APP_NAME)
 @section('sub_title', 'Тур [Название]')
 
+@section('username', 'Teshavoy Teshavoyev')
+@section('usersubname', 'Yetti Travel')
+
 
 @section('content')
 
