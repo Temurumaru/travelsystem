@@ -93,3 +93,7 @@
 .un-style {
   all: unset;
 }
+
+.hidden {
+  display: none;
+}

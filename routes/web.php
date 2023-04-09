@@ -37,7 +37,9 @@ unset($DB_USER);
 unset($DB_PASS);
 
 if(@$_SESSION['user'] -> remember) {
-  session_start();
+  session_start([
+    'cookie_lifetime' => 8035200,
+  ]);
 } else {
   session_start([
     'cookie_lifetime' => 43200,
@@ -73,6 +75,14 @@ Route::get('/sign_in', function () {
   Route::get('/admin_create', function () {
     return view('admin.admin_create');
   }) -> name('admin_create');
+
+  Route::get('/admin_tour_create', function () {
+    return view('admin.admin_tour_create');
+  }) -> name('admin_tour_create');
+
+  Route::get('/admin_tour_update', function () {
+    return view('admin.admin_tour_update');
+  }) -> name('admin_tour_update');
 
   Route::get('/admin_company_create', function () {
     return view('admin.admin_company_create');
