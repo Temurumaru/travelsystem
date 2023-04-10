@@ -88,7 +88,8 @@ if(@$_SESSION['user']) {
   
   if($_SESSION['user'] -> permission == "admin") {
     Route::get('/admin', function () {
-      return view('admin.home');
+      $admins = C::find("admins", "supreme = ?", [0]);
+      return view('admin.home', ['admins' => $admins]);
     }) -> name('admin');
 
     Route::get('/admin_create', function () {
@@ -118,6 +119,13 @@ if(@$_SESSION['user']) {
     Route::get('/admin_tour_old', function () {
       return view('admin.tour_old');
     }) -> name('admin_tour_old');
+
+    if((bool)$_SESSION['user'] -> supreme) {
+      Route::post(
+        '/CreateAdmin', 
+        $p.'AdminController@Create'
+      ) -> name('CreateAdmin');
+    }
 
     // Route::post(
     //   '/create_client', 

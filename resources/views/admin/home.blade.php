@@ -15,6 +15,7 @@
 
 
 @section('content')
+
   <div class="col-xl-3">
 
     <div class="card">
@@ -120,36 +121,18 @@
             </tr>
           </thead>
           <tbody>
+
+            @foreach ($admins as $admin)
+                
             <tr>
-              <th scope="row">1</th>
-              <td>Brandon Jacob</td>
-              <td class="d-none d-lg-block" >Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestiae recusandae rerum corrupti distinctio mollitia atque et in dolorum, facere, animi!</td>
+              <th scope="row">{{$admin -> id}}</th>
+              <td>{{$admin -> full_name}} ({{$admin -> login}})</td>
+              <td class="d-none d-lg-block" >{{$admin -> description}}</td>
               <td class="col" ><button class="m-1 btn btn-warning"><i class="bi bi-pencil-fill"></i></button><button class="m-1 btn btn-danger"><i class="bi bi-trash-fill"></i></button></td>
             </tr>
-            <tr>
-              <th scope="row">2</th>
-              <td>Bridie Kessler</td>
-              <td class="d-none d-lg-block" >Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestiae recusandae rerum corrupti distinctio mollitia atque et in dolorum, facere, animi!</td>
-              <td class="col" ><button class="m-1 btn btn-warning"><i class="bi bi-pencil-fill"></i></button><button class="m-1 btn btn-danger"><i class="bi bi-trash-fill"></i></button></td>
-            </tr>
-            <tr>
-              <th scope="row">3</th>
-              <td>Ashleigh Langosh</td>
-              <td class="d-none d-lg-block" >Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestiae recusandae rerum corrupti distinctio mollitia atque et in dolorum, facere, animi!</td>
-              <td class="col" ><button class="m-1 btn btn-warning"><i class="bi bi-pencil-fill"></i></button><button class="m-1 btn btn-danger"><i class="bi bi-trash-fill"></i></button></td>
-            </tr>
-            <tr>
-              <th scope="row">4</th>
-              <td>Angus Grady</td>
-              <td class="d-none d-lg-block" >Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestiae recusandae rerum corrupti distinctio mollitia atque et in dolorum, facere, animi!</td>
-              <td class="col" ><button class="m-1 btn btn-warning"><i class="bi bi-pencil-fill"></i></button><button class="m-1 btn btn-danger"><i class="bi bi-trash-fill"></i></button></td>
-            </tr>
-            <tr>
-              <th scope="row">5</th>
-              <td>Raheem Lehner</td>
-              <td class="d-none d-lg-block" >Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestiae recusandae rerum corrupti distinctio mollitia atque et in dolorum, facere, animi!</td>
-              <td class="col" ><button class="m-1 btn btn-warning"><i class="bi bi-pencil-fill"></i></button><button class="m-1 btn btn-danger"><i class="bi bi-trash-fill"></i></button></td>
-            </tr>
+            
+            @endforeach
+
           </tbody>
         </table>
 

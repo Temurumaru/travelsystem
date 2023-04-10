@@ -17,25 +17,34 @@
         <h5 class="card-title">Форма создания администратора</h5>
 
         <!-- General Form Elements -->
-        <form>
+        <form method="post" action="{{route('CreateAdmin')}}">
+          @csrf
+
           <div class="row mb-3">
             <label for="inputText" class="col-sm-2 col-form-label">Логин</label>
             <div class="col-sm-10">
-              <input type="text" name="login" class="form-control">
+              <input type="text" name="login" minlength="4" maxlength="40" class="form-control" value="{{ old('login') }}" required>
             </div>
           </div>
           
           <div class="row mb-3">
             <label for="inputPassword" class="col-sm-2 col-form-label">Пароль</label>
             <div class="col-sm-10">
-              <input type="password" name="password" class="form-control">
+              <input type="password" name="password" minlength="6" maxlength="128" class="form-control" value="{{ old('password') }}" required>
+            </div>
+          </div>
+
+          <div class="row mb-3">
+            <label for="inputText" class="col-sm-2 col-form-label">Полное имя</label>
+            <div class="col-sm-10">
+              <input type="text" name="full_name" minlength="4" maxlength="40" class="form-control" value="{{ old('full_name') }}" required>
             </div>
           </div>
           
           <div class="row mb-3">
             <label for="inputPassword" class="col-sm-2 col-form-label">Описание</label>
             <div class="col-sm-10">
-              <textarea class="form-control" name="description" style="height: 100px"></textarea>
+              <textarea class="form-control" maxlength="140" name="description" style="height: 100px">{{ old('description') }}</textarea>
             </div>
           </div>
 

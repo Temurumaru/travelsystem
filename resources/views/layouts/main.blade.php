@@ -87,6 +87,8 @@
 
     <section class="section dashboard profile">
       <div class="row">
+        @include('blocks.notification')
+
         @yield('content')
       </div>
     </section>
