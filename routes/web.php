@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use ThreadBeanPHP\C as C;
 use ThreadBeanPHP\Util\DispenseHelper as CDH;
@@ -96,6 +97,11 @@ if(@$_SESSION['user']) {
       return view('admin.admin_create');
     }) -> name('admin_create');
 
+    Route::get('/admin_update', function (Request $req) {
+      $admin = C::findOne("admins", "id = ?", [$req -> id]);
+      return view('admin.admin_update', ['admin' => $admin]);
+    }) -> name('admin_update');
+
     Route::get('/admin_tour_create', function () {
       return view('admin.admin_tour_create');
     }) -> name('admin_tour_create');
@@ -125,6 +131,16 @@ if(@$_SESSION['user']) {
         '/CreateAdmin', 
         $p.'AdminController@Create'
       ) -> name('CreateAdmin');
+
+      Route::post(
+        '/UpdateAdmin', 
+        $p.'AdminController@Update'
+      ) -> name('UpdateAdmin');
+
+      Route::delete(
+        '/DeleteAdmin', 
+        $p.'AdminController@Delete'
+      ) -> name('DeleteAdmin');
     }
 
     // Route::post(

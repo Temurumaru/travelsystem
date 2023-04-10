@@ -25,3 +25,32 @@ $('#file_remove').on('click', () => {
 $("#price").on("dblclick", function() {
   alert("Бонус "+$(this).attr('bonus')+'$');
 });
+
+
+$(".admin_delete_btn").on("click", function() {
+  $.ajax({
+    url: req_del_admin_url,
+    type: "delete",
+    dataType: 'html',
+    headers: {
+      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    },
+    data: ({
+      id: $(this).attr("delid"),
+    }),
+    error: function(err) {
+      if(err.status == 500) {
+        alert("Интернета нету");
+      } else {
+        alert("Ошибка: "+err.status+"!");
+      }
+    },
+    success: function(data) {
+      if(data == "OK"){
+        alert("Администратор удалён");
+        location.reload();
+      } 
+      if(data == "ERR") alert("Ошибка удаление пожалуйста перезагрузите страницу и повторите попытку!");
+    }
+  });
+});

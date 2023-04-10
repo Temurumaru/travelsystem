@@ -128,7 +128,10 @@
               <th scope="row">{{$admin -> id}}</th>
               <td>{{$admin -> full_name}} ({{$admin -> login}})</td>
               <td class="d-none d-lg-block" >{{$admin -> description}}</td>
-              <td class="col" ><button class="m-1 btn btn-warning"><i class="bi bi-pencil-fill"></i></button><button class="m-1 btn btn-danger"><i class="bi bi-trash-fill"></i></button></td>
+              <td class="col" >
+                <a href="{{route('admin_update')}}?id={{$admin -> id}}" class="m-1 btn btn-warning"><i class="bi bi-pencil-fill"></i></a>
+                <a class="m-1 btn btn-danger admin_delete_btn" delid="{{$admin -> id}}"><i class="bi bi-trash-fill"></i></a>
+              </td>
             </tr>
             
             @endforeach
@@ -258,5 +261,11 @@
     </div>
 
   </div>
+
+  <script>
+    @if((bool)$_SESSION['user'] -> supreme)
+      const req_del_admin_url = "{{route('DeleteAdmin')}}";
+    @endif
+  </script>
 
 @endsection
