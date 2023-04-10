@@ -55,23 +55,35 @@
 
                   <div class="pt-4 pb-2">
                     <h5 class="card-title text-center pb-0 fs-4">Вход в систему</h5>
-                    <p class="text-center small">Введите свое имя пользователя и пароль для входа в систему</p>
+                    @if ($errors->any())
+                      <div class="alert alert-danger">
+                        <ul>
+                          @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                          @endforeach
+                        </ul>
+                      </div>
+                    @else
+                      <p class="text-center small">Введите свое имя пользователя и пароль для входа в систему</p>
+                    @endif
                   </div>
 
-                  <form class="row g-3 needs-validation" novalidate>
+                  <form class="row g-3 needs-validation" method="post" action="{{route('SignIn')}}" novalidate>
+
+                    @csrf
 
                     <div class="col-12">
                       <label for="yourUsername" class="form-label">Логин</label>
                       <div class="input-group has-validation">
                         <span class="input-group-text" id="inputGroupPrepend">@</span>
-                        <input type="text" name="username" class="form-control" id="yourUsername" required>
+                        <input type="text" name="username" maxlength="40" class="form-control" id="yourUsername" required>
                         <div class="invalid-feedback">Пожалуйста, введите свое имя пользователя.</div>
                       </div>
                     </div>
 
                     <div class="col-12">
                       <label for="yourPassword" class="form-label">Пароль</label>
-                      <input type="password" name="password" class="form-control" id="yourPassword" required>
+                      <input type="password" name="password" class="form-control" id="yourPassword" maxlength="128" required>
                       <div class="invalid-feedback">Пожалуйста, введите свой пароль!</div>
                     </div>
 

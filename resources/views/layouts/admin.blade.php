@@ -19,7 +19,7 @@
         <hr class="dropdown-divider">
       </li>
       <li>
-        <a class="dropdown-item d-flex align-items-center" href="/exit">
+        <a class="dropdown-item d-flex align-items-center" href="{{route('SignOut')}}">
           <i class="bi bi-box-arrow-right"></i>
           <span>Выйти</span>
         </a>

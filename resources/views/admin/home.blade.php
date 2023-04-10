@@ -5,8 +5,13 @@
 @section('header_title', APP_NAME)
 @section('sub_title', '')
 
-@section('username', 'Ketmon Ketmonov')
-@section('usersubname', 'Верховный Админ')
+@section('username', $_SESSION['user'] -> full_name)
+
+@if((bool)$_SESSION['user'] -> supreme)
+  @section('usersubname', 'Верховный Админ')
+@else
+  @section('usersubname', 'Админ')
+@endif
 
 
 @section('content')
@@ -16,8 +21,12 @@
       <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
 
         <img src="assets/img/profile-img.jpg" alt="Profile" class="rounded-circle">
-        <h2>Ketmon Ketmonov</h2>
-        <h3>Верховный Админ</h3>
+        <h2>{{$_SESSION['user'] -> full_name}}</h2>
+        <h3>
+          @if((bool)$_SESSION['user'] -> supreme)
+          Верховный
+          @endif
+          Админ</h3>
       </div>
     </div>
 
@@ -93,6 +102,7 @@
 
     </div>
 
+    @if((bool)$_SESSION['user'] -> supreme)
 
     <div class="card">
       <div class="card-body">
@@ -145,6 +155,8 @@
 
       </div>
     </div>
+
+    @endif
 
     <div class="card">
       <div class="card-body">
