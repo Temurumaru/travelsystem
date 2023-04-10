@@ -22,7 +22,7 @@
           <div class="row mb-3">
             <label class="col-sm-2 col-form-label">Компания</label>
             <div class="col-sm-10">
-              <select class="form-select" aria-label="Default select example">
+              <select class="form-select" name="org" aria-label="Default select example">
                 <option selected="">Нажмите чтобы открыть список</option>
                 <option value="1">Yetti Travel</option>
                 <option value="2">Lufthansa</option>
