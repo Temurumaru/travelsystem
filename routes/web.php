@@ -94,17 +94,9 @@ if(@$_SESSION['user']) {
   if($_SESSION['user'] -> permission == "admin") {
     Route::get('/admin', function () {
       $admins = C::find("admins", "supreme = ?", [0]);
-      return view('admin.home', ['admins' => $admins]);
+      $orgs = C::findAll("companys");
+      return view('admin.home', ['admins' => $admins, 'orgs' => $orgs]);
     }) -> name('admin');
-
-    Route::get('/admin_create', function () {
-      return view('admin.admin_create');
-    }) -> name('admin_create');
-
-    Route::get('/admin_update', function (Request $req) {
-      $admin = C::findOne("admins", "id = ?", [$req -> id]);
-      return view('admin.admin_update', ['admin' => $admin]);
-    }) -> name('admin_update');
 
     Route::get('/admin_tour_create', function () {
       return view('admin.admin_tour_create');
@@ -117,6 +109,11 @@ if(@$_SESSION['user']) {
     Route::get('/admin_company_create', function () {
       return view('admin.admin_company_create');
     }) -> name('admin_company_create');
+
+    Route::get('/admin_company_update', function (Request $req) {
+      $org = C::findOne("companys", "id = ?", [$req -> id]);
+      return view('admin.admin_company_update', ['org' => $org]);
+    }) -> name('admin_company_update');
 
     Route::get('/admin_agent_create', function () {
       return view('admin.admin_agent_create');
@@ -136,8 +133,29 @@ if(@$_SESSION['user']) {
       $p.'CompanyController@Create'
     ) -> name('CreateCompany');
 
+    Route::post(
+      '/UpdateCompany', 
+      $p.'CompanyController@Update'
+    ) -> name('UpdateCompany');
+
+    Route::delete(
+      '/DeleteCompany', 
+      $p.'CompanyController@Delete'
+    ) -> name('DeleteCompany');
+
 
     if((bool)$_SESSION['user'] -> supreme) {
+
+      Route::get('/admin_create', function () {
+        return view('admin.admin_create');
+      }) -> name('admin_create');
+  
+      Route::get('/admin_update', function (Request $req) {
+        $admin = C::findOne("admins", "id = ?", [$req -> id]);
+        return view('admin.admin_update', ['admin' => $admin]);
+      }) -> name('admin_update');
+
+
       Route::post(
         '/CreateAdmin', 
         $p.'AdminController@Create'

@@ -152,41 +152,21 @@
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <th scope="row">1</th>
-              <td>Yetti Travel</td>
-              <td>2</td>
-              <td class="d-none d-lg-block" >Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestiae recusandae rerum corrupti distinctio mollitia atque et in dolorum, facere, animi!</td>
-              <td class="col" ><button class="m-1 btn btn-warning"><i class="bi bi-pencil-fill"></i></button><button class="m-1 btn btn-danger"><i class="bi bi-trash-fill"></i></button></td>
-            </tr>
-            <tr>
-              <th scope="row">2</th>
-              <td>Sebzar Tour</td>
-              <td>4</td>
-              <td class="d-none d-lg-block" >Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestiae recusandae rerum corrupti distinctio mollitia atque et in dolorum, facere, animi!</td>
-              <td class="col" ><button class="m-1 btn btn-warning"><i class="bi bi-pencil-fill"></i></button><button class="m-1 btn btn-danger"><i class="bi bi-trash-fill"></i></button></td>
-            </tr>
-            <tr>
-              <th scope="row">3</th>
-              <td>Argentum Way</td>
-              <td>3</td>
-              <td class="d-none d-lg-block" >Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestiae recusandae rerum corrupti distinctio mollitia atque et in dolorum, facere, animi!</td>
-              <td class="col" ><button class="m-1 btn btn-warning"><i class="bi bi-pencil-fill"></i></button><button class="m-1 btn btn-danger"><i class="bi bi-trash-fill"></i></button></td>
-            </tr>
-            <tr>
-              <th scope="row">4</th>
-              <td>Lufthansa</td>
-              <td>6</td>
-              <td class="d-none d-lg-block" >Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestiae recusandae rerum corrupti distinctio mollitia atque et in dolorum, facere, animi!</td>
-              <td class="col" ><button class="m-1 btn btn-warning"><i class="bi bi-pencil-fill"></i></button><button class="m-1 btn btn-danger"><i class="bi bi-trash-fill"Three></i></button></td>
-            </tr>
-            <tr>
-              <th scope="row">5</th>
-              <td>S7</td>
-              <td>1</td>
-              <td class="d-none d-lg-block" >Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestiae recusandae rerum corrupti distinctio mollitia atque et in dolorum, facere, animi!</td>
-              <td class="col" ><button class="m-1 btn btn-warning"><i class="bi bi-pencil-fill"></i></button><button class="m-1 btn btn-danger"><i class="bi bi-trash-fill"></i></button></td>
-            </tr>
+            @foreach ($orgs as $org)
+
+              <tr>
+                <th scope="row">{{$org -> id}}</th>
+                <td>{{$org -> name}}</td>
+                <td>ToDo</td>
+                <td class="d-none d-lg-block" >{{$org -> description}}</td>
+                <td class="col" >
+                  <a href="{{route('admin_company_update')}}?id={{$org -> id}}" class="m-1 btn btn-warning"><i class="bi bi-pencil-fill"></i></a>
+                  <a delid="{{$org -> id}}" class="org_delete_btn m-1 btn btn-danger"><i class="bi bi-trash-fill"></i></a>
+                </td>
+              </tr>
+            
+            @endforeach
+
           </tbody>
         </table>
 
@@ -257,6 +237,8 @@
     @if((bool)$_SESSION['user'] -> supreme)
       const req_del_admin_url = "{{route('DeleteAdmin')}}";
     @endif
+
+    const req_del_org_url = "{{route('DeleteCompany')}}";
   </script>
 
 @endsection

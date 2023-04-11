@@ -13,12 +13,49 @@ class CompanyController extends Controller
 			'description' => 'max:140'
 		]);
 
-		if(C::count('organizations', 'name = ?', [$req -> name]) > 0) {
-			return redirect() -> back() -> withErrors(['login' => 'Такая Организация уже существует!']);
+		if(C::count('companys', 'name = ?', [$req -> name]) > 0) {
+			return redirect() -> back() -> withErrors(['name' => 'Такая Организация уже существует!']);
 		}
 
+		$org = C::dispense("companys");
 
+		$org -> name = $req -> name;
+		$org -> description = $req -> description;
+
+		C::store($org);
+
+		return redirect() -> route('admin') -> with('success', 'Огранизация "'.$req -> name.'" создана ✔️');
 		
-		
+	}
+
+	public function Update(Request $req) {
+		$req -> validate([
+			'id' => 'required|numeric',
+			'name' => 'required|min:4|max:40',
+			'description' => 'max:140'
+		]);
+
+		if(C::count('companys', 'id != ? AND name = ?', [$req -> id, $req -> name]) > 0) {
+			return redirect() -> back() -> withErrors(['name' => 'Такая Организация уже существует!']);
+		}
+
+		$company = C::findOne("companys", "id = ?", [$req -> id]);
+
+		$company -> name = $req -> name;
+		$company -> description = $req -> description;
+
+		C::store($company);
+
+		return redirect() -> route('admin') -> with('success', 'Компания "'.$req -> name.'" изменена ✔️');
+	}
+
+	public function Delete(Request $req) {
+		if(isset($req -> id)) {
+			$org = C::findOne("companys", "id = ?", [$req -> id]);
+			C::trash($org);
+			return "OK";
+		} else {
+			return "ERR";
+		}
 	}
 }
