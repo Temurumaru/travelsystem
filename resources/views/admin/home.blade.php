@@ -5,15 +5,6 @@
 @section('header_title', APP_NAME)
 @section('sub_title', '')
 
-@section('username', $_SESSION['user'] -> full_name)
-
-@if((bool)$_SESSION['user'] -> supreme)
-  @section('usersubname', 'Верховный Админ')
-@else
-  @section('usersubname', 'Админ')
-@endif
-
-
 @section('content')
 
   <div class="col-xl-3">

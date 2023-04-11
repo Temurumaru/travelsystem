@@ -1,5 +1,14 @@
 @extends('layouts.main')
 
+@section('username', $_SESSION['user'] -> full_name)
+
+@if((bool)$_SESSION['user'] -> supreme)
+  @section('usersubname', 'Верховный Админ')
+@else
+  @section('usersubname', 'Админ')
+@endif
+
+
 @section('header_nav')
 
   <li class="nav-item dropdown pe-3">

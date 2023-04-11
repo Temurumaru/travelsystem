@@ -43,22 +43,26 @@ unset($DB_PASS);
 session_start();
 
 
-if(@$_COOKIE['remember'] != "have") {
-  unset($_SESSION['user']);
-} elseif(isset($_SESSION['user'])) {
-  $admin = C::findOne("admins", "login = ?", [$_SESSION['user'] -> login]);
+if(isset($_SESSION['user'])) {
+  // if(@$_COOKIE['remember'] != "have" && !(bool)$_SESSION['user'] -> remember) {
+  //   unset($_SESSION['user']);
+  // } else {    
+    $admin = C::findOne("admins", "login = ?", [$_SESSION['user'] -> login]);
 
-	$agent = C::findOne("agents", "login = ?", [$_SESSION['user'] -> login]);
+    $agent = C::findOne("agents", "login = ?", [$_SESSION['user'] -> login]);
+    
+    if(isset($admin)) {
+      $_SESSION['user'] = $admin;
+    } elseif(isset($agent)) {
+      $_SESSION['user'] = $agent;
+    }
 
-  if(isset($admin)) {
-		$_SESSION['user'] = $admin;
-	} elseif(isset($agent)) {
-		$_SESSION['user'] = $agent;
-	}
-} else {
-  setcookie('remember', '');
-  unset($_SESSION['user']);
+  // }
 }
+//  else {
+//   setcookie('remember', '');
+//   unset($_SESSION['user']);
+// }
 
 
 // Views
@@ -126,6 +130,13 @@ if(@$_SESSION['user']) {
       return view('admin.tour_old');
     }) -> name('admin_tour_old');
 
+
+    Route::post(
+      '/CreateCompany', 
+      $p.'CompanyController@Create'
+    ) -> name('CreateCompany');
+
+
     if((bool)$_SESSION['user'] -> supreme) {
       Route::post(
         '/CreateAdmin', 
@@ -144,7 +155,7 @@ if(@$_SESSION['user']) {
     }
 
     // Route::post(
-    //   '/create_client', 
+    //   '/CreateClient', 
     //   $p.'ClientController@Create'
     // ) -> name('CreateClient');
   }

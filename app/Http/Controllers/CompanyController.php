@@ -17,6 +17,8 @@ class CompanyController extends Controller
 			return redirect() -> back() -> withErrors(['login' => 'Такая Организация уже существует!']);
 		}
 
+
+		
 		
 	}
 }

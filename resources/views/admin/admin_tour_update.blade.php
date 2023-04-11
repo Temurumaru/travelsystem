@@ -5,9 +5,6 @@
 @section('header_title', APP_NAME)
 @section('sub_title', 'Изменить Тур')
 
-@section('username', 'Ketmon Ketmonov')
-@section('usersubname', 'Верховный Админ')
-
 
 @section('content')
   

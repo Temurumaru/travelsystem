@@ -5,10 +5,6 @@
 @section('header_title', APP_NAME)
 @section('sub_title', 'Создать Администратора')
 
-@section('username', 'Ketmon Ketmonov')
-@section('usersubname', 'Верховный Админ')
-
-
 @section('content')
   
   <div class="col-lg-12">
