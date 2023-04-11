@@ -13,7 +13,7 @@ class SignInController extends Controller
 		$req -> validate([
 			'username' => 'required|max:40',
 			'password' => 'required|max:128',
-			'' => [
+			'remember' => [
 				Rule::in([true, false])
 			]
 		]);

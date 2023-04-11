@@ -186,13 +186,13 @@
 
           <div class="col-12">
             <div class="form-check">
-              <input class="form-check-input" type="checkbox" name="transfer" name="transfer">
+              <input class="form-check-input" type="checkbox" name="transfer">
               <label class="form-check-label" for="transfer">
                 Трансфер
               </label>
             </div>
             <div class="form-check">
-              <input class="form-check-input" type="checkbox" name="guide" name="guide">
+              <input class="form-check-input" type="checkbox" name="guide">
               <label class="form-check-label" for="guide">
                 Гид
               </label>
