@@ -14,16 +14,18 @@
         <h5 class="card-title">Форма создания агента</h5>
 
         <!-- General Form Elements -->
-        <form>
+        <form method="post" action="{{route('CreateAgent')}}">
+
+          @csrf
 
           <div class="row mb-3">
             <label class="col-sm-2 col-form-label">Компания</label>
             <div class="col-sm-10">
-              <select class="form-select" name="org" aria-label="Default select example">
-                <option selected="">Нажмите чтобы открыть список</option>
-                <option value="1">Yetti Travel</option>
-                <option value="2">Lufthansa</option>
-                <option value="3">S7</option>
+              <select class="form-select" name="org" aria-label="Default select example" required>
+                <option selected value="">Нажмите чтобы открыть список</option>
+                @foreach ($orgs as $org)  
+                  <option {{((old('org') == $org -> id) ? "selected" : '')}} value="{{$org -> id}}">{{$org -> name}}</option>
+                @endforeach
               </select>
             </div>
           </div>
@@ -31,21 +33,21 @@
           <div class="row mb-3">
             <label for="inputText" class="col-sm-2 col-form-label">Логин</label>
             <div class="col-sm-10">
-              <input type="text" name="login" class="form-control">
+              <input type="text" name="login" minlength="4" maxlength="40" class="form-control" value="{{old('login')}}" required>
             </div>
           </div>
           
           <div class="row mb-3">
             <label for="inputPassword" class="col-sm-2 col-form-label">Пароль</label>
             <div class="col-sm-10">
-              <input type="password" name="password" class="form-control">
+              <input type="password" name="password" minlength="6" maxlength="128" class="form-control" required>
             </div>
           </div>
           
           <div class="row mb-3">
             <label for="inputPassword" class="col-sm-2 col-form-label">Описание</label>
             <div class="col-sm-10">
-              <textarea class="form-control" name="description" style="height: 100px"></textarea>
+              <textarea class="form-control" name="description" maxlength="140" style="height: 100px">{{old('dascription')}}</textarea>
             </div>
           </div>
 

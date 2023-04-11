@@ -18,7 +18,9 @@
           @if((bool)$_SESSION['user'] -> supreme)
           Верховный
           @endif
-          Админ</h3>
+          Админ
+        </h3>
+        <a href="{{route('admin_tour_create')}}" class="btn btn-primary">Создать Тур</a>
       </div>
     </div>
 

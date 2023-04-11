@@ -116,7 +116,8 @@ if(@$_SESSION['user']) {
     }) -> name('admin_company_update');
 
     Route::get('/admin_agent_create', function () {
-      return view('admin.admin_agent_create');
+      $orgs = C::findAll("companys");
+      return view('admin.admin_agent_create', ['orgs' => $orgs]);
     }) -> name('admin_agent_create');
 
     Route::get('/admin_tour_actives', function () {
@@ -142,6 +143,21 @@ if(@$_SESSION['user']) {
       '/DeleteCompany', 
       $p.'CompanyController@Delete'
     ) -> name('DeleteCompany');
+
+    Route::post(
+      '/CreateAgent', 
+      $p.'AgentController@Create'
+    ) -> name('CreateAgent');
+
+    Route::post(
+      '/UpdateAgent', 
+      $p.'AgentController@Update'
+    ) -> name('UpdateAgent');
+
+    Route::delete(
+      '/DeleteAgent', 
+      $p.'AgentController@Delete'
+    ) -> name('DeleteAgent');
 
 
     if((bool)$_SESSION['user'] -> supreme) {
