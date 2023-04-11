@@ -42,7 +42,7 @@ class AdminController extends Controller
 		]);
 
 		if(C::count('admins', 'id != ? AND login = ?', [$req -> id, $req -> login]) > 0) {
-			return redirect() -> back() -> withErrors(['login' => 'Такой пользователь уже существует!']);
+			return redirect() -> back() -> withErrors(['login' => 'Такой Администратор уже существует!']);
 		}
 
 		$admin = C::findOne("admins", "id = ?", [$req -> id]);
