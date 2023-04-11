@@ -39,22 +39,28 @@ class AgentController extends Controller
 	public function Update(Request $req) {
 		$req -> validate([
 			'id' => 'required|numeric',
+			'org' => 'required|numeric',
 			'login' => 'required|min:4|max:40|regex:/^[a-z0-9_]*$/',
 			'description' => 'max:140'
 		]);
 
-		if(C::count('agents', 'id != ? AND login = ?', [$req -> id, $req -> login]) > 0) {
-			return redirect() -> back() -> withErrors(['login' => 'Такой пользователь уже существует!']);
+		if(C::count('companys', 'id = ?', [$req -> org]) <= 0) {
+			return redirect() -> back() -> withErrors(['org' => 'Такой компании не существует!']);
 		}
 
-		$admin = C::findOne("agents", "id = ?", [$req -> id]);
+		if(C::count('agents', 'id != ? AND login = ?', [$req -> id, $req -> login]) > 0) {
+			return redirect() -> back() -> withErrors(['login' => 'Такой Агент уже существует!']);
+		}
 
-		$admin -> login = $req -> login;
-		$admin -> description = $req -> description;
+		$agent = C::findOne("agents", "id = ?", [$req -> id]);
 
-		C::store($admin);
+		$agent -> company = $req -> org;
+		$agent -> login = $req -> login;
+		$agent -> description = $req -> description;
 
-		return redirect() -> route('admin') -> with('success', 'Администратор "'.$req -> login.'" изменён ✔️');
+		C::store($agent);
+
+		return redirect() -> route('admin') -> with('success', 'Агент "'.$req -> login.'" изменён ✔️');
 	}
 
 	public function Delete(Request $req) {

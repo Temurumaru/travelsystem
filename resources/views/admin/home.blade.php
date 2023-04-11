@@ -208,7 +208,7 @@
                 <td>{{$org -> name}}</td>
                 <td class="d-none d-lg-block" >{{$agent -> description}}</td>
                 <td class="col" >
-                  <a href="" class="m-1 btn btn-warning"><i class="bi bi-pencil-fill"></i></a>
+                  <a href="{{route('admin_agent_update')}}?id={{$agent -> id}}" class="m-1 btn btn-warning"><i class="bi bi-pencil-fill"></i></a>
                   <a delid="{{$agent -> id}}" class="agent_delete_btn m-1 btn btn-danger"><i class="bi bi-trash-fill"></i></a>
                 </td>
               </tr>

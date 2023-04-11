@@ -121,6 +121,12 @@ if(@$_SESSION['user']) {
       return view('admin.admin_agent_create', ['orgs' => $orgs]);
     }) -> name('admin_agent_create');
 
+    Route::get('/admin_agent_update', function (Request $req) {
+      $agent = C::findOne("agents", "id = ?", [$req -> id]);
+      $orgs = C::findAll("companys");
+      return view('admin.admin_agent_update', ['agent' => $agent, 'orgs' => $orgs]);
+    }) -> name('admin_agent_update');
+
     Route::get('/admin_tour_actives', function () {
       return view('admin.tour_actives');
     }) -> name('admin_tour_actives');
