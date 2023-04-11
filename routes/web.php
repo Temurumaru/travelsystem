@@ -166,6 +166,11 @@ if(@$_SESSION['user']) {
       $p.'AgentController@Delete'
     ) -> name('DeleteAgent');
 
+    Route::post(
+      '/CreateTour', 
+      $p.'TourController@Create'
+    ) -> name('CreateTour');
+
 
     if((bool)$_SESSION['user'] -> supreme) {
 

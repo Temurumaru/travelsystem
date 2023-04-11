@@ -135,30 +135,30 @@ $("#start_fly_btn").on("click", function() {
       <h5 class="gbr-`+all_flys+` mt-4 mb-0"><b>Прилёт</b></h5>
       <div class="gbr-`+all_flys+` col-md-4">
         <label for="start_come_`+all_flys+`_date" class="form-label">Дата</label>
-        <input type="date" class="form-control" name="start_come_`+all_flys+`_date" id="start_come_`+all_flys+`_date">
+        <input required type="date" class="form-control" name="start_come_`+all_flys+`_date" id="start_come_`+all_flys+`_date">
       </div>
       <div class="gbr-`+all_flys+` col-md-4">
         <label for="start_come_`+all_flys+`_time" class="form-label">Время</label>
-        <input type="Time" class="form-control" name="start_come_`+all_flys+`_time" id="start_come_`+all_flys+`_time">
+        <input required type="Time" class="form-control" name="start_come_`+all_flys+`_time" id="start_come_`+all_flys+`_time">
       </div>
       <div class="gbr-`+all_flys+` col-md-4">
         <label for="start_come_`+all_flys+`_city" class="form-label">Город</label>
-        <input type="text" maxlength="30" class="form-control" name="start_come_`+all_flys+`_city" id="start_come_`+all_flys+`_city">
+        <input required type="text" maxlength="30" class="form-control" name="start_come_`+all_flys+`_city" id="start_come_`+all_flys+`_city">
       </div>`);
 
       $("#start_fly_complex").append(`
       <h5 class="gbr-`+all_flys+` mt-4 mb-0"><b>Вылет</b></h5>
       <div class="gbr-`+all_flys+` col-md-4">
         <label for="start_leave_`+all_flys+`_date" class="form-label">Дата</label>
-        <input type="date" class="form-control" name="start_leave_`+all_flys+`_date id="start_leave_`+all_flys+`_date">
+        <input required type="date" class="form-control" name="start_leave_`+all_flys+`_date id="start_leave_`+all_flys+`_date">
       </div>
       <div class="gbr-`+all_flys+` col-md-4">
         <label for="start_leave_`+all_flys+`_time" class="form-label">Время</label>
-        <input type="Time" class="form-control" name="start_leave_`+all_flys+`_time id="start_leave_`+all_flys+`_time">
+        <input required type="Time" class="form-control" name="start_leave_`+all_flys+`_time id="start_leave_`+all_flys+`_time">
       </div>
       <div class="gbr-`+all_flys+` col-md-4">
         <label for="start_leave_`+all_flys+`_city" class="form-label">Город</label>
-        <input type="text" maxlength="30" class="form-control" name="start_leave_`+all_flys+`_city id="start_leave_`+all_flys+`_city">
+        <input required type="text" maxlength="30" class="form-control" name="start_leave_`+all_flys+`_city id="start_leave_`+all_flys+`_city">
       </div>
 
     `);
@@ -199,30 +199,30 @@ $("#end_fly_btn").on("click", function() {
       <h5 class="gbre-`+all_flys_end+` mt-4 mb-0"><b>Прилёт</b></h5>
       <div class="gbre-`+all_flys_end+` col-md-4">
         <label for="end_come_`+all_flys_end+`_date" class="form-label">Дата</label>
-        <input type="date" class="form-control" name="end_come_`+all_flys_end+`_date" id="end_come_`+all_flys_end+`_date">
+        <input required type="date" class="form-control" name="end_come_`+all_flys_end+`_date" id="end_come_`+all_flys_end+`_date">
       </div>
       <div class="gbre-`+all_flys_end+` col-md-4">
         <label for="end_come_`+all_flys_end+`_time" class="form-label">Время</label>
-        <input type="Time" class="form-control" name="end_come_`+all_flys_end+`_time" id="end_come_`+all_flys_end+`_time">
+        <input required type="Time" class="form-control" name="end_come_`+all_flys_end+`_time" id="end_come_`+all_flys_end+`_time">
       </div>
       <div class="gbre-`+all_flys_end+` col-md-4">
         <label for="end_come_`+all_flys_end+`_city" class="form-label">Город</label>
-        <input type="text" maxlength="30" class="form-control" name="end_come_`+all_flys_end+`_city" id="end_come_`+all_flys_end+`_city">
+        <input required type="text" maxlength="30" class="form-control" name="end_come_`+all_flys_end+`_city" id="end_come_`+all_flys_end+`_city">
       </div>`);
 
       $("#end_fly_complex").append(`
       <h5 class="gbre-`+all_flys_end+` mt-4 mb-0"><b>Вылет</b></h5>
       <div class="gbre-`+all_flys_end+` col-md-4">
         <label for="end_leave_`+all_flys_end+`_date" class="form-label">Дата</label>
-        <input type="date" class="form-control" name="end_leave_`+all_flys_end+`_date" id="end_leave_`+all_flys_end+`_date">
+        <input required type="date" class="form-control" name="end_leave_`+all_flys_end+`_date" id="end_leave_`+all_flys_end+`_date">
       </div>
       <div class="gbre-`+all_flys_end+` col-md-4">
         <label for="end_leave_`+all_flys_end+`_time" class="form-label">Время</label>
-        <input type="Time" class="form-control" name="end_leave_`+all_flys_end+`_time" id="end_leave_`+all_flys_end+`_time">
+        <input required type="Time" class="form-control" name="end_leave_`+all_flys_end+`_time" id="end_leave_`+all_flys_end+`_time">
       </div>
       <div class="gbre-`+all_flys_end+` col-md-4">
         <label for="end_leave_`+all_flys_end+`_city" class="form-label">Город</label>
-        <input type="text" maxlength="30" class="form-control" name="end_leave_`+all_flys_end+`_city" id="end_leave_`+all_flys_end+`_city">
+        <input required type="text" maxlength="30" class="form-control" name="end_leave_`+all_flys_end+`_city" id="end_leave_`+all_flys_end+`_city">
       </div>
 
     `);
@@ -264,32 +264,32 @@ $("#city_btn").on("click", function() {
 
     <div class="gbrs-`+all_cityes+` col-md-4">
       <label for="city_name_`+all_cityes+`" class="form-label">Название</label>
-      <input type="text" maxlength="40" class="form-control" name="city_name_`+all_cityes+`" id="city_name_`+all_cityes+`">
+      <input required type="text" maxlength="40" class="form-control" name="city_name_`+all_cityes+`" id="city_name_`+all_cityes+`">
     </div>
     <div class="gbrs-`+all_cityes+` col-md-4">
       <label for="city_days_`+all_cityes+`" class="form-label">Дней</label>
-      <input type="number" min="0" class="form-control" name="city_days_`+all_cityes+`" id="city_days_`+all_cityes+`">
+      <input required type="number" min="0" class="form-control" name="city_days_`+all_cityes+`" id="city_days_`+all_cityes+`">
     </div>
     <div class="gbrs-`+all_cityes+` col-md-4">
       <label for="city_nights_`+all_cityes+`" class="form-label">Ночей</label>
-      <input type="number" min="0" class="form-control" name="city_nights_`+all_cityes+`" id="city_nights_`+all_cityes+`">
+      <input required type="number" min="0" class="form-control" name="city_nights_`+all_cityes+`" id="city_nights_`+all_cityes+`">
     </div>
 
     <div class="gbrs-`+all_cityes+` col-md-3">
       <label for="distance_city_`+all_cityes+`" class="form-label">Расстояние</label>
-      <input type="number" min="0" class="form-control" name="distance_city_`+all_cityes+`" id="distance_city_`+all_cityes+`">
+      <input required type="number" min="0" class="form-control" name="distance_city_`+all_cityes+`" id="distance_city_`+all_cityes+`">
     </div>
     <div class="gbrs-`+all_cityes+` col-md-3">
       <label for="city_eats_`+all_cityes+`" class="form-label">Питание</label>
-      <input type="number" min="0" class="form-control" name="city_eats_`+all_cityes+`" id="city_eats_`+all_cityes+`">
+      <input required type="number" min="0" class="form-control" name="city_eats_`+all_cityes+`" id="city_eats_`+all_cityes+`">
     </div>
     <div class="gbrs-`+all_cityes+` col-md-3">
       <label for="city_hotel_`+all_cityes+`" class="form-label">Отель</label>
-      <input type="text" class="form-control" name="city_hotel_`+all_cityes+`" id="city_hotel_`+all_cityes+`">
+      <input required type="text" class="form-control" name="city_hotel_`+all_cityes+`" id="city_hotel_`+all_cityes+`">
     </div>
     <div class="gbrs-`+all_cityes+` col-md-3">
       <label for="city_hotel_stars_`+all_cityes+`" class="form-label">Звёзды</label>
-      <input type="number" min="0" max="7" class="form-control" name="city_hotel_stars_`+all_cityes+`" id="city_hotel_stars_`+all_cityes+`">
+      <input required type="number" min="0" max="7" class="form-control" name="city_hotel_stars_`+all_cityes+`" id="city_hotel_stars_`+all_cityes+`">
     </div>
 
     `);
