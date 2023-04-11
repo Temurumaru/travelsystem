@@ -28,57 +28,98 @@ $("#price").on("dblclick", function() {
 
 
 $(".admin_delete_btn").on("click", function() {
-  $.ajax({
-    url: req_del_admin_url,
-    type: "delete",
-    dataType: 'html',
-    headers: {
-      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-    },
-    data: ({
-      id: $(this).attr("delid"),
-    }),
-    error: function(err) {
-      if(err.status == 500) {
-        alert("Интернета нету");
-      } else {
-        alert("Ошибка: "+err.status+"!");
+  if(confirm('Вы точно хотите удалить Администратора?')) {
+
+    $.ajax({
+      url: req_del_admin_url,
+      type: "delete",
+      dataType: 'html',
+      headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      },
+      data: ({
+        id: $(this).attr("delid"),
+      }),
+      error: function(err) {
+        if(err.status == 500) {
+          alert("Интернета нету");
+        } else {
+          alert("Ошибка: "+err.status+"!");
+        }
+      },
+      success: function(data) {
+        if(data == "OK"){
+          alert("Администратор удалён");
+          location.reload();
+        } 
+        if(data == "ERR") alert("Ошибка удаление пожалуйста перезагрузите страницу и повторите попытку!");
       }
-    },
-    success: function(data) {
-      if(data == "OK"){
-        alert("Администратор удалён");
-        location.reload();
-      } 
-      if(data == "ERR") alert("Ошибка удаление пожалуйста перезагрузите страницу и повторите попытку!");
-    }
-  });
+    });
+  
+  }
 });
 
 $(".org_delete_btn").on("click", function() {
-  $.ajax({
-    url: req_del_org_url,
-    type: "delete",
-    dataType: 'html',
-    headers: {
-      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-    },
-    data: ({
-      id: $(this).attr("delid"),
-    }),
-    error: function(err) {
-      if(err.status == 500) {
-        alert("Интернета нету");
-      } else {
-        alert("Ошибка: "+err.status+"!");
+  if(confirm('Вы точно хотите удалить Компанию?')) {
+
+    $.ajax({
+      url: req_del_org_url,
+      type: "delete",
+      dataType: 'html',
+      headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      },
+      data: ({
+        id: $(this).attr("delid"),
+      }),
+      error: function(err) {
+        if(err.status == 500) {
+          alert("Интернета нету");
+        } else {
+          alert("Ошибка: "+err.status+"!");
+        }
+      },
+      success: function(data) {
+        if(data == "OK"){
+          alert("Компания удалена");
+          location.reload();
+        } 
+        if(data == "HAVE") alert("К этой компании привязаны Агенты, его невозможно удалить!");
+        if(data == "ERR") alert("Ошибка удаление пожалуйста перезагрузите страницу и повторите попытку!");
       }
-    },
-    success: function(data) {
-      if(data == "OK"){
-        alert("Компания удалена");
-        location.reload();
-      } 
-      if(data == "ERR") alert("Ошибка удаление пожалуйста перезагрузите страницу и повторите попытку!");
-    }
-  });
+    });
+  
+  }
+});
+
+$(".agent_delete_btn").on("click", function() {
+  if(confirm('Вы точно хотите удалить Агента?')) {
+
+    $.ajax({
+      url: req_del_agent_url,
+      type: "delete",
+      dataType: 'html',
+      headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      },
+      data: ({
+        id: $(this).attr("delid"),
+      }),
+      error: function(err) {
+        if(err.status == 500) {
+          alert("Интернета нету");
+        } else {
+          alert("Ошибка: "+err.status+"!");
+        }
+      },
+      success: function(data) {
+        if(data == "OK"){
+          alert("Агент удалён");
+          location.reload();
+        } 
+        if(data == "ERR") alert("Ошибка удаление пожалуйста перезагрузите страницу и повторите попытку!");
+      }
+    });
+  
+  }
 });

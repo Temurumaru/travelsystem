@@ -51,9 +51,14 @@ class CompanyController extends Controller
 
 	public function Delete(Request $req) {
 		if(isset($req -> id)) {
-			$org = C::findOne("companys", "id = ?", [$req -> id]);
-			C::trash($org);
-			return "OK";
+			if(C::count('agents', 'company = ?', [$req -> id]) <= 0) {
+
+				$org = C::findOne("companys", "id = ?", [$req -> id]);
+				C::trash($org);
+				return "OK";
+			} else {
+				return "HAVE";
+			}
 		} else {
 			return "ERR";
 		}

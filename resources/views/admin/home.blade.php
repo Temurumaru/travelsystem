@@ -192,41 +192,29 @@
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <th scope="row">1</th>
-              <td>Brandon Jacob</td>
-              <td>Yetti Travel</td>
-              <td class="d-none d-lg-block" >Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestiae recusandae rerum corrupti distinctio mollitia atque et in dolorum, facere, animi!</td>
-              <td class="col" ><button class="m-1 btn btn-warning"><i class="bi bi-pencil-fill"></i></button><button class="m-1 btn btn-danger"><i class="bi bi-trash-fill"></i></button></td>
-            </tr>
-            <tr>
-              <th scope="row">2</th>
-              <td>Bridie Kessler</td>
-              <td>Yetti Travel</td>
-              <td class="d-none d-lg-block" >Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestiae recusandae rerum corrupti distinctio mollitia atque et in dolorum, facere, animi!</td>
-              <td class="col" ><button class="m-1 btn btn-warning"><i class="bi bi-pencil-fill"></i></button><button class="m-1 btn btn-danger"><i class="bi bi-trash-fill"></i></button></td>
-            </tr>
-            <tr>
-              <th scope="row">3</th>
-              <td>Ashleigh Langosh</td>
-              <td>Yetti Travel</td>
-              <td class="d-none d-lg-block" >Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestiae recusandae rerum corrupti distinctio mollitia atque et in dolorum, facere, animi!</td>
-              <td class="col" ><button class="m-1 btn btn-warning"><i class="bi bi-pencil-fill"></i></button><button class="m-1 btn btn-danger"><i class="bi bi-trash-fill"></i></button></td>
-            </tr>
-            <tr>
-              <th scope="row">4</th>
-              <td>Angus Grady</td>
-              <td>Yetti Travel</td>
-              <td class="d-none d-lg-block" >Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestiae recusandae rerum corrupti distinctio mollitia atque et in dolorum, facere, animi!</td>
-              <td class="col" ><button class="m-1 btn btn-warning"><i class="bi bi-pencil-fill"></i></button><button class="m-1 btn btn-danger"><i class="bi bi-trash-fill"></i></button></td>
-            </tr>
-            <tr>
-              <th scope="row">5</th>
-              <td>Raheem Lehner</td>
-              <td>Yetti Travel</td>
-              <td class="d-none d-lg-block" >Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestiae recusandae rerum corrupti distinctio mollitia atque et in dolorum, facere, animi!</td>
-              <td class="col" ><button class="m-1 btn btn-warning"><i class="bi bi-pencil-fill"></i></button><button class="m-1 btn btn-danger"><i class="bi bi-trash-fill"></i></button></td>
-            </tr>
+            @php
+              use ThreadBeanPHP\C as C;
+            @endphp
+
+            @foreach ($agents as $agent)
+              @php
+
+                $org = C::findOne("companys", "id = ?", [$agent -> company]);
+              @endphp
+
+              <tr>
+                <th scope="row">{{$agent -> id}}</th>
+                <td>{{$agent -> login}}</td>
+                <td>{{$org -> name}}</td>
+                <td class="d-none d-lg-block" >{{$agent -> description}}</td>
+                <td class="col" >
+                  <a href="" class="m-1 btn btn-warning"><i class="bi bi-pencil-fill"></i></a>
+                  <a delid="{{$agent -> id}}" class="agent_delete_btn m-1 btn btn-danger"><i class="bi bi-trash-fill"></i></a>
+                </td>
+              </tr>
+            
+              @endforeach
+
           </tbody>
         </table>
 
@@ -241,6 +229,7 @@
     @endif
 
     const req_del_org_url = "{{route('DeleteCompany')}}";
+    const req_del_agent_url = "{{route('DeleteAgent')}}";
   </script>
 
 @endsection

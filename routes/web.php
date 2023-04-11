@@ -95,7 +95,8 @@ if(@$_SESSION['user']) {
     Route::get('/admin', function () {
       $admins = C::find("admins", "supreme = ?", [0]);
       $orgs = C::findAll("companys");
-      return view('admin.home', ['admins' => $admins, 'orgs' => $orgs]);
+      $agents = C::findAll("agents");
+      return view('admin.home', ['admins' => $admins, 'orgs' => $orgs, 'agents' => $agents]);
     }) -> name('admin');
 
     Route::get('/admin_tour_create', function () {
