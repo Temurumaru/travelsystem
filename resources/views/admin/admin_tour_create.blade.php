@@ -14,9 +14,15 @@
 
         <form class="row g-3">
 
+          @csrf
+
+          <input type="hidden" name="all_flys" id="all_flys" value="">
+          <input type="hidden" name="all_flys_end" id="all_flys_end" value="">
+          <input type="hidden" name="all_cityes" id="all_cityes" value="">
+
           <h5 class="mt-4 mb-0"><b>Выбор тур оператора</b></h5>
           <div class="col-md-12">
-            <select class="form-select" aria-label="Default select example">
+            <select class="form-select" name="org" aria-label="Default select example">
               <option selected="">Нажмите чтобы открыть список</option>
               <option value="1">Yetti Travel</option>
               <option value="2">Lufthansa</option>
@@ -30,42 +36,42 @@
 
           <h5 class="mt-4 mb-0"><b>Вылет</b></h5>
           <div class="col-md-4">
-            <label for="leaveDate" class="form-label">Дата</label>
-            <input type="date" class="form-control" id="leaveDate">
+            <label for="start_leave_1_date" class="form-label">Дата</label>
+            <input type="date" class="form-control" name="start_leave_1_date" id="start_leave_1_date">
           </div>
           <div class="col-md-4">
-            <label for="leaveTime" class="form-label">Время</label>
-            <input type="Time" class="form-control" id="leaveTime">
+            <label for="start_leave_1_time" class="form-label">Время</label>
+            <input type="Time" class="form-control" name="start_leave_1_time" id="start_leave_1_time">
           </div>
           <div class="col-md-4">
-            <label for="leaveCity" class="form-label">Город</label>
-            <input type="text" maxlength="30" class="form-control" id="leaveCity">
+            <label for="start_leave_1_city" class="form-label">Город</label>
+            <input type="text" maxlength="30" class="form-control" name="start_leave_1_city" id="start_leave_1_city">
           </div>
 
-          <div class="row g-3">
+          <div class="row g-3" id="start_fly_complex">
           
           </div>
 
-          <div class="col-md-12 mb-2 mt-4 hidden">
-            <button type="button" class="btn btn-danger">Удалить пересадку <i class="bi bi-dash-lg"></i></button>
+          <div class="col-md-12 mb-2 mt-4 hidden" id="start_fly_mom_del">
+            <button type="button" id="start_fly_btn_del" class="btn btn-danger">Удалить пересадку <i class="bi bi-dash-lg"></i></button>
           </div>
 
           <div class="col-md-12 mb-2 mt-4">
-            <button type="button" class="btn btn-success">Добавить пересадку <i class="bi bi-plus-lg"></i></button>
+            <button type="button" id="start_fly_btn" class="btn btn-success">Добавить пересадку <i class="bi bi-plus-lg"></i></button>
           </div>
 
           <h5 class="mt-4 mb-0"><b>Прилёт</b></h5>
           <div class="col-md-4">
-            <label for="leaveDate" class="form-label">Дата</label>
-            <input type="date" class="form-control" id="leaveDate">
+            <label for="start_come_4_date" class="form-label">Дата</label>
+            <input type="date" class="form-control" name="start_come_4_date" id="start_come_4_date">
           </div>
           <div class="col-md-4">
-            <label for="leaveTime" class="form-label">Время</label>
-            <input type="Time" class="form-control" id="leaveTime">
+            <label for="start_come_4_time" class="form-label">Время</label>
+            <input type="Time" class="form-control" name="start_come_4_time" id="start_come_4_time">
           </div>
           <div class="col-md-4">
-            <label for="leaveCity" class="form-label">Город</label>
-            <input type="text" maxlength="30" class="form-control" id="leaveCity">
+            <label for="start_come_4_city" class="form-label">Город</label>
+            <input type="text" maxlength="30" class="form-control" name="start_come_4_city" id="start_come_4_city">
           </div>
 
           <hr>
@@ -74,42 +80,42 @@
 
           <h5 class="mt-4 mb-0"><b>Вылет</b></h5>
           <div class="col-md-4">
-            <label for="leaveDate" class="form-label">Дата</label>
-            <input type="date" class="form-control" id="leaveDate">
+            <label for="end_leave_1_date" class="form-label">Дата</label>
+            <input type="date" class="form-control" name="end_leave_1_date" id="end_leave_1_date">
           </div>
           <div class="col-md-4">
-            <label for="leaveTime" class="form-label">Время</label>
-            <input type="Time" class="form-control" id="leaveTime">
+            <label for="end_leave_1_time" class="form-label">Время</label>
+            <input type="Time" class="form-control" name="end_leave_1_time" id="end_leave_1_time">
           </div>
           <div class="col-md-4">
-            <label for="leaveCity" class="form-label">Город</label>
-            <input type="text" maxlength="30" class="form-control" id="leaveCity">
+            <label for="end_leave_1_city" class="form-label">Город</label>
+            <input type="text" maxlength="30" class="form-control" name="end_leave_1_city" id="end_leave_1_city">
           </div>
 
-          <div class="row g-3">
+          <div class="row g-3" id="end_fly_complex">
           
           </div>
 
-          <div class="col-md-12 mb-2 mt-4 hidden">
-            <button type="button" class="btn btn-danger">Удалить пересадку <i class="bi bi-dash-lg"></i></button>
+          <div class="col-md-12 mb-2 mt-4 hidden" id="end_fly_mom_del">
+            <button type="button" id="end_fly_btn_del" class="btn btn-danger">Удалить пересадку <i class="bi bi-dash-lg"></i></button>
           </div>
 
           <div class="col-md-12 mb-2 mt-4">
-            <button type="button" class="btn btn-success">Добавить пересадку <i class="bi bi-plus-lg"></i></button>
+            <button type="button" id="end_fly_btn" class="btn btn-success">Добавить пересадку <i class="bi bi-plus-lg"></i></button>
           </div>
 
           <h5 class="mt-4 mb-0"><b>Прилёт</b></h5>
           <div class="col-md-4">
-            <label for="leaveDate" class="form-label">Дата</label>
-            <input type="date" class="form-control" id="leaveDate">
+            <label for="end_come_4_date" class="form-label">Дата</label>
+            <input type="date" class="form-control" name="end_come_4_date" id="end_come_4_date">
           </div>
           <div class="col-md-4">
-            <label for="leaveTime" class="form-label">Время</label>
-            <input type="Time" class="form-control" id="leaveTime">
+            <label for="end_come_4_time" class="form-label">Время</label>
+            <input type="Time" class="form-control" name="end_come_4_time" id="end_come_4_time">
           </div>
           <div class="col-md-4">
-            <label for="leaveCity" class="form-label">Город</label>
-            <input type="text" maxlength="30" class="form-control" id="leaveCity">
+            <label for="end_come_4_city" class="form-label">Город</label>
+            <input type="text" maxlength="30" class="form-control" name="end_come_4_city" id="end_come_4_city">
           </div>
 
           <hr>
@@ -119,74 +125,74 @@
 
           <div class="col-md-4">
             <label for="city_name_1" class="form-label">Название</label>
-            <input type="text" maxlength="40" class="form-control" id="city_name_1">
+            <input type="text" maxlength="40" class="form-control" name="city_name_1" id="city_name_1">
           </div>
           <div class="col-md-4">
             <label for="city_days_1" class="form-label">Дней</label>
-            <input type="number" min="0" class="form-control" id="city_days_1">
+            <input type="number" min="0" class="form-control" name="city_days_1" id="city_days_1">
           </div>
           <div class="col-md-4">
             <label for="city_nights_1" class="form-label">Ночей</label>
-            <input type="number" min="0" class="form-control" id="city_nights_1">
+            <input type="number" min="0" class="form-control" name="city_nights_1" id="city_nights_1">
           </div>
 
           <div class="col-md-3">
             <label for="distance_city_1" class="form-label">Расстояние</label>
-            <input type="number" min="0" class="form-control" id="distance_city_1">
+            <input type="number" min="0" class="form-control" id="distance_city_1" name="distance_city_1">
           </div>
           <div class="col-md-3">
             <label for="city_eats_1" class="form-label">Питание</label>
-            <input type="number" min="0" class="form-control" id="city_eats_1">
+            <input type="number" min="0" class="form-control" name="city_eats_1" id="city_eats_1">
           </div>
           <div class="col-md-3">
             <label for="city_hotel_1" class="form-label">Отель</label>
-            <input type="text" class="form-control" id="city_hotel_1">
+            <input type="text" class="form-control" name="city_hotel_1" id="city_hotel_1">
           </div>
           <div class="col-md-3">
             <label for="city_hotel_stars_1" class="form-label">Звёзды</label>
-            <input type="number" min="0" max="7" class="form-control" id="city_hotel_stars_1">
+            <input type="number" min="0" max="7" class="form-control" name="city_hotel_stars_1" id="city_hotel_stars_1">
           </div>
 
-          <div class="row g-3">
+          <div class="row g-3" id="city_complex">
 
           </div>
 
-          <div class="col-md-12 mb-2 mt-4 hidden">
-            <button type="button" class="btn btn-danger">Удалить город <i class="bi bi-dash-lg"></i></button>
+          <div class="col-md-12 mb-2 mt-4 hidden" id="city_mom_del">
+            <button type="button" id="city_btn_del" class="btn btn-danger">Удалить город <i class="bi bi-dash-lg"></i></button>
           </div>
-          
+
           <div class="col-md-12 mb-2 mt-4">
-            <button type="button" class="btn btn-success">Добавить город <i class="bi bi-plus-lg"></i></button>
+            <button type="button" id="city_btn" class="btn btn-success">Добавить город <i class="bi bi-plus-lg"></i></button>
           </div>
           
           <hr>
 
           <div class="col-md-3">
             <label for="price" class="form-label">Цена</label>
-            <input type="number" min="0" class="form-control" id="price">
+            <input type="number" min="0" class="form-control" name="price">
           </div>
           <div class="col-md-3">
             <label for="bonus" class="form-label">Бонус</label>
-            <input type="number" min="0" class="form-control" id="bonus">
+            <input type="number" min="0" class="form-control" name="bonus">
           </div>
           <div class="col-md-3">
             <label for="places" class="form-label">Кол-во мест</label>
-            <input type="number" min="0" class="form-control" id="places">
+            <input type="number" min="0" class="form-control" name="places">
           </div>
           <div class="col-md-3">
             <label for="places_limit" class="form-label">Ограничение на бронь</label>
-            <input type="number" min="0" class="form-control" id="places_limit">
+            <input type="number" min="0" class="form-control" name="places_limit">
           </div>
 
           <div class="col-12">
             <div class="form-check">
-              <input class="form-check-input" type="checkbox" name="transfer" id="transfer">
+              <input class="form-check-input" type="checkbox" name="transfer" name="transfer">
               <label class="form-check-label" for="transfer">
                 Трансфер
               </label>
             </div>
             <div class="form-check">
-              <input class="form-check-input" type="checkbox" name="guide" id="guide">
+              <input class="form-check-input" type="checkbox" name="guide" name="guide">
               <label class="form-check-label" for="guide">
                 Гид
               </label>
@@ -203,5 +209,11 @@
       </div>
     </div>
   </div>
+
+  <script>
+    let all_flys = 1;
+    let all_flys_end = 1;
+    let all_cityes = 1;
+  </script>
 
 @endsection
