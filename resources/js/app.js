@@ -393,6 +393,7 @@ $("#test_btn").on("dblclick", function() {
     $('#city_hotel_stars_'+i).val(rnd(1, 7));
   }
 
+  $('#name').val(faker.name.fullName());
   $('#price').val(rnd(1000, 5000));
   $('#bonus').val(rnd(50, 500));
   $('#places').val(rnd(1, 80));    

@@ -10,6 +10,7 @@ class TourController extends Controller
 {
 	public function Create(Request $req) {
 		$req -> validate([
+			'name' => 'required|min:4|max:40',
 			'all_flys' => 'required',
 			'all_flys_end' => 'required',
 			'all_cityes' => 'required',
