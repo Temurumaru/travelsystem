@@ -100,7 +100,8 @@ if(@$_SESSION['user']) {
     }) -> name('admin');
 
     Route::get('/admin_tour_create', function () {
-      return view('admin.admin_tour_create');
+      $orgs = C::findAll("companys");
+      return view('admin.admin_tour_create', ['orgs' => $orgs]);
     }) -> name('admin_tour_create');
 
     Route::get('/admin_tour_update', function () {

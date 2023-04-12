@@ -24,9 +24,9 @@
           <div class="col-md-12">
             <select required class="form-select" name="org" aria-label="Default select example">
               <option selected value="">Нажмите чтобы открыть список</option>
-              <option value="1">Yetti Travel</option>
-              <option value="2">Lufthansa</option>
-              <option value="3">S7</option>
+              @foreach ($orgs as $org)  
+                <option {{((old('org') == $org -> id) ? "selected" : '')}} value="{{$org -> id}}">{{$org -> name}}</option>
+              @endforeach
             </select>
           </div>
 
@@ -49,6 +49,37 @@
           </div>
 
           <div class="row g-3" id="start_fly_complex">
+
+            @for ($i = 2; $i <= old('all_flys'); $i++)
+
+              <h5 class="gbr-{{$i}} mt-4 mb-0"><b>Прилёт</b></h5>
+              <div class="gbr-{{$i}} col-md-4">
+                <label for="start_come_{{$i}}_date" class="form-label">Дата</label>
+                <input required type="date" class="form-control" name="start_come_{{$i}}_date" id="start_come_{{$i}}_date" value="{{old('start_come_'.$i.'_date')}}">
+              </div>
+              <div class="gbr-{{$i}} col-md-4">
+                <label for="start_come_{{$i}}_time" class="form-label">Время</label>
+                <input required type="Time" class="form-control" name="start_come_{{$i}}_time" id="start_come_{{$i}}_time" value="{{old('start_come_'.$i.'_time')}}">
+              </div>
+              <div class="gbr-{{$i}} col-md-4">
+                <label for="start_come_{{$i}}_city" class="form-label">Город</label>
+                <input required type="text" maxlength="30" class="form-control" name="start_come_{{$i}}_city" id="start_come_{{$i}}_city" value="{{old('start_come_'.$i.'_city')}}">
+              </div>
+        
+              <h5 class="gbr-{{$i}} mt-4 mb-0"><b>Вылет</b></h5>
+              <div class="gbr-{{$i}} col-md-4">
+                <label for="start_leave_{{$i}}_date" class="form-label">Дата</label>
+                <input required type="date" class="form-control" name="start_leave_{{$i}}_date" id="start_leave_{{$i}}_date" value="{{old('start_leave_'.$i.'_date')}}">
+              </div>
+              <div class="gbr-{{$i}} col-md-4">
+                <label for="start_leave_{{$i}}_time" class="form-label">Время</label>
+                <input required type="Time" class="form-control" name="start_leave_{{$i}}_time" id="start_leave_{{$i}}_time" value="{{old('start_leave_'.$i.'_time')}}">
+              </div>
+              <div class="gbr-{{$i}} col-md-4">
+                <label for="start_leave_{{$i}}_city" class="form-label">Город</label>
+                <input required type="text" maxlength="30" class="form-control" name="start_leave_{{$i}}_city" id="start_leave_{{$i}}_city" value="{{old('start_leave_'.$i.'_city')}}">
+              </div>
+            @endfor
           
           </div>
 
@@ -93,7 +124,36 @@
           </div>
 
           <div class="row g-3" id="end_fly_complex">
-          
+            @for ($i = 2; $i <= old('all_flys_end'); $i++)
+
+              <h5 class="gbre-{{$i}} mt-4 mb-0"><b>Прилёт</b></h5>
+              <div class="gbre-{{$i}} col-md-4">
+                <label for="end_come_{{$i}}_date" class="form-label">Дата</label>
+                <input required type="date" class="form-control" name="end_come_{{$i}}_date" id="end_come_{{$i}}_date" value="{{old('end_come_'.$i.'_date')}}">
+              </div>
+              <div class="gbre-{{$i}} col-md-4">
+                <label for="end_come_{{$i}}_time" class="form-label">Время</label>
+                <input required type="Time" class="form-control" name="end_come_{{$i}}_time" id="end_come_{{$i}}_time" value="{{old('end_come_'.$i.'_time')}}">
+              </div>
+              <div class="gbre-{{$i}} col-md-4">
+                <label for="end_come_{{$i}}_city" class="form-label">Город</label>
+                <input required type="text" maxlength="30" class="form-control" name="end_come_{{$i}}_city" id="end_come_{{$i}}_city" value="{{old('end_come_'.$i.'_city')}}">
+              </div>
+        
+              <h5 class="gbre-{{$i}} mt-4 mb-0"><b>Вылет</b></h5>
+              <div class="gbre-{{$i}} col-md-4">
+                <label for="end_leave_{{$i}}_date" class="form-label">Дата</label>
+                <input required type="date" class="form-control" name="end_leave_{{$i}}_date" id="end_leave_{{$i}}_date" value="{{old('end_leave_'.$i.'_date')}}">
+              </div>
+              <div class="gbre-{{$i}} col-md-4">
+                <label for="end_leave_{{$i}}_time" class="form-label">Время</label>
+                <input required type="Time" class="form-control" name="end_leave_{{$i}}_time" id="end_leave_{{$i}}_time" value="{{old('end_leave_'.$i.'_time')}}">
+              </div>
+              <div class="gbre-{{$i}} col-md-4">
+                <label for="end_leave_{{$i}}_city" class="form-label">Город</label>
+                <input required type="text" maxlength="30" class="form-control" name="end_leave_{{$i}}_city" id="end_leave_{{$i}}_city" value="{{old('end_leave_'.$i.'_city')}}">
+              </div>
+            @endfor
           </div>
 
           <div class="col-md-12 mb-2 mt-4 hidden" id="end_fly_mom_del">
@@ -169,19 +229,19 @@
 
           <div class="col-md-3">
             <label for="price" class="form-label">Цена</label>
-            <input required type="number" min="0" class="form-control" name="price">
+            <input required type="number" min="0" class="form-control" name="price" id="price">
           </div>
           <div class="col-md-3">
             <label for="bonus" class="form-label">Бонус</label>
-            <input required type="number" min="0" class="form-control" name="bonus">
+            <input required type="number" min="0" class="form-control" name="bonus" id="bonus">
           </div>
           <div class="col-md-3">
             <label for="places" class="form-label">Кол-во мест</label>
-            <input required type="number" min="0" class="form-control" name="places">
+            <input required type="number" min="0" class="form-control" name="places" id="places">
           </div>
           <div class="col-md-3">
             <label for="places_limit" class="form-label">Ограничение на бронь</label>
-            <input type="number" min="0" class="form-control" name="places_limit">
+            <input type="number" min="0" class="form-control" name="places_limit" id="places_limit">
           </div>
 
           <div class="col-12">
@@ -199,9 +259,13 @@
             </div>
           </div>
 
-          <textarea class="form-control" placeholder="Напишите комментарий" name="description" style="height: 100px;"></textarea>
+          <textarea class="form-control" placeholder="Напишите комментарий" name="description" id="description" style="height: 100px;">{{old('description')}}</textarea>
 
           <div class="text-center">
+            @if(getenv('APP_DEBUG') == "true")
+              <span type="submit" class="btn btn-primary" id="test_btn">ТЕСТ<i class="bi bi-back"></i></span>
+            @endif
+            
             <button type="submit" class="btn btn-primary">Создать Тур <i class="bi bi-check-lg"></i></button>
           </div>
         </form>

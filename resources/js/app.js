@@ -1,5 +1,6 @@
 import './bootstrap';
 import $ from 'jquery';
+import { faker } from '@faker-js/faker';
 
 $('#file').on('change', () => {
 
@@ -150,15 +151,15 @@ $("#start_fly_btn").on("click", function() {
       <h5 class="gbr-`+all_flys+` mt-4 mb-0"><b>Вылет</b></h5>
       <div class="gbr-`+all_flys+` col-md-4">
         <label for="start_leave_`+all_flys+`_date" class="form-label">Дата</label>
-        <input required type="date" class="form-control" name="start_leave_`+all_flys+`_date id="start_leave_`+all_flys+`_date">
+        <input required type="date" class="form-control" name="start_leave_`+all_flys+`_date" id="start_leave_`+all_flys+`_date">
       </div>
       <div class="gbr-`+all_flys+` col-md-4">
         <label for="start_leave_`+all_flys+`_time" class="form-label">Время</label>
-        <input required type="Time" class="form-control" name="start_leave_`+all_flys+`_time id="start_leave_`+all_flys+`_time">
+        <input required type="Time" class="form-control" name="start_leave_`+all_flys+`_time" id="start_leave_`+all_flys+`_time">
       </div>
       <div class="gbr-`+all_flys+` col-md-4">
         <label for="start_leave_`+all_flys+`_city" class="form-label">Город</label>
-        <input required type="text" maxlength="30" class="form-control" name="start_leave_`+all_flys+`_city id="start_leave_`+all_flys+`_city">
+        <input required type="text" maxlength="30" class="form-control" name="start_leave_`+all_flys+`_city" id="start_leave_`+all_flys+`_city">
       </div>
 
     `);
@@ -169,6 +170,10 @@ $("#start_fly_btn").on("click", function() {
   }
 
 });
+
+if(all_flys > 1) {
+  $("#start_fly_mom_del").removeClass("hidden");
+}
 
 $("#start_fly_btn_del").on("click", function() {
 
@@ -233,6 +238,10 @@ $("#end_fly_btn").on("click", function() {
   }
 
 });
+
+if(all_flys_end > 1) {
+  $("#end_fly_mom_del").removeClass("hidden");
+}
 
 $("#end_fly_btn_del").on("click", function() {
 
@@ -301,6 +310,10 @@ $("#city_btn").on("click", function() {
 
 });
 
+if(all_cityes > 1) {
+  $("#city_mom_del").removeClass("hidden");
+}
+
 $("#city_btn_del").on("click", function() {
 
   if(all_cityes > 1) {
@@ -321,3 +334,71 @@ setInterval(() => {
   $('#all_flys_end').val(all_flys_end);
   $('#all_cityes').val(all_cityes);
 }, 500);
+
+
+function rnd(min, max) {
+  return Math.floor(Math.random() * (max - min) + min);
+}
+
+function rndDate() {
+  let yyyy = rnd(2023, 2024);
+  let mm = rnd(1, 12);
+  let dd = rnd(1, 29);
+  if(mm < 10) mm = "0"+mm;
+  if(dd < 10) dd = "0"+dd;
+  return yyyy+"-"+mm+"-"+dd;
+}
+
+function rndTime() {
+  let hour = rnd(0, 23);
+  let minute = rnd(0, 60);
+  if(hour < 10) hour = "0"+hour;
+  if(minute < 10) minute = "0"+minute;
+  return hour+":"+minute;
+}
+
+$("#test_btn").on("dblclick", function() {
+
+  for (let i = 0; i <= 4; i++) {
+    $('#start_leave_'+i+'_date').val(rndDate());
+    $('#start_leave_'+i+'_time').val(rndTime());
+    $('#start_leave_'+i+'_city').val(faker.name.fullName());    
+  }
+
+  for (let i = 0; i <= 4; i++) {
+    $('#start_come_'+i+'_date').val(rndDate());
+    $('#start_come_'+i+'_time').val(rndTime());
+    $('#start_come_'+i+'_city').val(faker.name.fullName());    
+  }
+
+  for (let i = 0; i <= 4; i++) {
+    $('#end_leave_'+i+'_date').val(rndDate());
+    $('#end_leave_'+i+'_time').val(rndTime());
+    $('#end_leave_'+i+'_city').val(faker.name.fullName());    
+  }
+
+  for (let i = 0; i <= 4; i++) {
+    $('#end_come_'+i+'_date').val(rndDate());
+    $('#end_come_'+i+'_time').val(rndTime());
+    $('#end_come_'+i+'_city').val(faker.name.fullName());    
+  }
+
+  for (let i = 0; i <= 2; i++) {
+    $('#city_name_'+i).val(faker.name.fullName());
+    $('#city_days_'+i).val(rnd(1, 80));
+    $('#city_nights_'+i).val(rnd(1, 80));    
+    $('#distance_city_'+i).val(rnd(10, 900));
+    $('#city_eats_'+i).val(rnd(1, 4));
+    $('#city_hotel_'+i).val(faker.name.fullName());
+    $('#city_hotel_stars_'+i).val(rnd(1, 7));
+  }
+
+  $('#price').val(rnd(1000, 5000));
+  $('#bonus').val(rnd(50, 500));
+  $('#places').val(rnd(1, 80));    
+  $('#places_limit').val(rnd(0, 80));
+
+  $('#description').val(faker.name.fullName());
+  // $('#').val();
+
+});
