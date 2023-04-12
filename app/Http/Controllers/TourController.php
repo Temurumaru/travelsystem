@@ -272,7 +272,7 @@ class TourController extends Controller
 		if(isset($req -> id)) {
 			if(C::count('busy', 'tour = ?', [$req -> id]) <= 0) {
 
-				$tour = C::findOne("tour", "id = ?", [$req -> id]);
+				$tour = C::findOne("tours", "id = ?", [$req -> id]);
 				C::trash($tour);
 
 				return "OK";
