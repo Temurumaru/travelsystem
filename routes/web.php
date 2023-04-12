@@ -104,8 +104,11 @@ if(@$_SESSION['user']) {
       return view('admin.admin_tour_create', ['orgs' => $orgs]);
     }) -> name('admin_tour_create');
 
-    Route::get('/admin_tour_update', function () {
-      return view('admin.admin_tour_update');
+    Route::get('/admin_tour_update', function (Request $req) {
+      $orgs = C::findAll("companys");
+      $tour = C::findOne("tours", "id = ?", [$req -> id]);
+
+      return view('admin.admin_tour_update', ['orgs' => $orgs, 'tour' => $tour]);
     }) -> name('admin_tour_update');
 
     Route::get('/admin_company_create', function () {
@@ -129,11 +132,13 @@ if(@$_SESSION['user']) {
     }) -> name('admin_agent_update');
 
     Route::get('/admin_tour_actives', function () {
-      return view('admin.tour_actives');
+      $tours = C::find("tours", "active = ?", [1]);
+      return view('admin.tour_actives', ['tours' => $tours]);
     }) -> name('admin_tour_actives');
 
     Route::get('/admin_tour_old', function () {
-      return view('admin.tour_old');
+      $tours = C::find("tours", "active = ?", [0]);
+      return view('admin.tour_old', ['tours' => $tours]);
     }) -> name('admin_tour_old');
 
 
@@ -171,6 +176,16 @@ if(@$_SESSION['user']) {
       '/CreateTour', 
       $p.'TourController@Create'
     ) -> name('CreateTour');
+
+    Route::post(
+      '/UpdateTour', 
+      $p.'TourController@Update'
+    ) -> name('UpdateTour');
+
+    Route::delete(
+      '/DeleteTour', 
+      $p.'TourController@Delete'
+    ) -> name('DeleteTour');
 
 
     if((bool)$_SESSION['user'] -> supreme) {

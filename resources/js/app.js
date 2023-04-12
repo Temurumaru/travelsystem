@@ -125,6 +125,39 @@ $(".agent_delete_btn").on("click", function() {
   }
 });
 
+$(".tour_delete_btn").on("click", function() {
+  if(confirm('Вы точно хотите удалить Тур!?')) {
+
+    $.ajax({
+      url: req_del_tour_url,
+      type: "delete",
+      dataType: 'html',
+      headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      },
+      data: ({
+        id: $(this).attr("delid"),
+      }),
+      error: function(err) {
+        if(err.status == 500) {
+          alert("Интернета нету");
+        } else {
+          alert("Ошибка: "+err.status+"!");
+        }
+      },
+      success: function(data) {
+        if(data == "OK"){
+          alert("Тур удалён");
+          location.reload();
+        } 
+        if(data == "HAVE") alert("К этому туру присутствуют брони, его невозможно удалить!");
+        if(data == "ERR") alert("Ошибка удаление пожалуйста перезагрузите страницу и повторите попытку!");
+      }
+    });
+  
+  }
+});
+
 $("#start_fly_btn").on("click", function() {
 
   if(all_flys < 3) {
