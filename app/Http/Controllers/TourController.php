@@ -127,6 +127,7 @@ class TourController extends Controller
 		$tour -> transfer = (bool)$req -> transfer;
 		$tour -> guide = (bool)$req -> guide;
 		$tour -> description = $req -> description;
+		$tour -> active = true;
 
 		C::store($tour);
 
