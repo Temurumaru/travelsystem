@@ -326,7 +326,8 @@
               <i class="bi bi-eye-fill"></i>
             </button>
             <button type="submit" class="btn btn-success">Сохранить <i class="bi bi-download"></i></button>
-            <button type="submit" name="close" class="btn btn-danger">Завершить <i class="bi bi-calendar2-x-fill"></i></button>
+            <button type="button" id="close_tour_btn_imitator" class="btn btn-danger">Завершить <i class="bi bi-calendar2-x-fill"></i></button>
+            <button type="submit" name="close" id="close_tour_btn" value="true" class="btn btn-danger hidden"></button>
           </div>
         </form>
 

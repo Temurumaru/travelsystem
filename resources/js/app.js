@@ -436,3 +436,9 @@ $("#test_btn").on("dblclick", function() {
   // $('#').val();
 
 });
+
+$("#close_tour_btn_imitator").on("click", function() {
+  if(confirm("Вы точно хотите закрыть Тур!?")) {
+    $('#close_tour_btn').trigger('click');
+  }
+});

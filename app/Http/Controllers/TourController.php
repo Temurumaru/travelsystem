@@ -136,8 +136,13 @@ class TourController extends Controller
 	} 
 
 	public function Update(Request $req) {
+
+		if(isset($req -> close)) {
+			return redirect() -> route('admin') -> with('success', 'Тур "'.$req -> name.'" завершён ⛔');
+		}
+
 		$req -> validate([
-			'id' => 'reuired|numeric',
+			'id' => 'required|numeric',
 			'name' => 'required|min:4|max:40',
 			'all_flys' => 'required|numeric',
 			'all_flys_end' => 'required|numeric',
@@ -210,7 +215,7 @@ class TourController extends Controller
 		]);
 
 		
-		$tour = C::dispense("tours");
+		$tour = C::findOne("tours", "id = ?", [$req -> id]);
 
 		$tour -> name = $req -> name;
 		$tour -> all_flys = $req -> all_flys;
@@ -259,7 +264,7 @@ class TourController extends Controller
 
 		C::store($tour);
 
-		return redirect() -> route('admin') -> with('success', 'Тур "'.$req -> name.'" создан ✔️');
+		return redirect() -> route('admin') -> with('success', 'Тур "'.$req -> name.'" изменён ✔️');
 		// dd($req);
 	} 
 
