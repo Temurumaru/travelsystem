@@ -28,7 +28,7 @@
 
           <h5 class="mt-4 mb-0"><b>Выбор тур оператора</b></h5>
           <div class="col-md-12">
-            <select required class="form-select" name="org" aria-label="Default select example">
+            <select required class="form-select" name="company" aria-label="Default select example">
               <option selected value="">Нажмите чтобы открыть список</option>
               @foreach ($orgs as $org)  
                 <option {{((old('org') == $org -> id) ? "selected" : '')}} value="{{$org -> id}}">{{$org -> name}}</option>
