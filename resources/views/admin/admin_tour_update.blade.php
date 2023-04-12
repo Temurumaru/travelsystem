@@ -35,6 +35,8 @@
 
           @csrf
 
+          <input type="hidden" name="id" value="{{$tour -> id}}">
+
           <input type="hidden" name="all_flys" id="all_flys" value="">
           <input type="hidden" name="all_flys_end" id="all_flys_end" value="">
           <input type="hidden" name="all_cityes" id="all_cityes" value="">

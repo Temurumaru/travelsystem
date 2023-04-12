@@ -137,6 +137,7 @@ class TourController extends Controller
 
 	public function Update(Request $req) {
 		$req -> validate([
+			'id' => 'reuired|numeric',
 			'name' => 'required|min:4|max:40',
 			'all_flys' => 'required|numeric',
 			'all_flys_end' => 'required|numeric',
