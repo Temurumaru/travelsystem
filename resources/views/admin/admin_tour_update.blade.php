@@ -412,7 +412,7 @@
               @endphp
                 
               <tr>
-                <td><img src="{{(@$agent -> avatar) ? $agent -> avatar : "/assets/img/profile-img.jpg"}}" alt="Profile" class="rounded-circle" width="50px"></td>
+                <td><img src="{{(@$agent -> avatar) ? "/uploads/avatar/".$agent -> avatar : "/assets/img/profile-img.jpg"}}" alt="Profile" class="rounded-circle" width="50px"></td>
                 <td><b>{{$org -> name}}<b></td>
                 <td>{{((@$agent -> full_name) ? $agent -> full_name : "Unknown")}}</td>
                 <td>{{$bonus}}$</td>

@@ -72,7 +72,7 @@ class BookingController extends Controller
 		$fpdf -> SetTitle($tour -> name." - ".$org -> name);
 		$fpdf->AddPage();
 		$fpdf->SetFont('Courier', 'B', 22);
-		$fpdf -> Image((@$agent -> avatar) ? $agent -> avatar : "../public/assets/img/profile-img.jpg", 10, 10, 15, 15);
+		$fpdf -> Image((@$agent -> avatar) ? "../public/uploads/avatar/".$agent -> avatar : "../public/assets/img/profile-img.jpg", 10, 10, 15, 15);
 		$fpdf->Cell(50, 40, $tour -> name." - ".$org -> name);
 
 		$fpdf->SetFont('Courier', 'B', 16);
@@ -95,7 +95,7 @@ class BookingController extends Controller
 
 				$fpdf -> Text(5, $y1+8, $i." |");
 				
-				$fpdf -> Image((@$agent_busy -> avatar) ? $agent_busy -> avatar : "../public/assets/img/profile-img.jpg", 24, $y1+2, 9, 9);
+				$fpdf -> Image((@$agent_busy -> avatar) ? "../public/uploads/avatar/".$agent_busy -> avatar : "../public/assets/img/profile-img.jpg", 24, $y1+2, 9, 9);
 		
 				$fpdf->SetFont('Courier', '', 16);
 				
