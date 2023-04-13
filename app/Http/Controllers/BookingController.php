@@ -69,10 +69,13 @@ class BookingController extends Controller
 		$busyes = C::find("busy", "tour = ?", [$tour -> id]);
 
 		$fpdf = new FP;
+		$fpdf -> SetTitle($tour -> name." - ".$org -> name);
 		$fpdf->AddPage();
-		$fpdf->SetFont('Courier', 'B', 16);
+		$fpdf->SetFont('Courier', 'B', 22);
 		$fpdf -> Image((@$agent -> avatar) ? $agent -> avatar : "../public/assets/img/profile-img.jpg", 10, 10, 15, 15);
 		$fpdf->Cell(50, 40, $tour -> name." - ".$org -> name);
+
+		$fpdf->SetFont('Courier', 'B', 16);
 
 		$i = 1;
 		$x1 = 0;
