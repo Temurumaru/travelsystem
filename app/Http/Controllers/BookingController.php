@@ -95,9 +95,14 @@ class BookingController extends Controller
 				$fpdf -> Image((@$agent_busy -> avatar) ? $agent_busy -> avatar : "../public/assets/img/profile-img.jpg", 24, $y1+2, 9, 9);
 		
 				$fpdf->SetFont('Courier', '', 16);
-
-				$fpdf -> Text(37, $y1+8, $org_busy -> name." | ".((@$agent_busy -> full_name) ? $agent_busy -> full_name : "Unknown")." | ".$busy -> places." places");
 				
+				$bonus = 0;
+				if($busy -> company != $tour -> company) {
+					$bonus = $tour -> bonus * $busy -> places;
+				}
+
+				$fpdf -> Text(37, $y1+8, $org_busy -> name." | ".((@$agent_busy -> full_name) ? $agent_busy -> full_name : "Unknown")." | ".$busy -> places." place"." | ".$bonus." USD");
+
 				$fpdf->SetFont('Courier', 'B', 16);
 
 				$y1 += 12;
