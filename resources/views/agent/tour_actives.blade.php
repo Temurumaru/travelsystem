@@ -5,8 +5,12 @@
 @section('header_title', APP_NAME)
 @section('sub_title', 'Активные туры')
 
-@section('username', 'Teshavoy Teshavoyev')
-@section('usersubname', 'Yetti Travel')
+@section('username', $_SESSION['user'] -> full_name)
+@php
+use ThreadBeanPHP\C as C;
+$org_h = C::findOne("companys", "id = ?", [$_SESSION['user'] -> company]);
+@endphp
+@section('usersubname', $org_h -> name)
 
 
 @section('content')
@@ -14,9 +18,6 @@
     <div class="card-body">
       <div class="card-title">Список Ваших активных туров</div>
       <div style="overflow-y:scroll;">
-        @php
-          use ThreadBeanPHP\C as C;
-        @endphp
 
         @foreach ($agent_tours as $tour)
 

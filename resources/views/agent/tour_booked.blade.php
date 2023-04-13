@@ -5,8 +5,12 @@
 @section('header_title', APP_NAME)
 @section('sub_title', 'Забронированные туры')
 
-@section('username', 'Teshavoy Teshavoyev')
-@section('usersubname', 'Yetti Travel')
+@section('username', $_SESSION['user'] -> full_name)
+@php
+use ThreadBeanPHP\C as C;
+$org_h = C::findOne("companys", "id = ?", [$_SESSION['user'] -> company]);
+@endphp
+@section('usersubname', $org_h -> name)
 
 
 @section('content')
@@ -15,9 +19,6 @@
   <div class="card-body">
     <div class="card-title">Список Всех активных Забронированных туров</div>
     <div style="overflow-y:scroll;">
-      @php
-        use ThreadBeanPHP\C as C;
-      @endphp
 
       @foreach ($busyes as $busy)
 
@@ -64,7 +65,7 @@
         @endphp
 
         <div class="col card-2 mb-4">
-          <a href="/tour/" class="un-style">
+          <a href="/tour?id={{$tour -> id}}" class="un-style">
             <div class="row-lg-12 cnt">
               <img src="{{(@$agent -> avatar) ? "/uploads/avatar/".$agent -> avatar : "/assets/img/profile-img.jpg"}}" alt="Profile" class="rounded-circle" width="50rem">
               <span class="mx-3 lead"><b>{{$org -> name}}</b></span>

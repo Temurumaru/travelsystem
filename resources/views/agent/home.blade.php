@@ -5,9 +5,41 @@
 @section('header_title', APP_NAME)
 @section('sub_title', '')
 
-@section('username', 'Teshavoy Teshavoyev')
-@section('usersubname', 'Yetti Travel')
+@section('username', $_SESSION['user'] -> full_name)
+@php
+use ThreadBeanPHP\C as C;
+$org_h = C::findOne("companys", "id = ?", [$_SESSION['user'] -> company]);
+@endphp
+@section('usersubname', $org_h -> name)
 
+@php
+  $busy_count = C::find("busy", "company = ?", [$org_h -> id]);
+	$places = 0;
+	$balance = 0;
+  $all_places = 0;
+	foreach ($busy_count as $item) {
+    $tour = C::findOne("tours", "id = ? AND active = ?", [$item -> tour, 1]);
+    if(@$tour -> active) {
+      $places_rem = $tour -> places;
+			foreach ($busy_count as $item) {
+				$places_rem -= $item -> places;
+			}
+
+      if($_SESSION['user'] -> company == $tour -> company) {
+        $all_places = $item -> places + $places_rem;
+      } else {
+        if($places_rem < $tour -> places_limit) {
+					$all_places = $places_rem;
+				} else {
+					$all_places = $tour -> places_limit;
+				}
+        $balance += $tour -> bonus * $item -> places;
+      }
+
+      $places += $item -> places;
+    }
+	}
+@endphp
 
 @section('content')
   <div class="col-xl-4">
@@ -16,8 +48,8 @@
       <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
 
         <img src="assets/img/profile-img.jpg" alt="Profile" class="rounded-circle">
-        <h2>Teshavoy Teshavoyev</h2>
-        <h3>Yetti Travel</h3>
+        <h2>{{$_SESSION['user'] -> full_name}}</h2>
+        <h3>{{$org_h -> name}}</h3>
         <div class="social-links mt-2">
           <a href="mailto:[email]"><i class="bi bi-envelope-at-fill"></i></a>
           <a href="tel:[phone]"><i class="bi bi-phone-fill"></i></a>
@@ -225,7 +257,7 @@
                <i class="bi bi-airplane-engines"></i>
              </div>
              <div class="ps-3">
-               <h6>145 мест из 200</h6>
+               <h6>{{$places}} мест из {{$all_places}}</h6>
              </div>
            </div>
          </div>
@@ -245,7 +277,7 @@
                <i class="bi bi-currency-dollar"></i>
              </div>
              <div class="ps-3">
-               <h6>$3,264</h6>
+               <h6>${{number_format($balance, 0, ' ', ' ')}}</h6>
              </div>
            </div>
          </div>
@@ -266,7 +298,7 @@
                <i class="bi bi-people"></i>
              </div>
              <div class="ps-3">
-               <h6>55 мест</h6>
+               <h6>{{$places}} мест</h6>
              </div>
            </div>
     

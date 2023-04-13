@@ -5,23 +5,43 @@
 @section('header_title', APP_NAME)
 @section('sub_title', 'Тур '.$tour -> name)
 
-@section('username', 'Teshavoy Teshavoyev')
-@section('usersubname', 'Yetti Travel')
+@section('username', $_SESSION['user'] -> full_name)
+@php
+use ThreadBeanPHP\C as C;
+$org_h = C::findOne("companys", "id = ?", [$_SESSION['user'] -> company]);
+@endphp
+@section('usersubname', $org_h -> name)
 
 
 @section('content')
 
   @php
 
-    use ThreadBeanPHP\C as C;
-
     $agent = C::findOne("agents", "company = ?", [$org -> id]);
+    $busy = C::findOne("busy", "tour = ? AND company = ?", [$tour -> id, $_SESSION['user'] -> company]);
 
-    $busy = C::find("busy", "tour = ?", [$tour -> id]);
+    $busy_count = C::find("busy", "tour = ?", [$tour -> id]);
     $places_rem = $tour -> places;
-    foreach ($busy as $item) {
+    foreach ($busy_count as $item) {
       $places_rem -= $item -> places;
     }
+
+    $city_name_1 = $tour -> city_name_1;
+    $city_days_1 = $tour -> city_days_1;
+    $city_nights_1 = $tour -> city_nights_1;
+    $city_distance_1 = $tour -> distance_city_1;
+    $city_eats_1 = $tour -> city_eats_1;
+    $city_hotel_1 = $tour -> city_hotel_1;
+    $city_hotel_stars_1 = $tour -> city_hotel_stars_1;
+    
+    $city_name_2 = @$tour -> city_name_2;
+    $city_days_2 = @$tour -> city_days_2;
+    $city_nights_2 = @$tour -> city_nights_2;
+    $city_distance_2 = @$tour -> distance_city_2;
+    $city_eats_2 = @$tour -> city_eats_2;
+    $city_hotel_2 = @$tour -> city_hotel_2;
+    $city_hotel_stars_2 = @$tour -> city_hotel_stars_2;
+    
 
     $start_leave_1 = json_decode($tour -> start_leave_1, true);
     $start_come_2 = json_decode(@$tour -> start_come_2, true);
@@ -336,29 +356,31 @@
         <div class="card-title hdr">Информайия о туре</div>
 
         <p class="lead-p">
-          <b>Город: </b>Медина (<b>8</b> дней, <b>7</b> ночей) <br>
-          <b>Питание: </b><b>2</b> раза (в день) <br>
-          <b>Отель: </b>Rammstein Hotel ★★★★ <br>
-          <b>Расстояние: </b><b>700</b> м <br>
-          <b>Гид: </b>Нет <br>
-          <b>Трансфер: </b>Есть <br>
+          <b>Город: </b>{{$city_name_1}} (<b>{{$city_days_1}}</b> дней, <b>{{$city_nights_1}}</b> ночей) <br>
+          <b>Питание: </b><b>{{$city_eats_1}}</b> раза (в день) <br>
+          <b>Отель: </b>{{$city_hotel_1}} {{str_repeat('★', $city_hotel_stars_1)}} <br>
+          <b>Расстояние: </b><b>{{$city_distance_1}}</b> м <br>
+          <b>Гид: </b>{{($tour -> guide) ? "Есть" : "Нет"}} <br>
+          <b>Трансфер: </b>{{($tour -> transfer) ? "Есть" : "Нет"}} <br>
         </p>
 
         <hr>
 
+        @if(@$city_name_2)
         <p class="lead-p">
-          <b>Город: </b>Мекка (<b>8</b> дней, <b>7</b> ночей) <br>
-          <b>Питание: </b><b>2</b> раза (в день) <br>
-          <b>Отель: </b>Rammstein Hotel ★★★★ <br>
-          <b>Расстояние: </b><b>700</b> м <br>
-          <b>Гид: </b>Нет <br>
-          <b>Трансфер: </b>Есть <br>
+          <b>Город: </b>{{$city_name_2}} (<b>{{$city_days_2}}</b> дней, <b>{{$city_nights_2}}</b> ночей) <br>
+          <b>Питание: </b><b>{{$city_eats_2}}</b> раза (в день) <br>
+          <b>Отель: </b>{{$city_hotel_2}} {{str_repeat('★', $city_hotel_stars_2)}} <br>
+          <b>Расстояние: </b><b>{{$city_distance_2}}</b> м <br>
+          <b>Гид: </b>{{($tour -> guide) ? "Есть" : "Нет"}} <br>
+          <b>Трансфер: </b>{{($tour -> transfer) ? "Есть" : "Нет"}} <br>
         </p>
-
+        
         <hr>
+        @endif
 
         <p class="lead">
-          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Reprehenderit sint dolore accusamus magnam omnis ab velit voluptate earum dicta, consequuntur perspiciatis repellendus veritatis error animi amet ipsum sequi. Et, perferendis?
+          {{$tour -> description}}
         </p>
       </div>
     </div>
@@ -367,18 +389,38 @@
 
   <div class="col-lg-6">
     <div class="card">
-      <div class="card-body">
+
+      @php
+        
+        $max_places = 0;
+        if($_SESSION['user'] -> company == $tour -> company || $tour -> places_limit == null || $tour -> places_limit == 0) {
+          $max_places = $busy -> places + $places_rem;
+        } else {
+          if($places_rem < $tour -> places_limit) {
+            $max_places = $busy -> places + abs($busy -> places - $tour -> places_limit);
+          } else {
+            $max_places = $tour -> places_limit;
+          }
+        }
+
+        
+      @endphp
+      <form method="post" action="{{route('CreateBusy')}}" class="card-body">
+        @csrf
+        <input type="hidden" name="tour" value="{{$tour -> id}}">
+        <input type="hidden" name="company" value="{{$_SESSION['user'] -> company}}">
+
         <div class="card-title hdr">Бронирование 
           <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#largeModal">
             <i class="bi bi-eye-fill"></i>
           </button>
         </div>
 
-        <h3 id="price" bonus="50" class="unselectable">Цена тура: <b>1500$</b></h3>
+        <h3 id="price" bonus="{{$tour -> bonus}}" class="unselectable">Цена тура: <b>{{$tour -> price}}$</b></h3>
 
         <div class="row">
-          <h3 class="col-md-auto">Всего мест <b>50</b></h3>
-          <h3 class="col-md-auto">Свободно <b>42</b></h3>
+          <h3 class="col-md-auto">Всего мест <b>{{$tour -> places}}</b></h3>
+          <h3 class="col-md-auto">Свободно <b>{{$places_rem}}</b></h3>
         </div>
         <hr>
         <form action="" method="post">
@@ -388,7 +430,7 @@
                 Забронировать
               </div>
               <div class="col-md-5 my-2">
-                <input type="number" class="form-control" name="places" placeholder="Введите кол-во мест" id="" min="0" max="100" step="1">
+                <input type="number" class="form-control" name="places" placeholder="Введите кол-во мест" value="{{@$busy -> places}}" min="0" max="{{$max_places}}" step="1">
                 
               </div>
               <div class="col-md-3">
@@ -398,10 +440,11 @@
             </div>
           </div>
         </form>
-      </div>
+      </form>
     </div>
 
   </div>
+
 
   <div class="modal fade" id="largeModal" tabindex="-1" style="display: none;" aria-hidden="true">
     <div class="modal-dialog modal-lg">
@@ -413,48 +456,25 @@
         <div class="modal-body">
           <table class="table table-borderless">
             <tbody class="agent_tour_element">
+              @foreach ($busyes as $busy)
+
+              @php
+                $org = C::findOne("companys", "id = ?", [$busy -> company]);
+                $agent = C::findOne("agents", "company = ?", [$org -> id]);
+                $bonus = 0;
+                if($busy -> company != $tour -> company) {
+                  $bonus = $tour -> bonus * $busy -> places;
+                }
+              @endphp
               <tr>
-                <td><img src="assets/img/profile-img.jpg" alt="Profile" class="rounded-circle" width="50px"></td>
-                <td><b>Yetti Travel<b></td>
-                <td>Teshavoy Teshavoyev</td>
-                <td><b>28</b> мест</td>
+                <td><img src="{{(@$agent -> avatar) ? "/uploads/avatar/".$agent -> avatar : "/assets/img/profile-img.jpg"}}" alt="Profile" class="rounded-circle" width="50px"></td>
+                <td><b>{{$org -> name}}<b></td>
+                <td>{{((@$agent -> full_name) ? $agent -> full_name : "Undefined")}}</td>
+                <td><b>{{$busy -> places}}</b> мест</td>
               </tr>
-              <tr>
-                <td><img src="assets/img/profile-img.jpg" alt="Profile" class="rounded-circle" width="50px"></td>
-                <td><b>Yetti Travel<b></td>
-                <td>Teshavoy Teshavoyev</td>
-                <td><b>28</b> мест</td>
-              </tr>
-              <tr>
-                <td><img src="assets/img/profile-img.jpg" alt="Profile" class="rounded-circle" width="50px"></td>
-                <td><b>Yetti Travel<b></td>
-                <td>Teshavoy Teshavoyev</td>
-                <td><b>28</b> мест</td>
-              </tr>
-              <tr>
-                <td><img src="assets/img/profile-img.jpg" alt="Profile" class="rounded-circle" width="50px"></td>
-                <td><b>Yetti Travel<b></td>
-                <td>Teshavoy Teshavoyev</td>
-                <td><b>28</b> мест</td>
-              </tr>
-              <tr>
-                <td><img src="assets/img/profile-img.jpg" alt="Profile" class="rounded-circle" width="50px"></td>
-                <td><b>Yetti Travel<b></td>
-                <td>Teshavoy Teshavoyev</td>
-                <td><b>28</b> мест</td>
-              </tr>
-              <tr>
-                <td><img src="assets/img/profile-img.jpg" alt="Profile" class="rounded-circle" width="50px"></td>
-                <td><b>Yetti Travel<b></td>
-                <td>Teshavoy Teshavoyev</td>
-                <td><b>28</b> мест</td>
-              </tr>
-              <tr>
-                <td><img src="assets/img/profile-img.jpg" alt="Profile" class="rounded-circle" width="50px"></td>
-                <td><b>Yetti Travel<b></td>
-                <td>Teshavoy Teshavoyev</td>
-                <td><b>28</b> мест</td>
-              </tr>
+
+              @endforeach
+
             </tbody>
           </table>
         </div>

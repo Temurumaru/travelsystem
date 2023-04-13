@@ -15,27 +15,61 @@ class BookingController extends Controller
 				return redirect() -> back() -> withErrors(['company' => 'Компании не существует!']);
 			}
 
+			$tour = C::findOne("tours", "id = ?", [$req -> tour]);
+			$busy = C::findOne("busy", "tour = ? AND company = ?", [$tour -> id, $_SESSION['user'] -> company]);
+
+			if($req -> places > $tour -> places) {
+				return redirect() -> back() -> withErrors(['network' => 'Что-то пошло не так, пожалуйста попробуйте поже!']);
+			}
+
+
+			$busy_count = C::find("busy", "tour = ?", [$tour -> id]);
+			$places_rem = $tour -> places;
+			foreach ($busy_count as $item) {
+				$places_rem -= $item -> places;
+			}
+
+			$max_places = 0;
+      if($_SESSION['user'] -> company == $tour -> company || $tour -> places_limit == null || $tour -> places_limit == 0) {
+        $max_places = $busy -> places + $places_rem;
+      } else {
+        if($places_rem < $tour -> places_limit) {
+					$max_places = $busy -> places + abs($busy -> places - $tour -> places_limit);
+				} else {
+					$max_places = $tour -> places_limit;
+				}
+      }
+
+			$home = 'admin';
+
+			if($_SESSION['user'] -> permission == "agent") {
+				if($req -> places > $max_places) {
+					return redirect() -> back() -> withErrors(['network' => 'Что-то пошло не так, пожалуйста попробуйте поже!']);
+				}
+				$home = 'agent';
+			}
+
 			if(C::count('busy', 'tour = ? AND company = ?', [$req -> tour, $req -> company]) <= 0) {
 				$busy = C::dispense("busy");
 				$busy -> tour = $req -> tour;
 				$busy -> company = $req -> company;
 				$busy -> places = $req -> places;
 				C::store($busy);
-
-				return redirect() -> route('admin') -> with('success', 'Бронь создана ✔️');
+				
+				return redirect() -> route($home) -> with('success', 'Бронь создана ✔️');
 			}
 
 			$busy = C::findOne('busy', 'tour = ? AND company = ?', [$req -> tour, $req -> company]);
 			
 			if($req -> places == 0) {
 				C::trash($busy);
-				return redirect() -> route('admin') -> with('success', 'Бронь удалён ✔️');
+				return redirect() -> route($home) -> with('success', 'Бронь удалён ✔️');
 			}
 
 			$busy -> places = $req -> places;
 			C::store($busy);
 
-			return redirect() -> route('admin') -> with('success', 'Бронь изменена ✔️');
+			return redirect() -> route($home) -> with('success', 'Бронь изменена ✔️');
 
 		}
 
