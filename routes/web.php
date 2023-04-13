@@ -188,11 +188,20 @@ if(@$_SESSION['user']) {
       $p.'TourController@Delete'
     ) -> name('DeleteTour');
 
+    Route::post(
+      '/CreateBusy', 
+      $p.'BookingController@Create'
+    ) -> name('CreateBusy');
 
     Route::delete(
       '/DeleteBusy', 
       $p.'BookingController@Delete'
     ) -> name('DeleteBusy');
+
+    Route::get(
+      '/CountBusy', 
+      $p.'BookingController@Count'
+    ) -> name('CountBusy');
 
 
     if((bool)$_SESSION['user'] -> supreme) {

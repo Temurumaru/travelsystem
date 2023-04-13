@@ -474,3 +474,35 @@ $(".busy_delete_btn").on("click", function() {
   
   }
 });
+
+$('#booking_slide').slideUp();
+
+$("#booking_slide_btn").on("click", function() {
+  $('#booking_slide').slideToggle();
+});
+
+$("#booking_slide_company").on("change", function() {
+  $.ajax({
+    url: req_count_busy_url,
+    type: "get",
+    dataType: 'html',
+    headers: {
+      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    },
+    data: ({
+      tour: $("#booking_slide_tour").val(),
+      company: $("#booking_slide_company").val(),
+    }),
+    error: function(err) {
+      if(err.status == 500) {
+        alert("Интернета нету");
+      } else {
+        alert("Ошибка: "+err.status+"!");
+      }
+    },
+    success: function(data) {
+      $('#booking_slide_places').val(data);
+    }
+  });
+});
+

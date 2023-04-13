@@ -334,7 +334,10 @@
       </div>
     </div>
   </div>
-
+  
+  @php
+    use ThreadBeanPHP\C as C;
+  @endphp
   <script>
     let all_flys = 1;
     let all_flys_end = 1;
@@ -354,15 +357,47 @@
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title">Список забронировавших Агентов</h5>
+          <button class="btn btn-success mx-2" id="booking_slide_btn"><i class="bi bi-clipboard-fill"></i></button>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
+
+          @php
+            $busy = C::find("busy", "tour = ?", [$tour -> id]);
+            $places_rem = $tour -> places;
+            foreach ($busy as $item) {
+              $places_rem -= $item -> places;
+            }
+          @endphp
+
+          <div style="width: 100%;" id="booking_slide">
+            <form action="{{route('CreateBusy')}}" method="post" class="row g-3">
+              @csrf
+              <input type="hidden" name="tour" id="booking_slide_tour" value="{{$tour -> id}}">
+              <div class="col-md-12">
+                <label for="company" class="form-label">Тур операторы</label>
+                <select required class="form-select" name="company" id="booking_slide_company" aria-label="Default select example">
+                  <option selected value="">Нажмите чтобы открыть список</option>
+                  @foreach ($orgs as $org)  
+                    <option value="{{$org -> id}}">{{$org -> name}}</option>
+                  @endforeach
+                </select>
+              </div>
+              <div class="col-md-12">
+                <label for="places" class="form-label">Места</label>
+                <input required type="number" min="0" class="form-control" name="places" id="booking_slide_places" max="{{$places_rem}}" >
+              </div>
+              <div class="text-center">
+                <button type="submit" class="btn btn-success">Забронировать <i class="bi bi-bookmark-check-fill"></i></button>
+              </div>
+            </form>
+            <hr>
+          </div>
+
           <table class="table table-borderless">
             <tbody class="agent_tour_element">
 
-              @php
-                use ThreadBeanPHP\C as C;
-              @endphp
+              
 
               @foreach ($busyes as $busy)
 
@@ -374,7 +409,7 @@
               <tr>
                 <td><img src="{{(@$agent -> avatar) ? $agent -> avatar : "/assets/img/profile-img.jpg"}}" alt="Profile" class="rounded-circle" width="50px"></td>
                 <td><b>{{$org -> name}}<b></td>
-                <td>{{$agent -> full_name}}</td>
+                <td>{{@$agent -> full_name}}</td>
                 <td><b>{{$busy -> places}}</b> мест</td>
                 <td><button delid="{{$busy -> id}}" class="busy_delete_btn btn btn-danger"><i class="bi bi-trash-fill"></i></button></td>
               </tr>
@@ -393,6 +428,7 @@
 
   <script>
     const req_del_busy_url = "{{route('DeleteBusy')}}";
+    const req_count_busy_url = "{{route('CountBusy')}}";
   </script>
 
 @endsection
