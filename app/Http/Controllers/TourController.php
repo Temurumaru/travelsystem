@@ -138,7 +138,13 @@ class TourController extends Controller
 	public function Update(Request $req) {
 
 		if(isset($req -> close)) {
-			return redirect() -> route('admin') -> with('success', 'Тур "'.$req -> name.'" завершён ⛔');
+			$req -> validate([
+				'id' => 'required|numeric'
+			]);
+			$tour = C::findOne("tours", "id = ?", [$req -> id]);
+			$tour -> active = false;
+			C::store($tour);
+			return redirect() -> route('admin') -> with('warning', 'Тур "'.$req -> name.'" завершён ⛔');
 		}
 
 		$req -> validate([
