@@ -133,12 +133,12 @@ if(@$_SESSION['user']) {
     }) -> name('admin_agent_update');
 
     Route::get('/admin_tour_actives', function () {
-      $tours = C::find("tours", "active = ?", [1]);
+      $tours = array_reverse(C::find("tours", "active = ?", [1]));
       return view('admin.tour_actives', ['tours' => $tours]);
     }) -> name('admin_tour_actives');
 
     Route::get('/admin_tour_old', function () {
-      $tours = C::find("tours", "active = ?", [0]);
+      $tours = array_reverse(C::find("tours", "active = ?", [0]));
       return view('admin.tour_old', ['tours' => $tours]);
     }) -> name('admin_tour_old');
 

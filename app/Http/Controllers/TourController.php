@@ -143,6 +143,7 @@ class TourController extends Controller
 			]);
 			$tour = C::findOne("tours", "id = ?", [$req -> id]);
 			$tour -> active = false;
+			$tour -> ended_date = date("Y-m-d H:i");
 			C::store($tour);
 			return redirect() -> route('admin') -> with('warning', 'Тур "'.$req -> name.'" завершён ⛔');
 		}
