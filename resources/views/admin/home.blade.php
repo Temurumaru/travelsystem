@@ -154,12 +154,21 @@
             </tr>
           </thead>
           <tbody>
+
+            @php
+              use ThreadBeanPHP\C as C;
+            @endphp
+
             @foreach ($orgs as $org)
+
+              @php
+                $tours = C::count("tours", "company = ?", [$org -> id]);
+              @endphp
 
               <tr>
                 <th scope="row">{{$org -> id}}</th>
                 <td>{{$org -> name}}</td>
-                <td>ToDo</td>
+                <td>{{$tours}}</td>
                 <td class="d-none d-lg-block" >{{$org -> description}}</td>
                 <td class="col" >
                   <a href="{{route('admin_company_update')}}?id={{$org -> id}}" class="m-1 btn btn-warning"><i class="bi bi-pencil-fill"></i></a>
@@ -192,9 +201,6 @@
             </tr>
           </thead>
           <tbody>
-            @php
-              use ThreadBeanPHP\C as C;
-            @endphp
 
             @foreach ($agents as $agent)
               @php
