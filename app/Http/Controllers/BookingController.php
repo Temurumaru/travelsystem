@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use ThreadBeanPHP\C as C;
+use Codedge\Fpdf\Fpdf\Fpdf as FP;
 
 class BookingController extends Controller
 {
@@ -59,5 +60,65 @@ class BookingController extends Controller
 			return 0;
 		}
 		return "ERR";
+	}
+
+	public function Stat(Request $req) {
+		$tour = C::findOne("tours", "id = ?", [$req -> tour]);
+		$org = C::findOne("companys", "id = ?", [$tour -> company]);
+		$agent = C::findOne("agents", "company = ?", [$org -> id]);
+		$busyes = C::find("busy", "tour = ?", [$tour -> id]);
+
+		$fpdf = new FP;
+		$fpdf->AddPage();
+		$fpdf->SetFont('Courier', 'B', 16);
+		$fpdf -> Image((@$agent -> avatar) ? $agent -> avatar : "../public/assets/img/profile-img.jpg", 10, 10, 15, 15);
+		$fpdf->Cell(50, 40, $tour -> name." - ".$org -> name);
+
+		$i = 1;
+		$x1 = 0;
+		$y1 = 45;
+		$x2 = 210;
+		$y2 = 45;
+
+		// $j = 0;
+		// while($j < 78) {
+
+			foreach ($busyes as $busy) {
+
+				$org_busy = C::findOne("companys", "id = ?", [$busy -> company]);
+				$agent_busy = C::findOne("agents", "company = ?", [$org_busy -> id]);
+
+				$fpdf->Line($x1, $y1, $x2, $y2);
+
+				$fpdf -> Text(5, $y1+8, $i." |");
+				
+				$fpdf -> Image((@$agent_busy -> avatar) ? $agent_busy -> avatar : "../public/assets/img/profile-img.jpg", 24, $y1+2, 9, 9);
+
+				$fpdf -> Text(37, $y1+8, $org_busy -> name." | ".((@$agent_busy -> full_name) ? $agent_busy -> full_name : "Unknown")." | ".$busy -> places." places");
+
+				$y1 += 12;
+				$y2 += 12;
+
+				$fpdf->Line($x1, $y1, $x2, $y2);
+
+				// $y1 += 12;
+				// $y2 += 12;
+
+				if($y1 > 284) {
+					$fpdf->AddPage();
+
+					$y1 = 0;
+					$y2 = 0;
+				}
+
+				$i++;
+			}
+
+		// 	$j++;
+		// }
+		
+
+    $fpdf->Output();
+    exit;
 	}
 }

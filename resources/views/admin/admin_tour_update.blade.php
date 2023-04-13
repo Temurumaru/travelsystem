@@ -357,7 +357,8 @@
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title">Список забронировавших Агентов</h5>
-          <button class="btn btn-success mx-2" id="booking_slide_btn"><i class="bi bi-clipboard-fill"></i></button>
+          <button class="btn btn-primary mx-2" id="booking_slide_btn"><i class="bi bi-clipboard-fill"></i></button>
+          <a href="{{route('StatBusy')}}?tour={{$tour -> id}}" class="btn btn-success mx-2"><i class="bi bi-download"></i></i></a>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">

@@ -203,6 +203,11 @@ if(@$_SESSION['user']) {
       $p.'BookingController@Count'
     ) -> name('CountBusy');
 
+    Route::get(
+      '/StatBusy', 
+      $p.'BookingController@Stat'
+    ) -> name('StatBusy');
+
 
     if((bool)$_SESSION['user'] -> supreme) {
 
