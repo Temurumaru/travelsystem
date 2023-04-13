@@ -442,3 +442,35 @@ $("#close_tour_btn_imitator").on("click", function() {
     $('#close_tour_btn').trigger('click');
   }
 });
+
+$(".busy_delete_btn").on("click", function() {
+  if(confirm('Вы точно хотите удалить полностью Бронь агента!?')) {
+
+    $.ajax({
+      url: req_del_busy_url,
+      type: "delete",
+      dataType: 'html',
+      headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      },
+      data: ({
+        id: $(this).attr("delid"),
+      }),
+      error: function(err) {
+        if(err.status == 500) {
+          alert("Интернета нету");
+        } else {
+          alert("Ошибка: "+err.status+"!");
+        }
+      },
+      success: function(data) {
+        if(data == "OK"){
+          alert("Бронь удалена");
+          location.reload();
+        } 
+        if(data == "ERR") alert("Ошибка удаление пожалуйста перезагрузите страницу и повторите попытку!");
+      }
+    });
+  
+  }
+});

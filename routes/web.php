@@ -107,8 +107,9 @@ if(@$_SESSION['user']) {
     Route::get('/admin_tour_update', function (Request $req) {
       $orgs = C::findAll("companys");
       $tour = C::findOne("tours", "id = ?", [$req -> id]);
+      $busyes = C::find("busy", "tour = ?", [$req -> id]);
 
-      return view('admin.admin_tour_update', ['orgs' => $orgs, 'tour' => $tour]);
+      return view('admin.admin_tour_update', ['orgs' => $orgs, 'tour' => $tour, 'busyes' => $busyes]);
     }) -> name('admin_tour_update');
 
     Route::get('/admin_company_create', function () {
@@ -186,6 +187,12 @@ if(@$_SESSION['user']) {
       '/DeleteTour', 
       $p.'TourController@Delete'
     ) -> name('DeleteTour');
+
+
+    Route::delete(
+      '/DeleteBusy', 
+      $p.'BookingController@Delete'
+    ) -> name('DeleteBusy');
 
 
     if((bool)$_SESSION['user'] -> supreme) {

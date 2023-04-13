@@ -59,7 +59,7 @@
           <div class="col card-2 mb-4">
             <a href="/tour/" class="un-style">
               <div class="row-lg-12 cnt">
-                <img src="{{(@$agent -> avatar) ? $agent -> avatar : "assets/img/profile-img.jpg"}}" alt="Profile" class="rounded-circle" width="50rem">
+                <img src="{{(@$agent -> avatar) ? $agent -> avatar : "/assets/img/profile-img.jpg"}}" alt="Profile" class="rounded-circle" width="50rem">
                 <span class="mx-3 lead"><b>{{$org -> name}}</b></span>
                 |
                 <span class="mx-3 lead">Цена <q><b>{{$tour -> price}}$</b></q></span>

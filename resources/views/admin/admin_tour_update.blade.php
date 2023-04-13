@@ -51,7 +51,7 @@
           <div class="col-md-12">
             <select required class="form-select" name="company" aria-label="Default select example">
               @foreach ($orgs as $org)  
-                <option {{(($tour -> org == $org -> id) ? "selected" : '')}} value="{{$org -> id}}">{{$org -> name}}</option>
+                <option {{(($tour -> company == $org -> id) ? "selected" : '')}} value="{{$org -> id}}">{{$org -> name}}</option>
               @endforeach
             </select>
           </div>
@@ -359,48 +359,28 @@
         <div class="modal-body">
           <table class="table table-borderless">
             <tbody class="agent_tour_element">
+
+              @php
+                use ThreadBeanPHP\C as C;
+              @endphp
+
+              @foreach ($busyes as $busy)
+
+              @php
+                $org = C::findOne("companys", "id = ?", [$busy -> company]);
+                $agent = C::findOne("agents", "company = ?", [$org -> id]);
+              @endphp
+                
               <tr>
-                <td><img src="assets/img/profile-img.jpg" alt="Profile" class="rounded-circle" width="50px"></td>
-                <td><b>Yetti Travel<b></td>
-                <td>Teshavoy Teshavoyev</td>
-                <td><b>28</b> мест</td>
+                <td><img src="{{(@$agent -> avatar) ? $agent -> avatar : "/assets/img/profile-img.jpg"}}" alt="Profile" class="rounded-circle" width="50px"></td>
+                <td><b>{{$org -> name}}<b></td>
+                <td>{{$agent -> full_name}}</td>
+                <td><b>{{$busy -> places}}</b> мест</td>
+                <td><button delid="{{$busy -> id}}" class="busy_delete_btn btn btn-danger"><i class="bi bi-trash-fill"></i></button></td>
               </tr>
-              <tr>
-                <td><img src="assets/img/profile-img.jpg" alt="Profile" class="rounded-circle" width="50px"></td>
-                <td><b>Yetti Travel<b></td>
-                <td>Teshavoy Teshavoyev</td>
-                <td><b>28</b> мест</td>
-              </tr>
-              <tr>
-                <td><img src="assets/img/profile-img.jpg" alt="Profile" class="rounded-circle" width="50px"></td>
-                <td><b>Yetti Travel<b></td>
-                <td>Teshavoy Teshavoyev</td>
-                <td><b>28</b> мест</td>
-              </tr>
-              <tr>
-                <td><img src="assets/img/profile-img.jpg" alt="Profile" class="rounded-circle" width="50px"></td>
-                <td><b>Yetti Travel<b></td>
-                <td>Teshavoy Teshavoyev</td>
-                <td><b>28</b> мест</td>
-              </tr>
-              <tr>
-                <td><img src="assets/img/profile-img.jpg" alt="Profile" class="rounded-circle" width="50px"></td>
-                <td><b>Yetti Travel<b></td>
-                <td>Teshavoy Teshavoyev</td>
-                <td><b>28</b> мест</td>
-              </tr>
-              <tr>
-                <td><img src="assets/img/profile-img.jpg" alt="Profile" class="rounded-circle" width="50px"></td>
-                <td><b>Yetti Travel<b></td>
-                <td>Teshavoy Teshavoyev</td>
-                <td><b>28</b> мест</td>
-              </tr>
-              <tr>
-                <td><img src="assets/img/profile-img.jpg" alt="Profile" class="rounded-circle" width="50px"></td>
-                <td><b>Yetti Travel<b></td>
-                <td>Teshavoy Teshavoyev</td>
-                <td><b>28</b> мест</td>
-              </tr>
+
+              @endforeach
+
             </tbody>
           </table>
         </div>
@@ -410,5 +390,9 @@
       </div>
     </div>
   </div>
+
+  <script>
+    const req_del_busy_url = "{{route('DeleteBusy')}}";
+  </script>
 
 @endsection
