@@ -1,9 +1,9 @@
 @extends('layouts.agent')
 
 
-@section('title', 'Тур [Название] - [Оператор]')
+@section('title', 'Тур '.$tour -> name.' - '.$org -> name)
 @section('header_title', APP_NAME)
-@section('sub_title', 'Тур [Название]')
+@section('sub_title', 'Тур '.$tour -> name)
 
 @section('username', 'Teshavoy Teshavoyev')
 @section('usersubname', 'Yetti Travel')
@@ -11,10 +11,55 @@
 
 @section('content')
 
+  @php
+
+    use ThreadBeanPHP\C as C;
+
+    $agent = C::findOne("agents", "company = ?", [$org -> id]);
+
+    $busy = C::find("busy", "tour = ?", [$tour -> id]);
+    $places_rem = $tour -> places;
+    foreach ($busy as $item) {
+      $places_rem -= $item -> places;
+    }
+
+    $start_leave_1 = json_decode($tour -> start_leave_1, true);
+    $start_come_2 = json_decode(@$tour -> start_come_2, true);
+    $start_leave_2 = json_decode(@$tour -> start_leave_2, true);
+    $start_come_3 = json_decode(@$tour -> start_come_3, true);
+    $start_leave_3 = json_decode(@$tour -> start_leave_3, true);
+    $start_come_4 = json_decode($tour -> start_come_4, true);
+
+    $end_leave_1 = json_decode($tour -> end_leave_1, true);
+    $end_come_2 = json_decode(@$tour -> end_come_2, true);
+    $end_leave_2 = json_decode(@$tour -> end_leave_2, true);
+    $end_come_3 = json_decode(@$tour -> end_come_3, true);
+    $end_leave_3 = json_decode(@$tour -> end_leave_3, true);
+    $end_come_4 = json_decode($tour -> end_come_4, true);
+
+    if(@$tour -> city_days_2) {
+      $days = $tour -> city_days_1 + $tour -> city_days_2;
+      $nights = $tour -> city_nights_1 + $tour -> city_nights_2;
+    } else {
+      $days = $tour -> city_days_1;
+      $nights = $tour -> city_nights_1;
+    }
+
+
+    // $date1 = DateTime::createFromFormat('Y-m-d H:i', ($start_come_4['date'].' '.$start_leave_1['time'])); // первая дата
+    // $date2 = DateTime::createFromFormat('Y-m-d H:i', ($end_leave_1['date'].' '.$end_leave_1['time'])); // вторая дата
+
+    // $diff = $date1->diff($date2);
+    // $total_hours = $diff->h + $diff->days * 24;
+
+    // echo $total_hours; // вывод общего количества часов
+
+  @endphp
+
   <div class="col-lg-6">
     <div class="card">
       <div class="card-body profile-overview">
-        <h5 class="card-title hdr">Путь туда. Berlin <i class="bi bi-chevron-double-right"></i> Buenos Aires</h5>
+        <h5 class="card-title hdr">Путь туда. {{$start_leave_1['city']}} <i class="bi bi-chevron-double-right"></i> {{$start_come_4['city']}}</h5>
         <div class="activity">
 
           <div class="activity-item d-flex">
@@ -112,7 +157,7 @@
   <div class="col-lg-6">
     <div class="card">
       <div class="card-body profile-overview">
-        <h5 class="card-title hdr">Путь обратно. Buenos Aires <i class="bi bi-chevron-double-right"></i> Berlin</h5>
+        <h5 class="card-title hdr">Путь обратно. {{$end_leave_1['city']}} <i class="bi bi-chevron-double-right"></i> {{$end_come_4['city']}}</h5>
         <div class="activity">
 
           <div class="activity-item d-flex">
@@ -216,7 +261,6 @@
 
         <p class="lead-p">
           <b>Город: </b>Медина (<b>8</b> дней, <b>7</b> ночей) <br>
-          {{-- <b>Время прибывания: </b><b>8</b>дней <b>7</b>ночей <br> --}}
           <b>Питание: </b><b>2</b> раза (в день) <br>
           <b>Отель: </b>Rammstein Hotel ★★★★ <br>
           <b>Расстояние: </b><b>700</b> м <br>
@@ -228,7 +272,6 @@
 
         <p class="lead-p">
           <b>Город: </b>Мекка (<b>8</b> дней, <b>7</b> ночей) <br>
-          {{-- <b>Время прибывания: </b><b>8</b>дней <b>7</b>ночей <br> --}}
           <b>Питание: </b><b>2</b> раза (в день) <br>
           <b>Отель: </b>Rammstein Hotel ★★★★ <br>
           <b>Расстояние: </b><b>700</b> м <br>
@@ -264,7 +307,6 @@
         <hr>
         <form action="" method="post">
           <div class="row mb-2 mx-1">
-            {{-- <input type="range" class="form-range" id="place_slider" min="1" max="5" step="1" value="1" id="customRange2"> --}}
             <div class="row cnt">
               <div class="col-md-4 lead">
                 Забронировать
@@ -279,9 +321,6 @@
               </div>
             </div>
           </div>
-          {{-- <div class="text-center">
-            <button type="submit" class="btn btn-primary">Забронировать</button>
-          </div> --}}
         </form>
       </div>
     </div>

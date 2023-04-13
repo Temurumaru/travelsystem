@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('layouts.agent')
 
 
 @section('title', 'Завершённые туры')
@@ -59,7 +59,7 @@
           @endphp
 
           <div class="col card-2 mb-4">
-            <a href="/tour/" class="un-style">
+            <a href="/tour?id={{$tour -> id}}" class="un-style">
               <div class="row-lg-12 cnt">
                 <img src="{{(@$agent -> avatar) ? "/uploads/avatar/".$agent -> avatar : "/assets/img/profile-img.jpg"}}" alt="Profile" class="rounded-circle" width="50rem">
                 <span class="mx-3 lead"><b>{{$org -> name}}</b></span>
@@ -82,7 +82,6 @@
                   {!!(@$tour -> start_come_3) ? '<li class="breadcrumb-item lead">'.$city_start_3['city'].'</li>' : ""!!}
                   <li class="breadcrumb-item lead active">{{$city_start_4['city']}}</li>
                   <span class="lead-p" style="margin-left:0.5rem;margin-top:-2px;"><b><i>{{$city_start_4['date']}}</i></b>
-                    <a href="{{route('admin_tour_update')}}?id={{$tour -> id}}" class="btn btn-warning mx-2"><i class="bi bi-pencil-fill"></i></a>
                   </span>
                 </ol>
               </nav>
@@ -94,7 +93,6 @@
                   {!!(@$tour -> end_come_3) ? '<li class="breadcrumb-item lead">'.$city_end_3['city'].'</li>' : ""!!}
                   <li class="breadcrumb-item lead active">{{$city_end_4['city']}}</li>
                   <span class="lead-p" style="margin-left:0.5rem;margin-top:-2px;"><b><i>{{$city_end_4['date']}}</i></b>
-                    <button delid="{{$tour -> id}}" class="tour_delete_btn btn btn-danger mx-2"><i class="bi bi-trash-fill"></i></button>
                   </span>
                 </ol>
               </nav>
@@ -108,7 +106,4 @@
     </div>
   </div>
 
-  <script>
-    const req_del_tour_url = "{{route('DeleteTour')}}";
-  </script>
 @endsection

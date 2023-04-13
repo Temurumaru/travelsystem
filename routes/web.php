@@ -250,15 +250,16 @@ if(@$_SESSION['user']) {
       return view('agent.home');
     }) -> name('agent');
 
-    Route::get('/tour', function () {
-      return view('agent.tour');
+    Route::get('/tour', function (Request $req) {
+      $tour = C::findOne("tours", "id = ?", [$req -> id]);
+      $org = C::findOne("companys", "id = ?", [$tour -> company]);
+      $busyes = C::find("busy", "tour = ?", [$req -> id]);
+
+      return view('agent.tour', ['org' => $org, 'tour' => $tour, 'busyes' => $busyes]);
     }) -> name('tour');
 
     Route::get('/tour_booked', function () {
-
       $busyes = C::find('busy', 'company = ?', [$_SESSION['user'] -> company]);
-      
-
       return view('agent.tour_booked', ['busyes' => $busyes]);
     }) -> name('tour_booked');
 
