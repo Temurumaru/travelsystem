@@ -80,8 +80,8 @@ class BookingController extends Controller
 		$x2 = 210;
 		$y2 = 45;
 
-		// $j = 0;
-		// while($j < 78) {
+		$j = 0;
+		while($j < ((@$req -> long) ? 100 : 1)) {
 
 			foreach ($busyes as $busy) {
 
@@ -114,8 +114,8 @@ class BookingController extends Controller
 				$i++;
 			}
 
-		// 	$j++;
-		// }
+			$j++;
+		}
 		
 
     $fpdf->Output();
