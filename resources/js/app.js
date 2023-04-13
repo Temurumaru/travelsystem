@@ -165,7 +165,7 @@ $("#close_tour_btn_imitator").on("click", function() {
 });
 
 $(".busy_delete_btn").on("click", function() {
-  if(confirm('Вы точно хотите удалить полностью Бронь агента!?')) {
+  if(confirm('Вы точно хотите удалить полностью Бронь!?')) {
 
     $.ajax({
       url: req_del_busy_url,

@@ -188,16 +188,6 @@ if(@$_SESSION['user']) {
       $p.'TourController@Delete'
     ) -> name('DeleteTour');
 
-    Route::post(
-      '/CreateBusy', 
-      $p.'BookingController@Create'
-    ) -> name('CreateBusy');
-
-    Route::delete(
-      '/DeleteBusy', 
-      $p.'BookingController@Delete'
-    ) -> name('DeleteBusy');
-
     Route::get(
       '/CountBusy', 
       $p.'BookingController@Count'
@@ -243,6 +233,16 @@ if(@$_SESSION['user']) {
     // ) -> name('CreateClient');
   }
 
+  Route::post(
+    '/CreateBusy', 
+    $p.'BookingController@Create'
+  ) -> name('CreateBusy');
+
+  Route::delete(
+    '/DeleteBusy', 
+    $p.'BookingController@Delete'
+  ) -> name('DeleteBusy');
+
   // Agent segment
 
   if($_SESSION['user'] -> permission == "agent") {
@@ -255,15 +255,22 @@ if(@$_SESSION['user']) {
     }) -> name('tour');
 
     Route::get('/tour_booked', function () {
-      return view('agent.tour_booked');
+
+      $busyes = C::find('busy', 'company = ?', [$_SESSION['user'] -> company]);
+      
+
+      return view('agent.tour_booked', ['busyes' => $busyes]);
     }) -> name('tour_booked');
 
     Route::get('/tour_actives', function () {
-      return view('agent.tour_actives');
+      $agent_tours = array_reverse(C::find("tours", "active = ? AND company = ?", [1, $_SESSION['user'] -> company]));
+      $tours = array_reverse(C::find("tours", "active = ? AND company != ?", [1, $_SESSION['user'] -> company]));
+      return view('agent.tour_actives', ['tours' => $tours, 'agent_tours' => $agent_tours]);
     }) -> name('tour_actives');
 
     Route::get('/tour_old', function () {
-      return view('agent.tour_old');
+      $tours = array_reverse(C::find("tours", "active = ?", [0]));
+      return view('agent.tour_old', ['tours' => $tours]);
     }) -> name('tour_old');
   }
 
