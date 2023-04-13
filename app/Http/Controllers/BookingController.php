@@ -101,7 +101,7 @@ class BookingController extends Controller
 					$bonus = $tour -> bonus * $busy -> places;
 				}
 
-				$fpdf -> Text(37, $y1+8, $org_busy -> name." | ".((@$agent_busy -> full_name) ? $agent_busy -> full_name : "Unknown")." | ".$busy -> places." place"." | ".$bonus." USD");
+				$fpdf -> Text(37, $y1+8, $org_busy -> name." | ".((@$agent_busy -> full_name) ? $agent_busy -> full_name : "Unknown")." | ".$busy -> places." place"." | ".$bonus." $");
 
 				$fpdf->SetFont('Courier', 'B', 16);
 
