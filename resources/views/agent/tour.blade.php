@@ -46,11 +46,79 @@
     }
 
 
-    // $date1 = DateTime::createFromFormat('Y-m-d H:i', ($start_come_4['date'].' '.$start_leave_1['time'])); // первая дата
-    // $date2 = DateTime::createFromFormat('Y-m-d H:i', ($end_leave_1['date'].' '.$end_leave_1['time'])); // вторая дата
+    $date1 = DateTime::createFromFormat('Y-m-d H:i', ($start_leave_1['date'].' '.$start_leave_1['time']));
+    $date6 = DateTime::createFromFormat('Y-m-d H:i', ($start_come_4['date'].' '.$start_come_4['time']));
 
-    // $diff = $date1->diff($date2);
-    // $total_hours = $diff->h + $diff->days * 24;
+    if(@$start_come_2) {
+      $date2 = DateTime::createFromFormat('Y-m-d H:i', ($start_come_2['date'].' '.$start_come_2['time']));
+      $date3 = DateTime::createFromFormat('Y-m-d H:i', ($start_leave_2['date'].' '.$start_leave_2['time']));
+
+      $diff = $date1->diff($date2);
+      $hours1_2 = $diff->h + $diff->days * 24;
+      
+      $diff = $date2->diff($date3);
+      $hours2_3 = $diff->h + $diff->days * 24;
+    }
+    
+    if(@$start_come_2 && @$start_come_3) {  
+      $date3 = DateTime::createFromFormat('Y-m-d H:i', ($start_leave_2['date'].' '.$start_leave_2['time']));
+      $date4 = DateTime::createFromFormat('Y-m-d H:i', ($start_come_3['date'].' '.$start_come_3['time']));
+      $diff = $date3->diff($date4);
+      $hours3_4 = $diff->h + $diff->days * 24;
+    } else {
+      $diff = $date1->diff($date6);
+      $hours3_4 = $diff->h + $diff->days * 24;
+    }
+        
+    if(@$start_come_3) {
+      $date4 = DateTime::createFromFormat('Y-m-d H:i', ($start_come_3['date'].' '.$start_come_3['time']));
+      $date5 = DateTime::createFromFormat('Y-m-d H:i', ($start_leave_3['date'].' '.$start_leave_3['time']));
+
+      $diff = $date4->diff($date5);
+      $hours4_5 = $diff->h + $diff->days * 24;
+
+      $diff = $date5->diff($date6);
+      $hours5_6 = $diff->h + $diff->days * 24;
+    }
+
+
+    $date_end1 = DateTime::createFromFormat('Y-m-d H:i', ($end_leave_1['date'].' '.$end_leave_1['time']));
+    $date_end6 = DateTime::createFromFormat('Y-m-d H:i', ($end_come_4['date'].' '.$end_come_4['time']));
+    
+    if(@$end_come_2) {
+      $date_end2 = DateTime::createFromFormat('Y-m-d H:i', ($end_come_2['date'].' '.$end_come_2['time']));
+      $date_end3 = DateTime::createFromFormat('Y-m-d H:i', ($end_leave_2['date'].' '.$end_leave_2['time']));
+
+      $diff = $date_end1->diff($date_end2);
+      $end_hours1_2 = $diff->h + $diff->days * 24;
+      
+      $diff = $date_end2->diff($date_end3);
+      $end_hours2_3 = $diff->h + $diff->days * 24;
+    }
+    
+    if(@$end_come_2 && @$end_come_3) {  
+      $date_end3 = DateTime::createFromFormat('Y-m-d H:i', ($end_leave_2['date'].' '.$end_leave_2['time']));
+      $date_end4 = DateTime::createFromFormat('Y-m-d H:i', ($end_come_3['date'].' '.$end_come_3['time']));
+      $diff = $date_end3->diff($date_end4);
+      $end_hours3_4 = $diff->h + $diff->days * 24;
+    } else {
+      $diff = $date_end1->diff($date_end6);
+      $end_hours3_4 = $diff->h + $diff->days * 24;
+    }
+        
+    if(@$end_come_3) {
+      $date_end4 = DateTime::createFromFormat('Y-m-d H:i', ($end_come_3['date'].' '.$end_come_3['time']));
+      $date_end5 = DateTime::createFromFormat('Y-m-d H:i', ($end_leave_3['date'].' '.$end_leave_3['time']));
+
+      $diff = $date_end4->diff($date_end5);
+      $end_hours4_5 = $diff->h + $diff->days * 24;
+
+      $diff = $date_end5->diff($date_end6);
+      $end_hours5_6 = $diff->h + $diff->days * 24;
+    }
+
+    
+    
 
     // echo $total_hours; // вывод общего количества часов
 
@@ -63,90 +131,94 @@
         <div class="activity">
 
           <div class="activity-item d-flex">
-            <div class="activite-label lead">5 Апр 13:00</div>
+            <div class="activite-label lead">{{$start_leave_1['date']." ".$start_leave_1['time']}}</div>
             <i class="bi bi-airplane-fill rot-45 activity-badge text-danger align-self-start"></i>
             <div class="activity-content lead">
-              Berlin Вылет
+              {{$start_leave_1['city']}}
             </div>
           </div><!-- End activity item-->
 
+          @if(@$start_come_2)
           <div class="activity-item d-flex">
             <div class="activite-label lead"></div>
             <i class="bi bi-alarm-fill activity-badge text-badge align-self-start"></i>
             <div class="activity-content lead">
-              5ч
+              {{$hours1_2}}ч
             </div>
           </div><!-- End activity item-->
-
+          
           <div class="activity-item d-flex">
-            <div class="activite-label lead">5 Апр 20:10</div>
+            <div class="activite-label lead">{{$start_come_2['date']." ".$start_come_2['time']}}</div>
             <i class="bi bi-airplane-fill rot-135 activity-badge text-success align-self-start"></i>
             <div class="activity-content lead">
-              London Прилёт
+              {{$start_come_2['city']}}
             </div>
           </div><!-- End activity item-->
-
+          
           <div class="activity-item d-flex">
             <div class="activite-label lead"></div>
             <i class="bi bi-alarm-fill activity-badge text-badge align-self-start"></i>
             <div class="activity-content lead">
-              5ч
+              {{$hours2_3}}ч
             </div>
           </div><!-- End activity item-->
-
+          
           <div class="activity-item d-flex">
-            <div class="activite-label lead">5 Апр 23:30</div>
+            <div class="activite-label lead">{{$start_leave_2['date']." ".$start_leave_2['time']}}</div>
             <i class="bi bi-airplane-fill rot-45 activity-badge text-danger align-self-start"></i>
             <div class="activity-content lead">
-              London Вылет
+              {{$start_leave_2['city']}}
             </div>
           </div><!-- End activity item-->
-
+          @endif
+          
           <div class="activity-item d-flex">
             <div class="activite-label lead"></div>
             <i class="bi bi-alarm-fill activity-badge text-badge align-self-start"></i>
             <div class="activity-content lead">
-              5ч
+              {{$hours3_4}}ч
             </div>
           </div><!-- End activity item-->
 
+          @if(@$start_come_3)
           <div class="activity-item d-flex">
-            <div class="activite-label lead">6 Апр 09:00</div>
+            <div class="activite-label lead">{{$start_come_3['date']." ".$start_come_3['time']}}</div>
             <i class="bi bi-airplane-fill rot-135 activity-badge text-success align-self-start"></i>
             <div class="activity-content lead">
-              Istanbul Прилёт
+              {{$start_come_3['city']}}
             </div>
           </div><!-- End activity item-->
-
+          
           <div class="activity-item d-flex">
             <div class="activite-label lead"></div>
             <i class="bi bi-alarm-fill activity-badge text-badge align-self-start"></i>
             <div class="activity-content lead">
-              5ч
+              {{$hours4_5}}ч
             </div>
           </div><!-- End activity item-->
 
           <div class="activity-item d-flex">
-            <div class="activite-label lead">5 Апр 23:30</div>
+            <div class="activite-label lead">{{$start_leave_3['date']." ".$start_leave_3['time']}}</div>
             <i class="bi bi-airplane-fill rot-45 activity-badge text-danger align-self-start"></i>
             <div class="activity-content lead">
-              Istanbul Вылет
+              {{$start_leave_3['city']}}
             </div>
           </div><!-- End activity item-->
-
+          
           <div class="activity-item d-flex">
             <div class="activite-label lead"></div>
             <i class="bi bi-alarm-fill activity-badge text-badge align-self-start"></i>
             <div class="activity-content lead">
-              5ч
+              {{$hours5_6}}ч
             </div>
           </div><!-- End activity item-->
+          @endif
 
           <div class="activity-item d-flex">
-            <div class="activite-label lead">6 Апр 09:00</div>
+            <div class="activite-label lead">{{$start_come_4['date']." ".$start_come_4['time']}}</div>
             <i class="bi bi-airplane-fill rot-135 activity-badge text-success align-self-start"></i>
             <div class="activity-content lead">
-              Buenos Aires Прилёт
+              {{$start_come_4['city']}}
             </div>
           </div><!-- End activity item-->
 
@@ -161,26 +233,27 @@
         <div class="activity">
 
           <div class="activity-item d-flex">
-            <div class="activite-label lead">5 Апр 13:00</div>
+            <div class="activite-label lead">{{$end_leave_1['date']." ".$end_leave_1['time']}}</div>
             <i class="bi bi-airplane-fill rot-45 activity-badge text-danger align-self-start"></i>
             <div class="activity-content lead">
-              Berlin Вылет
+              {{$start_leave_1['city']}}
             </div>
           </div><!-- End activity item-->
 
+          @if(@$end_come_2)
           <div class="activity-item d-flex">
             <div class="activite-label lead"></div>
             <i class="bi bi-alarm-fill activity-badge text-badge align-self-start"></i>
             <div class="activity-content lead">
-              5ч
+              {{$end_hours1_2}}ч
             </div>
           </div><!-- End activity item-->
 
           <div class="activity-item d-flex">
-            <div class="activite-label lead">5 Апр 20:10</div>
+            <div class="activite-label lead">{{$end_come_2['date']." ".$end_come_2['time']}}</div>
             <i class="bi bi-airplane-fill rot-135 activity-badge text-success align-self-start"></i>
             <div class="activity-content lead">
-              London Прилёт
+              {{$start_come_2['city']}}
             </div>
           </div><!-- End activity item-->
 
@@ -188,31 +261,33 @@
             <div class="activite-label lead"></div>
             <i class="bi bi-alarm-fill activity-badge text-badge align-self-start"></i>
             <div class="activity-content lead">
-              5ч
+              {{$end_hours2_3}}ч
             </div>
           </div><!-- End activity item-->
 
           <div class="activity-item d-flex">
-            <div class="activite-label lead">5 Апр 23:30</div>
+            <div class="activite-label lead">{{$end_leave_2['date']." ".$end_leave_2['time']}}</div>
             <i class="bi bi-airplane-fill rot-45 activity-badge text-danger align-self-start"></i>
             <div class="activity-content lead">
-              London Вылет
+              {{$start_leave_2['city']}}
             </div>
           </div><!-- End activity item-->
+          @endif
 
           <div class="activity-item d-flex">
             <div class="activite-label lead"></div>
             <i class="bi bi-alarm-fill activity-badge text-badge align-self-start"></i>
             <div class="activity-content lead">
-              5ч
+              {{$end_hours3_4}}ч
             </div>
           </div><!-- End activity item-->
 
+          @if(@$end_come_3)
           <div class="activity-item d-flex">
-            <div class="activite-label lead">6 Апр 09:00</div>
+            <div class="activite-label lead">{{$end_come_3['date']." ".$end_come_3['time']}}</div>
             <i class="bi bi-airplane-fill rot-135 activity-badge text-success align-self-start"></i>
             <div class="activity-content lead">
-              Istanbul Прилёт
+              {{$start_come_3['city']}}
             </div>
           </div><!-- End activity item-->
 
@@ -220,15 +295,15 @@
             <div class="activite-label lead"></div>
             <i class="bi bi-alarm-fill activity-badge text-badge align-self-start"></i>
             <div class="activity-content lead">
-              5ч
+              {{$end_hours4_5}}ч
             </div>
           </div><!-- End activity item-->
 
           <div class="activity-item d-flex">
-            <div class="activite-label lead">5 Апр 23:30</div>
+            <div class="activite-label lead">{{$end_leave_3['date']." ".$end_leave_3['time']}}</div>
             <i class="bi bi-airplane-fill rot-45 activity-badge text-danger align-self-start"></i>
             <div class="activity-content lead">
-              Istanbul Вылет
+              {{$start_leave_3['city']}}
             </div>
           </div><!-- End activity item-->
 
@@ -236,15 +311,16 @@
             <div class="activite-label lead"></div>
             <i class="bi bi-alarm-fill activity-badge text-badge align-self-start"></i>
             <div class="activity-content lead">
-              5ч
+              {{$end_hours5_6}}ч
             </div>
           </div><!-- End activity item-->
+          @endif
 
           <div class="activity-item d-flex">
-            <div class="activite-label lead">6 Апр 09:00</div>
+            <div class="activite-label lead">{{$end_come_4['date']." ".$end_come_4['time']}}</div>
             <i class="bi bi-airplane-fill rot-135 activity-badge text-success align-self-start"></i>
             <div class="activity-content lead">
-              Buenos Aires Прилёт
+              {{$start_come_4['city']}}
             </div>
           </div><!-- End activity item-->
 
