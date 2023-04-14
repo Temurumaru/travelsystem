@@ -1,2 +1,2 @@
-# Spin Travel
+# Partner Travel
 ### [site].uz
