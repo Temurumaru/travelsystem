@@ -398,7 +398,23 @@ $org_h = C::findOne("companys", "id = ?", [$_SESSION['user'] -> company]);
 
   <div class="col-lg-6">
     <div class="card">
-      <div class="card-body">
+      @if($tour -> active)
+      @php
+          
+        $max_places = 0;
+        if($_SESSION['user'] -> company == $tour -> company || $tour -> places_limit == null || $tour -> places_limit == 0) {
+          $max_places = $busy -> places + $places_rem;
+        } else {
+          if($places_rem < $tour -> places_limit) {
+            $max_places = $busy -> places + abs($busy -> places - $tour -> places_limit);
+          } else {
+            $max_places = $tour -> places_limit;
+          }
+        }
+
+        
+      @endphp
+      <form method="post" action="{{route('CreateBusy')}}" class="card-body">
         @csrf
         <input type="hidden" name="tour" value="{{$tour -> id}}">
         <input type="hidden" name="company" value="{{$_SESSION['user'] -> company}}">
@@ -415,8 +431,45 @@ $org_h = C::findOne("companys", "id = ?", [$_SESSION['user'] -> company]);
           <h3 class="col-md-auto">Всего мест <b>{{$tour -> places}}</b></h3>
           <h3 class="col-md-auto">Свободно <b>{{$places_rem}}</b></h3>
         </div>
+        <hr>
+        <form action="" method="post">
+          <div class="row mb-2 mx-1">
+            <div class="row cnt">
+              <div class="col-md-4 lead">
+                Забронировать
+              </div>
+              <div class="col-md-5 my-2">
+                <input type="number" class="form-control" name="places" placeholder="Введите кол-во мест" value="{{@$busy -> places}}" min="0" max="{{$max_places}}" step="1">
+                
+              </div>
+              <div class="col-md-3">
+                
+                <button type="submit" class="btn btn-primary">Забронировать</button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </form>
+      @else
+      <div class="card-body">
+        <input type="hidden" name="tour" value="{{$tour -> id}}">
+        <input type="hidden" name="company" value="{{$_SESSION['user'] -> company}}">
+        
+        <div class="card-title hdr">Бронирование 
+          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#largeModal">
+            <i class="bi bi-eye-fill"></i>
+          </button>
+        </div>
+        
+        <h3 id="price" bonus="{{$tour -> bonus}}" class="unselectable">Цена тура: <b>{{$tour -> price}}$</b></h3>
+        
+        <div class="row">
+          <h3 class="col-md-auto">Всего мест <b>{{$tour -> places}}</b></h3>
+          <h3 class="col-md-auto">Свободно <b>{{$places_rem}}</b></h3>
+        </div>
       </div>
     </div>
+    @endif
 
   </div>
 

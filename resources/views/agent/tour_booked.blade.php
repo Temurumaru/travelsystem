@@ -87,7 +87,8 @@ $org_h = C::findOne("companys", "id = ?", [$_SESSION['user'] -> company]);
                 {!!(@$tour -> start_come_2) ? '<li class="breadcrumb-item lead">'.$city_start_2['city'].'</li>' : ""!!}
                 {!!(@$tour -> start_come_3) ? '<li class="breadcrumb-item lead">'.$city_start_3['city'].'</li>' : ""!!}
                 <li class="breadcrumb-item lead active">{{$city_start_4['city']}}</li>
-                <span class="lead-p" style="margin-left:0.5rem;margin-top:-2px;"><b><i>{{$city_start_4['date']}}</i></b>
+                <span class="lead-p" style="margin-left:0.5rem;margin-top:-2px;"><b><i>{{$city_start_4['date']}}</i>
+                | Забронировано {{@$busy -> places}}</b>
                 </span>
               </ol>
             </nav>
