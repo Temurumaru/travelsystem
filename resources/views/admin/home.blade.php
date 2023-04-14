@@ -7,6 +7,10 @@
 
 @section('content')
 
+  @php
+    use ThreadBeanPHP\C as C;
+  @endphp
+
   <div class="col-xl-3">
 
     <div class="card">
@@ -31,6 +35,15 @@
     <div class="col">
 
       <div class="row">
+        @php
+          $agents_count = C::count("agents");
+          $tours_count = C::count("tours", "active = ?", [1]);
+          $places_stat_db = C::find("tours", "active = ?", [1]);
+          $places_stat = 0;
+          foreach ($places_stat_db as $val) {
+            $places_stat += $val -> places;
+          }
+        @endphp
        
         <div class="col-xxl-4 col-md-6">
           <div class="card info-card sales-card">
@@ -43,7 +56,7 @@
                   <i class="bi bi-airplane-engines"></i>
                 </div>
                 <div class="ps-3">
-                  <h6>500</h6>
+                  <h6>{{$places_stat}}</h6>
                 </div>
               </div>
             </div>
@@ -62,7 +75,7 @@
                 <i class="bi bi-globe-central-south-asia"></i>
                </div>
                <div class="ps-3">
-                 <h6>8</h6>
+                 <h6>{{$tours_count}}</h6>
                </div>
              </div>
            </div>
@@ -83,7 +96,7 @@
                  <i class="bi bi-people"></i>
                </div>
                <div class="ps-3">
-                 <h6>12</h6>
+                 <h6>{{$agents_count}}</h6>
                </div>
              </div>
       
@@ -154,10 +167,6 @@
             </tr>
           </thead>
           <tbody>
-
-            @php
-              use ThreadBeanPHP\C as C;
-            @endphp
 
             @foreach ($orgs as $org)
 

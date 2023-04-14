@@ -62,6 +62,7 @@
               @php
                 $org = C::findOne("companys", "id = ?", [$busy -> company]);
                 $tour = C::findOne("tours", "id = ?", [$busy -> tour]);
+                if(!$tour -> active) continue;
                 $agent = C::findOne("agents", "company = ?", [$org -> id]);
 
                 $bonus = 0;

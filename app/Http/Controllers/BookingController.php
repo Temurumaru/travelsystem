@@ -16,6 +16,11 @@ class BookingController extends Controller
 			}
 
 			$tour = C::findOne("tours", "id = ?", [$req -> tour]);
+
+			if(!$tour -> active) {
+				return redirect() -> back() -> withErrors(['tour' => 'Тур закрыт!!!']);
+			}
+
 			$busy = C::findOne("busy", "tour = ? AND company = ?", [$tour -> id, $_SESSION['user'] -> company]);
 
 			if($req -> places > $tour -> places) {

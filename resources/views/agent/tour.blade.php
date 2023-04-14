@@ -140,9 +140,18 @@ $org_h = C::findOne("companys", "id = ?", [$_SESSION['user'] -> company]);
     
     
 
-    // echo $total_hours; // вывод общего количества часов
-
+    // echo $total_hours; // вывод общего количества часов 
   @endphp
+
+  @if (!$tour -> active)
+    <div class="col-lg-12">
+      <div class="card" style="background-color: red;color:white;">
+        <div class="card-body" >
+          <h1 class="mt-4" align="center"><b>Тур Закрыт!</b></h1>
+        </div>
+      </div>
+    </div>
+  @endif
 
   <div class="col-lg-6">
     <div class="card">
@@ -389,23 +398,7 @@ $org_h = C::findOne("companys", "id = ?", [$_SESSION['user'] -> company]);
 
   <div class="col-lg-6">
     <div class="card">
-
-      @php
-        
-        $max_places = 0;
-        if($_SESSION['user'] -> company == $tour -> company || $tour -> places_limit == null || $tour -> places_limit == 0) {
-          $max_places = $busy -> places + $places_rem;
-        } else {
-          if($places_rem < $tour -> places_limit) {
-            $max_places = $busy -> places + abs($busy -> places - $tour -> places_limit);
-          } else {
-            $max_places = $tour -> places_limit;
-          }
-        }
-
-        
-      @endphp
-      <form method="post" action="{{route('CreateBusy')}}" class="card-body">
+      <div class="card-body">
         @csrf
         <input type="hidden" name="tour" value="{{$tour -> id}}">
         <input type="hidden" name="company" value="{{$_SESSION['user'] -> company}}">
@@ -422,25 +415,7 @@ $org_h = C::findOne("companys", "id = ?", [$_SESSION['user'] -> company]);
           <h3 class="col-md-auto">Всего мест <b>{{$tour -> places}}</b></h3>
           <h3 class="col-md-auto">Свободно <b>{{$places_rem}}</b></h3>
         </div>
-        <hr>
-        <form action="" method="post">
-          <div class="row mb-2 mx-1">
-            <div class="row cnt">
-              <div class="col-md-4 lead">
-                Забронировать
-              </div>
-              <div class="col-md-5 my-2">
-                <input type="number" class="form-control" name="places" placeholder="Введите кол-во мест" value="{{@$busy -> places}}" min="0" max="{{$max_places}}" step="1">
-                
-              </div>
-              <div class="col-md-3">
-                
-                <button type="submit" class="btn btn-primary">Забронировать</button>
-              </div>
-            </div>
-          </div>
-        </form>
-      </form>
+      </div>
     </div>
 
   </div>
