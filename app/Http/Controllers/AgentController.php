@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use ThreadBeanPHP\C as C;
+use Intervention\Image\ImageManagerStatic as Image;
+use Illuminate\Support\Facades\File;
 
 class AgentController extends Controller
 {
@@ -71,5 +73,60 @@ class AgentController extends Controller
 		} else {
 			return "ERR";
 		}
+	}
+
+	public function UpdateData(Request $req) {
+
+		$req -> validate([
+			'id' => 'required|numeric',
+			'full_name' => 'required|min:4|max:40',
+			'about' => 'required|min:8|max:140',
+			'phone' => 'max:255',
+			'email' => 'max:255',
+			'address' => 'max:255',
+			'telegram' => 'max:255',
+		]);
+
+		$agent = C::findOne("agents", "id = ?", [$req -> id]);
+		
+		if($req -> avatar_state == "remove" || empty($req -> avatar_state))  {
+
+			File::delete(public_path('uploads/avatar/').@$agent -> avatar);
+			$agent -> avatar = "";
+
+		} elseif(isset($req -> avatar)) {
+
+			$file = $req -> avatar;
+			$type = $file -> getMimeType();
+			$error = $file -> getError();
+			$size = $file -> getSize();
+
+			if(($type != "image/png") and ($type != "image/jpg") and ($type != "image/jpeg")) {
+				return back() -> withErrors(['avatar' => 'Аватар долженбыть в формате PNG или JPG(JPEG) !']);
+			}
+
+			if(($size > MAX_AVATAR_WEIGHT) || ($error == 2) || ($error == 1)) {
+				return back() -> withErrors(['avatar' => 'Аватар слишком тажёлый!']);
+			}
+
+			$avatar_path = date("YmdHis").rand(0, 99999999).".jpg";
+
+			File::delete(public_path('uploads/avatar/').@$agent -> avatar);
+
+			Image::make($file->path())->save(public_path('uploads/avatar/').$avatar_path, 100, 'jpg');
+
+			$agent -> avatar = $avatar_path;
+		}
+
+		$agent -> full_name= $req -> full_name;
+		$agent -> description= $req -> about;
+		$agent -> tel= $req -> tel;
+		$agent -> email= $req -> email;
+		$agent -> address= $req -> address;
+		$agent -> telegram= $req -> telegram;
+
+		C::store($agent);
+
+		return redirect() -> route('agent') -> with('success', 'Данные успешно изменены!');
 	}
 }

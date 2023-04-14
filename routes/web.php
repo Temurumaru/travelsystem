@@ -17,6 +17,7 @@ use ThreadBeanPHP\Util\DispenseHelper as CDH;
 */
 
 define('APP_NAME', getenv('APP_NAME'));
+define('MAX_AVATAR_WEIGHT', 4 * 1024 * 1024);
 
 $p = "App\\Http\\Controllers\\";
 
@@ -273,6 +274,11 @@ if(@$_SESSION['user']) {
       $tours = array_reverse(C::find("tours", "active = ?", [0]));
       return view('agent.tour_old', ['tours' => $tours]);
     }) -> name('tour_old');
+
+    Route::post(
+      '/UpdateDataAgent', 
+      $p.'AgentController@UpdateData'
+    ) -> name('UpdateDataAgent');
   }
 
   Route::get(

@@ -147,7 +147,7 @@ $org_h = C::findOne("companys", "id = ?", [$_SESSION['user'] -> company]);
     <div class="col-lg-12">
       <div class="card" style="background-color: red;color:white;">
         <div class="card-body" >
-          <h1 class="mt-4" align="center"><b>Тур Закрыт!</b></h1>
+          <h1 class="mt-4" align="center"><b>Тур Закрыт! <i class="bi bi-x-octagon-fill"></i></b></h1>
         </div>
       </div>
     </div>
