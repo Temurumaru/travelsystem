@@ -115,7 +115,7 @@
       <div class="card-body">
         <h5 class="card-title">Список Администраторов</h5>
         
-        <a href="{{route('admin_create')}}" class="btn btn-primary mb-4">Добавить Администратора <i class="bi bi-person-plus-fill"></i></a>
+        <a href="{{route('admin_create')}}" class="btn btn-primary mb-4">Добавить <i class="bi bi-person-plus-fill"></i></a>
         <!-- Bordered Table -->
         <table class="table table-bordered">
           <thead>
@@ -154,7 +154,7 @@
       <div class="card-body">
         <h5 class="card-title">Список Компаний</h5>
         
-        <a href="admin_company_create" class="btn btn-primary mb-4">Добавить Компанию <i class="bi bi-person-plus-fill"></i></a>
+        <a href="admin_company_create" class="btn btn-primary mb-4">Добавить <i class="bi bi-person-plus-fill"></i></a>
         <!-- Bordered Table -->
         <table class="table table-bordered">
           <thead>
@@ -197,7 +197,7 @@
       <div class="card-body">
         <h5 class="card-title">Список Агентов</h5>
         
-        <a href="{{route('admin_agent_create')}}" class="btn btn-primary mb-4">Добавить Агента <i class="bi bi-person-plus-fill"></i></a>
+        <a href="{{route('admin_agent_create')}}" class="btn btn-primary mb-4">Добавить <i class="bi bi-person-plus-fill"></i></a>
         <!-- Bordered Table -->
         <table class="table table-bordered">
           <thead>
