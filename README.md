@@ -1,2 +1,2 @@
 # Partner Travel
-### [site].uz
+### 7partners.uz
