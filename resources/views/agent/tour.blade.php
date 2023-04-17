@@ -403,7 +403,11 @@ $org_h = C::findOne("companys", "id = ?", [$_SESSION['user'] -> company]);
           
         $max_places = 0;
         if($_SESSION['user'] -> company == $tour -> company || $tour -> places_limit == null || $tour -> places_limit == 0) {
-          $max_places = $busy -> places + $places_rem;
+          if (@$busy -> places) {
+            $max_places = $busy -> places + $places_rem;
+          } else {
+            $max_places = $tour -> places;
+          }
         } else {
           if($places_rem < $tour -> places_limit) {
             $max_places = $busy -> places + abs($busy -> places - $tour -> places_limit);
