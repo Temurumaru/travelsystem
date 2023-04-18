@@ -72,7 +72,7 @@ $org_h = C::findOne("companys", "id = ?", [$_SESSION['user'] -> company]);
                 |
                 <span class="mx-3 lead">Свободно мест <b>{{$places_rem}}</b></span>
                 |
-                <span class="mx-3 lead">Время прибывания <b>{{$days}}</b> дн, <b>{{$nights}}</b> ночей</b></span>
+                <span class="mx-3 lead">Время прибывания <b>{{$days}}</b> дней, <b>{{$nights}}</b> ночей</b></span>
               </div>
             </a>
             <div class="row-lg-12 mt-3">
@@ -167,7 +167,7 @@ $org_h = C::findOne("companys", "id = ?", [$_SESSION['user'] -> company]);
                 |
                 <span class="mx-3 lead">Свободно мест <b>{{$places_rem}}</b></span>
                 |
-                <span class="mx-3 lead">Время прибывания <b>{{$days}}</b> дн, <b>{{$nights}}</b> ночей</b></span>
+                <span class="mx-3 lead">Время прибывания <b>{{$days}}</b> дней, <b>{{$nights}}</b> ночей</b></span>
               </div>
             </a>
             <div class="row-lg-12 mt-3">

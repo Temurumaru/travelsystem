@@ -57,7 +57,7 @@
           @endphp
 
           <div class="col card-2 mb-4">
-            <a href="#" class="un-style">
+            <span class="un-style">
               <div class="row-lg-12 cnt">
                 <img src="{{(@$agent -> avatar) ? "/uploads/avatar/".$agent -> avatar : "/assets/img/profile-img.jpg"}}" alt="Profile" class="rounded-circle" width="50rem">
                 <span class="mx-3 lead"><b>{{$org -> name}}</b></span>
@@ -70,7 +70,7 @@
                 |
                 <span class="mx-3 lead">Время прибывания <b>{{$days}}</b> дн, <b>{{$nights}}</b> ночей</b></span>
               </div>
-            </a>
+            </span>
             <div class="row-lg-12 mt-3">
               <nav style="--bs-breadcrumb-divider: '>';">
                 <ol class="breadcrumb">

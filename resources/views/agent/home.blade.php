@@ -249,7 +249,7 @@ $org_h = C::findOne("companys", "id = ?", [$_SESSION['user'] -> company]);
        <div class="card info-card sales-card">
 
          <div class="card-body">
-           <h5 class="card-title">Осталось <span>| Всего</span><h5>
+           <h5 class="card-title">Занято <span>| Всего</span><h5>
     
            <div class="d-flex align-items-center">
              <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
