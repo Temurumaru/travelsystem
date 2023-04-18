@@ -66,7 +66,7 @@ $org_h = C::findOne("companys", "id = ?", [$_SESSION['user'] -> company]);
                 <img src="{{(@$agent -> avatar) ? "/uploads/avatar/".$agent -> avatar : "/assets/img/profile-img.jpg"}}" alt="Profile" class="rounded-circle" width="50rem">
                 <span class="mx-3 lead"><b>{{$org -> name}}</b></span>
                 |
-                <span class="mx-3 lead">Цена <q><b>{{$tour -> price}}$</b></q></span>
+                <span class="mx-3 lead">Цена <b>{{$tour -> price}}$</b></span>
                 |
                 <span class="mx-3 lead">Всего мест <b>{{$tour -> places}}</b></span>
                 |
@@ -76,6 +76,7 @@ $org_h = C::findOne("companys", "id = ?", [$_SESSION['user'] -> company]);
               </div>
             </a>
             <div class="row-lg-12 mt-3">
+              <h3>{{$tour -> name}}</h3>
               <nav style="--bs-breadcrumb-divider: '>';">
                 <ol class="breadcrumb">
                   <span class="lead" style="margin-right:0.5rem;margin-top:-1px;"><b>Отправление |</b> </span>
@@ -83,7 +84,7 @@ $org_h = C::findOne("companys", "id = ?", [$_SESSION['user'] -> company]);
                   {!!(@$tour -> start_come_2) ? '<li class="breadcrumb-item lead">'.$city_start_2['city'].'</li>' : ""!!}
                   {!!(@$tour -> start_come_3) ? '<li class="breadcrumb-item lead">'.$city_start_3['city'].'</li>' : ""!!}
                   <li class="breadcrumb-item lead active">{{$city_start_4['city']}}</li>
-                  <span class="lead-p" style="margin-left:0.5rem;margin-top:-2px;"><b><i>{{$city_start_4['date']}}</i></b>
+                  <span class="lead-p" style="margin-left:0.5rem;margin-top:-2px;"><b><i>{{$city_start_1['date']}}</i></b>
                   </span>
                 </ol>
               </nav>
@@ -94,7 +95,7 @@ $org_h = C::findOne("companys", "id = ?", [$_SESSION['user'] -> company]);
                   {!!(@$tour -> end_come_2) ? '<li class="breadcrumb-item lead">'.$city_end_2['city'].'</li>' : ""!!}
                   {!!(@$tour -> end_come_3) ? '<li class="breadcrumb-item lead">'.$city_end_3['city'].'</li>' : ""!!}
                   <li class="breadcrumb-item lead active">{{$city_end_4['city']}}</li>
-                  <span class="lead-p" style="margin-left:0.5rem;margin-top:-2px;"><b><i>{{$city_end_4['date']}}</i></b>
+                  <span class="lead-p" style="margin-left:0.5rem;margin-top:-2px;"><b><i>{{$city_end_1['date']}}</i></b>
                   </span>
                 </ol>
               </nav>

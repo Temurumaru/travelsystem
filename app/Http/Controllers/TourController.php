@@ -224,6 +224,10 @@ class TourController extends Controller
 		
 		$tour = C::findOne("tours", "id = ?", [$req -> id]);
 
+		if(!$tour -> active) {
+			return redirect() -> route('admin') -> withErrors(['active' => 'Тур ЗАКРЫТ']);
+		}
+
 		$tour -> name = $req -> name;
 		$tour -> all_flys = $req -> all_flys;
 		$tour -> all_flys_end = $req -> all_flys_end;

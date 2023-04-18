@@ -39,10 +39,8 @@
 
             if(@$tour -> city_days_2) {
               $days = $tour -> city_days_1 + $tour -> city_days_2;
-              $nights = $tour -> city_nights_1 + $tour -> city_nights_2;
             } else {
               $days = $tour -> city_days_1;
-              $nights = $tour -> city_nights_1;
             }
 
 
@@ -62,7 +60,7 @@
                 <img src="{{(@$agent -> avatar) ? "/uploads/avatar/".$agent -> avatar : "/assets/img/profile-img.jpg"}}" alt="Profile" class="rounded-circle" width="50rem">
                 <span class="mx-3 lead"><b>{{$org -> name}}</b></span>
                 |
-                <span class="mx-3 lead">Цена <q><b>{{$tour -> price}}$</b></q></span>
+                <span class="mx-3 lead">Цена <b>{{$tour -> price}}$</b></span>
                 |
                 <span class="mx-3 lead">Всего мест <b>{{$tour -> places}}</b></span>
                 |
@@ -72,6 +70,7 @@
               </div>
             </span>
             <div class="row-lg-12 mt-3">
+              <h3>{{$tour -> name}}</h3>
               <nav style="--bs-breadcrumb-divider: '>';">
                 <ol class="breadcrumb">
                   <span class="lead" style="margin-right:0.5rem;margin-top:-1px;"><b>Отправление |</b> </span>
@@ -79,9 +78,6 @@
                   {!!(@$tour -> start_come_2) ? '<li class="breadcrumb-item lead">'.$city_start_2['city'].'</li>' : ""!!}
                   {!!(@$tour -> start_come_3) ? '<li class="breadcrumb-item lead">'.$city_start_3['city'].'</li>' : ""!!}
                   <li class="breadcrumb-item lead active">{{$city_start_4['city']}}</li>
-                  <span class="lead-p" style="margin-left:0.5rem;margin-top:-2px;"><b><i>{{$city_start_4['date']}}</i></b>
-                    <a href="{{route('admin_tour_update')}}?id={{$tour -> id}}" class="btn btn-warning mx-2"><i class="bi bi-pencil-fill"></i></a>
-                  </span>
                 </ol>
               </nav>
               <nav style="--bs-breadcrumb-divider: '>';">
@@ -91,9 +87,6 @@
                   {!!(@$tour -> end_come_2) ? '<li class="breadcrumb-item lead">'.$city_end_2['city'].'</li>' : ""!!}
                   {!!(@$tour -> end_come_3) ? '<li class="breadcrumb-item lead">'.$city_end_3['city'].'</li>' : ""!!}
                   <li class="breadcrumb-item lead active">{{$city_end_4['city']}}</li>
-                  <span class="lead-p" style="margin-left:0.5rem;margin-top:-2px;"><b><i>{{$city_end_4['date']}}</i></b>
-                    <button delid="{{$tour -> id}}" class="tour_delete_btn btn btn-danger mx-2"><i class="bi bi-trash-fill"></i></button>
-                  </span>
                 </ol>
               </nav>
             </div>
