@@ -270,13 +270,13 @@ $org_h = C::findOne("companys", "id = ?", [$_SESSION['user'] -> company]);
           </div><!-- End activity item-->
 
           @if(@$end_come_2)
-          <div class="activity-item d-flex">
+          {{-- <div class="activity-item d-flex">
             <div class="activite-label lead"></div>
             <i class="bi bi-alarm-fill activity-badge text-badge align-self-start"></i>
             <div class="activity-content lead">
               {{$end_hours1_2}}ч
             </div>
-          </div><!-- End activity item-->
+          </div><!-- End activity item--> --}}
 
           <div class="activity-item d-flex">
             <div class="activite-label lead">{{$end_come_2['date']." ".$end_come_2['time']}}</div>
@@ -286,13 +286,13 @@ $org_h = C::findOne("companys", "id = ?", [$_SESSION['user'] -> company]);
             </div>
           </div><!-- End activity item-->
 
-          <div class="activity-item d-flex">
+          {{-- <div class="activity-item d-flex">
             <div class="activite-label lead"></div>
             <i class="bi bi-alarm-fill activity-badge text-badge align-self-start"></i>
             <div class="activity-content lead">
               {{$end_hours2_3}}ч
             </div>
-          </div><!-- End activity item-->
+          </div><!-- End activity item--> --}}
 
           <div class="activity-item d-flex">
             <div class="activite-label lead">{{$end_leave_2['date']." ".$end_leave_2['time']}}</div>
@@ -303,13 +303,13 @@ $org_h = C::findOne("companys", "id = ?", [$_SESSION['user'] -> company]);
           </div><!-- End activity item-->
           @endif
 
-          <div class="activity-item d-flex">
+          {{-- <div class="activity-item d-flex">
             <div class="activite-label lead"></div>
             <i class="bi bi-alarm-fill activity-badge text-badge align-self-start"></i>
             <div class="activity-content lead">
               {{$end_hours3_4}}ч
             </div>
-          </div><!-- End activity item-->
+          </div><!-- End activity item--> --}}
 
           @if(@$end_come_3)
           <div class="activity-item d-flex">
@@ -320,13 +320,13 @@ $org_h = C::findOne("companys", "id = ?", [$_SESSION['user'] -> company]);
             </div>
           </div><!-- End activity item-->
 
-          <div class="activity-item d-flex">
+          {{-- <div class="activity-item d-flex">
             <div class="activite-label lead"></div>
             <i class="bi bi-alarm-fill activity-badge text-badge align-self-start"></i>
             <div class="activity-content lead">
               {{$end_hours4_5}}ч
             </div>
-          </div><!-- End activity item-->
+          </div><!-- End activity item--> --}}
 
           <div class="activity-item d-flex">
             <div class="activite-label lead">{{$end_leave_3['date']." ".$end_leave_3['time']}}</div>
@@ -336,13 +336,13 @@ $org_h = C::findOne("companys", "id = ?", [$_SESSION['user'] -> company]);
             </div>
           </div><!-- End activity item-->
 
-          <div class="activity-item d-flex">
+          {{-- <div class="activity-item d-flex">
             <div class="activite-label lead"></div>
             <i class="bi bi-alarm-fill activity-badge text-badge align-self-start"></i>
             <div class="activity-content lead">
               {{$end_hours5_6}}ч
             </div>
-          </div><!-- End activity item-->
+          </div><!-- End activity item--> --}}
           @endif
 
           <div class="activity-item d-flex">
