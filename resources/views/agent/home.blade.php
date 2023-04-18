@@ -246,7 +246,7 @@ $org_h = C::findOne("companys", "id = ?", [$_SESSION['user'] -> company]);
     <div class="row">
      <!-- Sales Card -->
      <div class="col-xxl-4 col-md-6">
-       <div class="card info-card sales-card">
+       {{-- <div class="card info-card sales-card">
 
          <div class="card-body">
            <h5 class="card-title">Занято <span>| Всего</span><h5>
@@ -261,7 +261,7 @@ $org_h = C::findOne("companys", "id = ?", [$_SESSION['user'] -> company]);
            </div>
          </div>
     
-       </div>
+       </div> --}}
      </div><!-- End Sales Card -->
     
      <!-- Revenue Card -->

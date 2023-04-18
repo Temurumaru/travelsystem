@@ -9,7 +9,7 @@
     </a><!-- End Profile Iamge Icon -->
     <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
       <li class="dropdown-header">
-        <h6>@yield('username') - ({{$_SESSION['user'] -> login}})</h6>
+        <h6>@yield('username') ({{$_SESSION['user'] -> login}})</h6>
         <span>@yield('usersubname')</span>
       </li>
       <li>
