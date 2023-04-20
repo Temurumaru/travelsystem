@@ -9,7 +9,7 @@
 @section('content')
   <div class="card">
     <div class="card-body">
-      <div class="card-title">Список Завершённых туров туров</div>
+      <div class="card-title">Список завершённых туров туров</div>
       <div style="overflow-y:scroll;">
         @php
           use ThreadBeanPHP\C as C;

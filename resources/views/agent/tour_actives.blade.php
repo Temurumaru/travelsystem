@@ -16,7 +16,7 @@ $org_h = C::findOne("companys", "id = ?", [$_SESSION['user'] -> company]);
 @section('content')
   <div class="card">
     <div class="card-body">
-      <div class="card-title">Список Ваших активных туров</div>
+      <div class="card-title">Список ваших активных туров</div>
       <div style="overflow-y:scroll;">
 
         @foreach ($agent_tours as $tour)
@@ -109,7 +109,7 @@ $org_h = C::findOne("companys", "id = ?", [$_SESSION['user'] -> company]);
 
   <div class="card">
     <div class="card-body">
-      <div class="card-title">Список Всех активных туров</div>
+      <div class="card-title">Список всех активных туров</div>
       <div style="overflow-y:scroll;">
 
 

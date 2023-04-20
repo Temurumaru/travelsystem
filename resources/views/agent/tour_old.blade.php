@@ -16,7 +16,7 @@ $org_h = C::findOne("companys", "id = ?", [$_SESSION['user'] -> company]);
 @section('content')
   <div class="card">
     <div class="card-body">
-      <div class="card-title">Список Завершённых туров</div>
+      <div class="card-title">Список завершённых туров</div>
       <div style="overflow-y:scroll;">
 
         @foreach ($tours as $tour)
