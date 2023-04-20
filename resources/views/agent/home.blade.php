@@ -16,17 +16,16 @@ $org_h = C::findOne("companys", "id = ?", [$_SESSION['user'] -> company]);
   $busy_count = C::find("busy", "company = ?", [$org_h -> id]);
 	$places = 0;
 	$balance = 0;
-  $all_places = 0;
+  // $all_places = 0;
 	foreach ($busy_count as $busy) {
 
     $tour = C::findOne('tours', 'id = ?', [$busy -> tour]);
 
-    $balance = 0;
 		if($tour -> active == 1) {
-      if($busy -> company != $tour -> company) {
-					$balance = $tour -> bonus * $busy -> places;
-				}
-
+      if($_SESSION['user'] -> company != $tour -> company) {
+			  $balance += $tour -> bonus * $busy -> places;
+        // dd($balance." ".$tour -> bonus." ".$busy -> places);
+			}
 		  $places += $busy -> places;
 		}
 
