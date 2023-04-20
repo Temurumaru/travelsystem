@@ -222,7 +222,9 @@ $("#booking_slide_company").on("change", function() {
       }
     },
     success: function(data) {
+      let free = $('#booking_slide_places').attr('free');
       $('#booking_slide_places').val(data);
+      $('#booking_slide_places').attr('max', Number(data) + Number(free));
     }
   });
 });

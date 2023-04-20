@@ -113,7 +113,7 @@ class AgentController extends Controller
 
 			File::delete(public_path('uploads/avatar/').@$agent -> avatar);
 
-			Image::make($file->path())->save(public_path('uploads/avatar/').$avatar_path, 100, 'jpg');
+			Image::make($file->path())->resize(1080, 1080)->save(public_path('uploads/avatar/').$avatar_path, 100, 'jpg');
 
 			$agent -> avatar = $avatar_path;
 		}

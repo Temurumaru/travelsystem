@@ -384,9 +384,10 @@
                   @endforeach
                 </select>
               </div>
+
               <div class="col-md-12">
                 <label for="places" class="form-label">Места</label>
-                <input required type="number" min="0" class="form-control" name="places" id="booking_slide_places" max="{{$places_rem}}" >
+                <input required type="number" min="0" class="form-control" name="places" id="booking_slide_places" free="{{$places_rem}}" max="0" >
               </div>
               <div class="text-center">
                 <button type="submit" class="btn btn-success">Забронировать <i class="bi bi-bookmark-check-fill"></i></button>
