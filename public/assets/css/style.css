@@ -503,6 +503,11 @@ h6 {
   font-weight: 600;
 }
 
+.cnt > img {
+  width: 50px;
+  height: 50px;
+}
+
 .header-nav .badge-number {
   position: absolute;
   inset: -2px -5px auto auto;
