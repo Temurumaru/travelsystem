@@ -170,6 +170,7 @@ $org_h = C::findOne("companys", "id = ?", [$_SESSION['user'] -> company]);
               </div>
             </a>
             <div class="row-lg-12 mt-3">
+              <h3>{{$tour -> name}}</h3>
               <nav style="--bs-breadcrumb-divider: '>';">
                 <ol class="breadcrumb">
                   <span class="lead" style="margin-right:0.5rem;margin-top:-1px;"><b>Отправление |</b> </span>
