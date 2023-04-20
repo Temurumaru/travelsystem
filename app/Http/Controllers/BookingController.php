@@ -42,8 +42,10 @@ class BookingController extends Controller
 					$max_places = $tour -> places;
 				}
       } else {
-        if($places_rem < $tour -> places_limit) {
+        if (@$busy -> places) {
 					$max_places = $busy -> places + abs($busy -> places - $tour -> places_limit);
+				} if($places_rem < $tour -> places_limit) {
+					$max_places = $tour -> places;
 				} else {
 					$max_places = $tour -> places_limit;
 				}

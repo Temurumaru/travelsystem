@@ -1,24 +1,17 @@
-@extends('layouts.agent')
+@extends('layouts.admin')
 
 
-@section('title', 'Тур '.$tour -> name.' - '.$org -> name)
+@section('title', 'Тур панель')
 @section('header_title', APP_NAME)
-@section('sub_title', 'Тур '.$tour -> name)
-
-@section('username', $_SESSION['user'] -> full_name)
-@php
-use ThreadBeanPHP\C as C;
-$org_h = C::findOne("companys", "id = ?", [$_SESSION['user'] -> company]);
-@endphp
-@section('usersubname', $org_h -> name)
-
+@section('sub_title', 'Просмотр тура')
 
 @section('content')
 
   @php
 
+    use ThreadBeanPHP\C as C;
+
     $agent = C::findOne("agents", "company = ?", [$org -> id]);
-    $busy = C::findOne("busy", "tour = ? AND company = ?", [$tour -> id, $_SESSION['user'] -> company]);
 
     $busy_count = C::find("busy", "tour = ?", [$tour -> id]);
     $places_rem = $tour -> places;
@@ -399,28 +392,7 @@ $org_h = C::findOne("companys", "id = ?", [$_SESSION['user'] -> company]);
   <div class="col-lg-6">
     <div class="card">
       @if($tour -> active)
-      @php
-          
-        $max_places = 0;
-        if($_SESSION['user'] -> company == $tour -> company || $tour -> places_limit == null || $tour -> places_limit == 0) {
-          if (@$busy -> places) {
-            $max_places = $busy -> places + $places_rem;
-          } else {
-            $max_places = $tour -> places;
-          }
-        } else {
-          if (@$busy -> places) {
-            $max_places = $busy -> places + abs($busy -> places - $tour -> places_limit);
-          } if($places_rem < $tour -> places_limit) {
-            $max_places = $tour -> places;
-          } else {
-            $max_places = $tour -> places_limit;
-          }
-        }
-
-        
-      @endphp
-      <form method="post" action="{{route('CreateBusy')}}" class="card-body">
+      <div class="card-body">
         @csrf
         <input type="hidden" name="tour" value="{{$tour -> id}}">
         <input type="hidden" name="company" value="{{$_SESSION['user'] -> company}}">
@@ -438,29 +410,9 @@ $org_h = C::findOne("companys", "id = ?", [$_SESSION['user'] -> company]);
           <h3 class="col-md-auto">Свободно <b>{{$places_rem}}</b></h3>
         </div>
         <hr>
-        <form action="" method="post">
-          <div class="row mb-2 mx-1">
-            <div class="row cnt">
-              <div class="col-md-4 lead">
-                Забронировать
-              </div>
-              <div class="col-md-5 my-2">
-                <input type="number" class="form-control" name="places" placeholder="Введите кол-во мест" value="{{@$busy -> places}}" min="0" max="{{$max_places}}" step="1">
-                
-              </div>
-              <div class="col-md-3">
-                
-                <button type="submit" class="btn btn-primary">Забронировать</button>
-              </div>
-            </div>
-          </div>
-        </form>
-      </form>
+      </div>
       @else
       <div class="card-body">
-        <input type="hidden" name="tour" value="{{$tour -> id}}">
-        <input type="hidden" name="company" value="{{$_SESSION['user'] -> company}}">
-        
         <div class="card-title hdr">Бронирование 
           <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#largeModal">
             <i class="bi bi-eye-fill"></i>

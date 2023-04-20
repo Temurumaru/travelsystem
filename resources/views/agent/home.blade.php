@@ -17,27 +17,39 @@ $org_h = C::findOne("companys", "id = ?", [$_SESSION['user'] -> company]);
 	$places = 0;
 	$balance = 0;
   $all_places = 0;
-	foreach ($busy_count as $item) {
-    $tour = C::findOne("tours", "id = ? AND active = ?", [$item -> tour, 1]);
-    if(@$tour -> active) {
-      $places_rem = $tour -> places;
-			foreach ($busy_count as $item) {
-				$places_rem -= $item -> places;
-			}
+	foreach ($busy_count as $busy) {
 
-      if($_SESSION['user'] -> company == $tour -> company) {
-        $all_places = $item -> places + $places_rem;
-      } else {
-        if($places_rem < $tour -> places_limit) {
-					$all_places = $places_rem;
-				} else {
-					$all_places = $tour -> places_limit;
+    $tour = C::findOne('tours', 'id = ?', [$busy -> tour]);
+
+    $balance = 0;
+		if($tour -> active == 1) {
+      if($busy -> company != $tour -> company) {
+					$balance = $tour -> bonus * $busy -> places;
 				}
-        $balance += $tour -> bonus * $item -> places;
-      }
 
-      $places += $item -> places;
-    }
+		  $places += $busy -> places;
+		}
+
+    // $tour = C::findOne("tours", "id = ? AND active = ?", [$busy -> tour, 1]);
+    // if(@$tour -> active) {
+    //   $places_rem = $tour -> places;
+		// 	foreach ($busy_count as $busy) {
+		// 		$places_rem -= $busy -> places;
+		// 	}
+
+    //   if($_SESSION['user'] -> company == $tour -> company) {
+    //     $all_places = $busy -> places + $places_rem;
+    //   } else {
+    //     if($places_rem < $tour -> places_limit) {
+		// 			$all_places = $places_rem;
+		// 		} else {
+		// 			$all_places = $tour -> places_limit;
+		// 		}
+    //     $balance += $tour -> bonus * $busy -> places;
+    //   }
+
+    //   $places += $busy -> places;
+    // }
 	}
 @endphp
 

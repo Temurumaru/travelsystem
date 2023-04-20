@@ -143,6 +143,14 @@ if(@$_SESSION['user']) {
       return view('admin.tour_old', ['tours' => $tours]);
     }) -> name('admin_tour_old');
 
+    Route::get('/tour', function (Request $req) {
+      $tour = C::findOne("tours", "id = ?", [$req -> id]);
+      $org = C::findOne("companys", "id = ?", [$tour -> company]);
+      $busyes = C::find("busy", "tour = ?", [$req -> id]);
+
+      return view('admin.tour', ['org' => $org, 'tour' => $tour, 'busyes' => $busyes]);
+    }) -> name('tour');
+
 
     Route::post(
       '/CreateCompany', 
