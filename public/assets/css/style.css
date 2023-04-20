@@ -494,7 +494,8 @@ h6 {
 }
 
 .header-nav .nav-profile img {
-  max-height: 36px;
+  width: 36;
+  height: 36;
 }
 
 .header-nav .nav-profile span {
