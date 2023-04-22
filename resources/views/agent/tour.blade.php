@@ -503,8 +503,9 @@ $org_h = C::findOne("companys", "id = ?", [$_SESSION['user'] -> company]);
               <tr>
                 <td><img src="{{(@$agent -> avatar) ? "/uploads/avatar/".$agent -> avatar : "/assets/img/profile-img.jpg"}}" alt="Profile" class="rounded-circle" width="50px"></td>
                 <td><b>{{$org -> name}}<b></td>
-                <td>{{((@$agent -> full_name) ? $agent -> full_name : "Undefined")}}</td>
-                <td><b>{{$busy -> places}}</b> мест</td>
+                {{-- <td>{{((@$agent -> full_name) ? $agent -> full_name : "Undefined")}}</td> --}}
+                <td><b>{{$bonus}}</b>$</td>
+                <td><b>{{$busy -> places}}</b> <i class="bi bi-people-fill"></i></td>
               </tr>
 
               @endforeach

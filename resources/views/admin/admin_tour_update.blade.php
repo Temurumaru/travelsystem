@@ -413,12 +413,12 @@
               @endphp
                 
               <tr class="mx-0">
-                <td><img src="{{(@$agent -> avatar) ? "/uploads/avatar/".$agent -> avatar : "/assets/img/profile-img.jpg"}}" alt="Profile" class="rounded-circle" width="50px"></td>
-                <td><b>{{$org -> name}}<b></td>
+                <td class="p-1"><img src="{{(@$agent -> avatar) ? "/uploads/avatar/".$agent -> avatar : "/assets/img/profile-img.jpg"}}" alt="Profile" class="rounded-circle" width="50px"></td>
+                <td class="p-1"><b>{{$org -> name}}<b></td>
                 {{-- <td>{{((@$agent -> full_name) ? $agent -> full_name : "Unknown")}}</td> --}}
-                <td>{{$bonus}}$</td>
-                <td><b>{{$busy -> places}}</b> мест</td>
-                <td><button delid="{{$busy -> id}}" class="busy_delete_btn btn btn-danger"><i class="bi bi-trash-fill"></i></button></td>
+                <td class="p-1">{{$bonus}}$</td>
+                <td class="p-1"><b>{{$busy -> places}}</b> <i class="bi bi-people-fill"></i></td>
+                <td class="p-1"><button delid="{{$busy -> id}}" class="busy_delete_btn btn btn-danger"><i class="bi bi-trash-fill"></i></button></td>
               </tr>
 
               @endforeach
