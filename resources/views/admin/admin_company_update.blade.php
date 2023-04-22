@@ -60,10 +60,10 @@
             @foreach ($busyes as $busy)
 
               @php
-                $org = C::findOne("companys", "id = ?", [$busy -> company]);
                 $tour = C::findOne("tours", "id = ?", [$busy -> tour]);
                 if(!$tour -> active) continue;
-                $agent = C::findOne("agents", "company = ?", [$org -> id]);
+                $org = C::findOne("companys", "id = ?", [$tour -> company]);
+                $agent = C::findOne("agents", "company = ?", [$tour -> company]);
 
                 $bonus = 0;
                 if($busy -> company != $tour -> company) {
@@ -71,11 +71,11 @@
                 }
               @endphp
                 
-              <tr>
+              <tr class="mx-0">
                 <td><img src="{{(@$agent -> avatar) ? "/uploads/avatar/".$agent -> avatar : "/assets/img/profile-img.jpg"}}" alt="Profile" class="rounded-circle" width="50px"></td>
-                <td><b>{{$org -> name}}<b></td>
-                <td>{{$tour -> name}}</td>
-                <td>{{$bonus}}$</td>
+                <td><b>{{$org -> name}}</b><br>{{$tour -> name}}</td>
+                {{-- <td>{{$tour -> name}}</td> --}}
+                {{-- <td>{{$bonus}}$</td> --}}
                 <td><b>{{$busy -> places}}</b> мест</td>
                 <td><button delid="{{$busy -> id}}" class="busy_delete_btn btn btn-danger"><i class="bi bi-trash-fill"></i></button></td>
               </tr>

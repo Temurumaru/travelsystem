@@ -78,6 +78,9 @@
                   {!!(@$tour -> start_come_2) ? '<li class="breadcrumb-item lead">'.$city_start_2['city'].'</li>' : ""!!}
                   {!!(@$tour -> start_come_3) ? '<li class="breadcrumb-item lead">'.$city_start_3['city'].'</li>' : ""!!}
                   <li class="breadcrumb-item lead active">{{$city_start_4['city']}}</li>
+                  <span class="lead-p" style="margin-left:0.5rem;margin-top:-2px;"><b><i>{{$city_start_1['date']}}</i></b>
+                    <a href="{{route('StatBusy')}}?tour={{$tour -> id}}" class="btn btn-success mx-0"><i class="bi bi-download"></i></i></a>
+                  </span>
                 </ol>
               </nav>
               <nav style="--bs-breadcrumb-divider: '>';">
