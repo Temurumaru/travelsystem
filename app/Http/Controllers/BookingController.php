@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use ThreadBeanPHP\C as C;
 use Codedge\Fpdf\Fpdf\Fpdf as FP;
+use Illuminate\Support\Str;
 
 class BookingController extends Controller
 {
@@ -113,14 +114,45 @@ class BookingController extends Controller
 		$agent = C::findOne("agents", "company = ?", [$org -> id]);
 		$busyes = C::find("busy", "tour = ?", [$tour -> id]);
 
-		$fpdf = new FP;
-		$fpdf -> SetTitle($tour -> name." - ".$org -> name);
-		$fpdf->AddPage();
-		$fpdf->SetFont('Courier', 'B', 22);
-		$fpdf -> Image((@$agent -> avatar) ? "../public/uploads/avatar/".$agent -> avatar : "../public/assets/img/profile-img.jpg", 10, 10, 15, 15);
-		$fpdf->Cell(50, 40, $tour -> name." - ".$org -> name);
+		// $dompdf = new Dompdf();
 
-		$fpdf->SetFont('Courier', 'B', 16);
+
+		// // $content = "
+		// // <img src=\"".(@$agent -> avatar) ? public_path("uploads/avatar/".$agent -> avatar) : "../public/assets/img/profile-img.jpg"."\">
+		// // <h3>".$tour->name." - ".$org -> name."</h3>
+		// // ";
+
+
+		// // $dompdf->loadHtml("
+		// // <!DOCTYPE html>
+		// // <html lang='en'>
+		// // 	<head>
+		// // 		<title>".$tour->name."</title>
+		// // 		<meta charset='UTF-8'>
+		// // 		<meta http-equiv='Content-Type' content='text/html; charset=utf-8'/>
+		// // 		<style>
+		// // 			body { font-family: DejaVu Sans, sans-serif; }
+		// // 		</style>
+		// // 		<meta name='viewport' content='width=device-width, initial-scale=1'>
+		// // 	</head>
+		// // 	<body>
+		// // 	".$content."	
+		// // 	</body>
+		// // </html>
+		// // ", 'UTF-8');
+
+		// $dompdf->setPaper('A4', 'portrait');
+		// $dompdf->render();
+		// $dompdf->stream($tour->name);
+
+		$fpdf = new FP;
+		$fpdf -> SetTitle($tour -> name." - ".$org -> name, true);
+		$fpdf->AddPage();
+		$fpdf->SetFont('Arial', 'B', 22);
+		$fpdf -> Image((@$agent -> avatar) ? "../public/uploads/avatar/".$agent -> avatar : "../public/assets/img/profile-img.jpg", 10, 10, 15, 15);
+		$fpdf->Cell(50, 40, Str::ascii($tour -> name." - ".$org -> name));
+
+		$fpdf->SetFont('Arial', 'B', 16);
 
 		$i = 1;
 		$x1 = 0;
@@ -155,7 +187,7 @@ class BookingController extends Controller
 					$bonus = $tour -> bonus * $busy -> places;
 				}
 
-				$fpdf -> Text(30, $y1+8, $org_busy -> name." | ".$busy -> places." place"." | ".$bonus." $");
+				$fpdf -> Text(30, $y1+8, Str::ascii($org_busy -> name." | ".$busy -> places." place"." | ".$bonus." $"));
 
 				// | ".((@$agent_busy -> full_name) ? $agent_busy -> full_name : "Unknown")."
 
@@ -183,7 +215,7 @@ class BookingController extends Controller
 		}
 		
 
-    $fpdf->Output();
+    $fpdf->Output("", $tour -> name." - ".$org -> name, true);
     exit;
 	}
 }
