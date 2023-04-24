@@ -425,9 +425,6 @@
 
             </tbody>
           </table>
-          $org = C::findOne("companys", "id = ?", [$req -> id]);
-          C::trash($org);
-          return "OK";
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
