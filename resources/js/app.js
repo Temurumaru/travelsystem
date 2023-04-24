@@ -61,7 +61,7 @@ $(".admin_delete_btn").on("click", function() {
 });
 
 $(".org_delete_btn").on("click", function() {
-  if(confirm('Вы точно хотите удалить Компанию?')) {
+  if(confirm('Вы точно хотите удалить Компанию? Удалятся все данные компании,  все Туры и брони!')) {
 
     $.ajax({
       url: req_del_org_url,

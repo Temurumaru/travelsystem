@@ -54,6 +54,13 @@ class CompanyController extends Controller
 			if(C::count('agents', 'company = ?', [$req -> id]) <= 0) {
 
 				$org = C::findOne("companys", "id = ?", [$req -> id]);
+
+				$tours = C::find('tours', 'company = ?', [$org -> id]);
+				C::trashAll($tours);
+
+				$busy = C::find('busy', 'company = ?', [$org -> id]);
+				C::trashAll($busy);
+
 				C::trash($org);
 				return "OK";
 			} else {
