@@ -33,7 +33,7 @@ $org_h = C::findOne("companys", "id = ?", [$_SESSION['user'] -> company]);
     $city_eats_1 = $tour -> city_eats_1;
     $city_hotel_1 = $tour -> city_hotel_1;
     $city_hotel_stars_1 = $tour -> city_hotel_stars_1;
-    
+
     $city_name_2 = @$tour -> city_name_2;
     $city_days_2 = @$tour -> city_days_2;
     $city_nights_2 = @$tour -> city_nights_2;
@@ -41,7 +41,7 @@ $org_h = C::findOne("companys", "id = ?", [$_SESSION['user'] -> company]);
     $city_eats_2 = @$tour -> city_eats_2;
     $city_hotel_2 = @$tour -> city_hotel_2;
     $city_hotel_stars_2 = @$tour -> city_hotel_stars_2;
-    
+
 
     $start_leave_1 = json_decode($tour -> start_leave_1, true);
     $start_come_2 = json_decode(@$tour -> start_come_2, true);
@@ -75,12 +75,12 @@ $org_h = C::findOne("companys", "id = ?", [$_SESSION['user'] -> company]);
 
       $diff = $date1->diff($date2);
       $hours1_2 = $diff->h + $diff->days * 24;
-      
+
       $diff = $date2->diff($date3);
       $hours2_3 = $diff->h + $diff->days * 24;
     }
-    
-    if(@$start_come_2 && @$start_come_3) {  
+
+    if(@$start_come_2 && @$start_come_3) {
       $date3 = DateTime::createFromFormat('Y-m-d H:i', ($start_leave_2['date'].' '.$start_leave_2['time']));
       $date4 = DateTime::createFromFormat('Y-m-d H:i', ($start_come_3['date'].' '.$start_come_3['time']));
       $diff = $date3->diff($date4);
@@ -89,7 +89,7 @@ $org_h = C::findOne("companys", "id = ?", [$_SESSION['user'] -> company]);
       $diff = $date1->diff($date6);
       $hours3_4 = $diff->h + $diff->days * 24;
     }
-        
+
     if(@$start_come_3) {
       $date4 = DateTime::createFromFormat('Y-m-d H:i', ($start_come_3['date'].' '.$start_come_3['time']));
       $date5 = DateTime::createFromFormat('Y-m-d H:i', ($start_leave_3['date'].' '.$start_leave_3['time']));
@@ -104,19 +104,19 @@ $org_h = C::findOne("companys", "id = ?", [$_SESSION['user'] -> company]);
 
     $date_end1 = DateTime::createFromFormat('Y-m-d H:i', ($end_leave_1['date'].' '.$end_leave_1['time']));
     $date_end6 = DateTime::createFromFormat('Y-m-d H:i', ($end_come_4['date'].' '.$end_come_4['time']));
-    
+
     if(@$end_come_2) {
       $date_end2 = DateTime::createFromFormat('Y-m-d H:i', ($end_come_2['date'].' '.$end_come_2['time']));
       $date_end3 = DateTime::createFromFormat('Y-m-d H:i', ($end_leave_2['date'].' '.$end_leave_2['time']));
 
       $diff = $date_end1->diff($date_end2);
       $end_hours1_2 = $diff->h + $diff->days * 24;
-      
+
       $diff = $date_end2->diff($date_end3);
       $end_hours2_3 = $diff->h + $diff->days * 24;
     }
-    
-    if(@$end_come_2 && @$end_come_3) {  
+
+    if(@$end_come_2 && @$end_come_3) {
       $date_end3 = DateTime::createFromFormat('Y-m-d H:i', ($end_leave_2['date'].' '.$end_leave_2['time']));
       $date_end4 = DateTime::createFromFormat('Y-m-d H:i', ($end_come_3['date'].' '.$end_come_3['time']));
       $diff = $date_end3->diff($date_end4);
@@ -125,7 +125,7 @@ $org_h = C::findOne("companys", "id = ?", [$_SESSION['user'] -> company]);
       $diff = $date_end1->diff($date_end6);
       $end_hours3_4 = $diff->h + $diff->days * 24;
     }
-        
+
     if(@$end_come_3) {
       $date_end4 = DateTime::createFromFormat('Y-m-d H:i', ($end_come_3['date'].' '.$end_come_3['time']));
       $date_end5 = DateTime::createFromFormat('Y-m-d H:i', ($end_leave_3['date'].' '.$end_leave_3['time']));
@@ -137,10 +137,10 @@ $org_h = C::findOne("companys", "id = ?", [$_SESSION['user'] -> company]);
       $end_hours5_6 = $diff->h + $diff->days * 24;
     }
 
-    
-    
 
-    // echo $total_hours; // вывод общего количества часов 
+
+
+    // echo $total_hours; // вывод общего количества часов
   @endphp
 
   @if (!$tour -> active)
@@ -175,7 +175,7 @@ $org_h = C::findOne("companys", "id = ?", [$_SESSION['user'] -> company]);
               {{$hours1_2}}ч
             </div>
           </div><!-- End activity item--> --}}
-          
+
           <div class="activity-item d-flex">
             <div class="activite-label lead">{{$start_come_2['date']." ".$start_come_2['time']}}</div>
             <i class="bi bi-airplane-fill rot-135 activity-badge text-success align-self-start"></i>
@@ -183,15 +183,15 @@ $org_h = C::findOne("companys", "id = ?", [$_SESSION['user'] -> company]);
               {{$start_come_2['city']}}
             </div>
           </div><!-- End activity item-->
-          
-          {{-- <div class="activity-item d-flex">
+
+          <div class="activity-item d-flex">
             <div class="activite-label lead"></div>
             <i class="bi bi-alarm-fill activity-badge text-badge align-self-start"></i>
             <div class="activity-content lead">
               {{$hours2_3}}ч
             </div>
-          </div><!-- End activity item--> --}}
-          
+          </div><!-- End activity item-->
+
           <div class="activity-item d-flex">
             <div class="activite-label lead">{{$start_leave_2['date']." ".$start_leave_2['time']}}</div>
             <i class="bi bi-airplane-fill rot-45 activity-badge text-danger align-self-start"></i>
@@ -200,7 +200,7 @@ $org_h = C::findOne("companys", "id = ?", [$_SESSION['user'] -> company]);
             </div>
           </div><!-- End activity item-->
           @endif
-          
+
           {{-- <div class="activity-item d-flex">
             <div class="activite-label lead"></div>
             <i class="bi bi-alarm-fill activity-badge text-badge align-self-start"></i>
@@ -217,14 +217,14 @@ $org_h = C::findOne("companys", "id = ?", [$_SESSION['user'] -> company]);
               {{$start_come_3['city']}}
             </div>
           </div><!-- End activity item-->
-          
-          {{-- <div class="activity-item d-flex">
+
+          <div class="activity-item d-flex">
             <div class="activite-label lead"></div>
             <i class="bi bi-alarm-fill activity-badge text-badge align-self-start"></i>
             <div class="activity-content lead">
               {{$hours4_5}}ч
             </div>
-          </div><!-- End activity item--> --}}
+          </div><!-- End activity item-->
 
           <div class="activity-item d-flex">
             <div class="activite-label lead">{{$start_leave_3['date']." ".$start_leave_3['time']}}</div>
@@ -233,7 +233,7 @@ $org_h = C::findOne("companys", "id = ?", [$_SESSION['user'] -> company]);
               {{$start_leave_3['city']}}
             </div>
           </div><!-- End activity item-->
-          
+
           {{-- <div class="activity-item d-flex">
             <div class="activite-label lead"></div>
             <i class="bi bi-alarm-fill activity-badge text-badge align-self-start"></i>
@@ -253,7 +253,7 @@ $org_h = C::findOne("companys", "id = ?", [$_SESSION['user'] -> company]);
 
         </div>
       </div>
-    </div>    
+    </div>
   </div>
   <div class="col-lg-6">
     <div class="card">
@@ -286,13 +286,13 @@ $org_h = C::findOne("companys", "id = ?", [$_SESSION['user'] -> company]);
             </div>
           </div><!-- End activity item-->
 
-          {{-- <div class="activity-item d-flex">
+          <div class="activity-item d-flex">
             <div class="activite-label lead"></div>
             <i class="bi bi-alarm-fill activity-badge text-badge align-self-start"></i>
             <div class="activity-content lead">
               {{$end_hours2_3}}ч
             </div>
-          </div><!-- End activity item--> --}}
+          </div><!-- End activity item-->
 
           <div class="activity-item d-flex">
             <div class="activite-label lead">{{$end_leave_2['date']." ".$end_leave_2['time']}}</div>
@@ -320,13 +320,13 @@ $org_h = C::findOne("companys", "id = ?", [$_SESSION['user'] -> company]);
             </div>
           </div><!-- End activity item-->
 
-          {{-- <div class="activity-item d-flex">
+          <div class="activity-item d-flex">
             <div class="activite-label lead"></div>
             <i class="bi bi-alarm-fill activity-badge text-badge align-self-start"></i>
             <div class="activity-content lead">
               {{$end_hours4_5}}ч
             </div>
-          </div><!-- End activity item--> --}}
+          </div><!-- End activity item-->
 
           <div class="activity-item d-flex">
             <div class="activite-label lead">{{$end_leave_3['date']." ".$end_leave_3['time']}}</div>
@@ -355,7 +355,7 @@ $org_h = C::findOne("companys", "id = ?", [$_SESSION['user'] -> company]);
 
         </div>
       </div>
-    </div>    
+    </div>
   </div>
 
   <div class="col-lg-6">
@@ -384,7 +384,7 @@ $org_h = C::findOne("companys", "id = ?", [$_SESSION['user'] -> company]);
           <b>Гид: </b>{{($tour -> guide) ? "Есть" : "Нет"}} <br>
           <b>Трансфер: </b>{{($tour -> transfer) ? "Есть" : "Нет"}} <br>
         </p>
-        
+
         <hr>
         @endif
 
@@ -400,7 +400,7 @@ $org_h = C::findOne("companys", "id = ?", [$_SESSION['user'] -> company]);
     <div class="card">
       @if($tour -> active)
       @php
-          
+
         $max_places = 0;
         if($_SESSION['user'] -> company == $tour -> company || $tour -> places_limit == null || $tour -> places_limit == 0) {
           if (@$busy -> places) {
@@ -418,14 +418,14 @@ $org_h = C::findOne("companys", "id = ?", [$_SESSION['user'] -> company]);
           }
         }
 
-        
+
       @endphp
       <form method="post" action="{{route('CreateBusy')}}" class="card-body">
         @csrf
         <input type="hidden" name="tour" value="{{$tour -> id}}">
         <input type="hidden" name="company" value="{{$_SESSION['user'] -> company}}">
 
-        <div class="card-title hdr">Бронирование 
+        <div class="card-title hdr">Бронирование
           <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#largeModal">
             <i class="bi bi-eye-fill"></i>
           </button>
@@ -446,10 +446,10 @@ $org_h = C::findOne("companys", "id = ?", [$_SESSION['user'] -> company]);
               </div>
               <div class="col-md-5 my-2">
                 <input type="number" class="form-control" name="places" placeholder="Введите кол-во мест" value="{{@$busy -> places}}" min="0" max="{{$max_places}}" step="1">
-                
+
               </div>
               <div class="col-md-3">
-                
+
                 <button type="submit" class="btn btn-primary">Забронировать</button>
               </div>
             </div>
@@ -460,15 +460,15 @@ $org_h = C::findOne("companys", "id = ?", [$_SESSION['user'] -> company]);
       <div class="card-body">
         <input type="hidden" name="tour" value="{{$tour -> id}}">
         <input type="hidden" name="company" value="{{$_SESSION['user'] -> company}}">
-        
-        <div class="card-title hdr">Бронирование 
+
+        <div class="card-title hdr">Бронирование
           <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#largeModal">
             <i class="bi bi-eye-fill"></i>
           </button>
         </div>
-        
+
         <h3 id="price" bonus="{{$tour -> bonus}}" class="unselectable">Цена тура: <b>{{$tour -> price}}$</b></h3>
-        
+
         <div class="row">
           <h3 class="col-md-auto">Всего мест <b>{{$tour -> places}}</b></h3>
           <h3 class="col-md-auto">Свободно <b>{{$places_rem}}</b></h3>
