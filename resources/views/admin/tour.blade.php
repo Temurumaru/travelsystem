@@ -9,6 +9,20 @@
 
   @php
 
+    function convertMinutesToDaysHoursMinutes($minutes) {
+			$days = floor($minutes / 1440); // 1 день = 1440 минут
+			$hours = floor(($minutes % 1440) / 60); // 1 час = 60 минут
+			$remainingMinutes = $minutes % 60;
+
+			if($days != 0) {
+				return $days . "д " . $hours . "ч " . $remainingMinutes . "мин";
+			}elseif ($hours != 0) {
+				return $hours . "ч " . $remainingMinutes . "мин";
+			} else {
+				return $remainingMinutes . "мин";
+			}
+		}
+
     use ThreadBeanPHP\C as C;
 
     $agent = C::findOne("agents", "company = ?", [$org -> id]);
@@ -67,20 +81,20 @@
       $date3 = DateTime::createFromFormat('Y-m-d H:i', ($start_leave_2['date'].' '.$start_leave_2['time']));
 
       $diff = $date1->diff($date2);
-      $hours1_2 = $diff->h + $diff->days * 24;
+      $hours1_2 = convertMinutesToDaysHoursMinutes(($diff->h + $diff->days * 24) * 60);
 
       $diff = $date2->diff($date3);
-      $hours2_3 = $diff->h + $diff->days * 24;
+      $hours2_3 = convertMinutesToDaysHoursMinutes(($diff->h + $diff->days * 24) * 60);
     }
 
     if(@$start_come_2 && @$start_come_3) {
       $date3 = DateTime::createFromFormat('Y-m-d H:i', ($start_leave_2['date'].' '.$start_leave_2['time']));
       $date4 = DateTime::createFromFormat('Y-m-d H:i', ($start_come_3['date'].' '.$start_come_3['time']));
       $diff = $date3->diff($date4);
-      $hours3_4 = $diff->h + $diff->days * 24;
+      $hours3_4 = convertMinutesToDaysHoursMinutes(($diff->h + $diff->days * 24) * 60);
     } else {
       $diff = $date1->diff($date6);
-      $hours3_4 = $diff->h + $diff->days * 24;
+      $hours3_4 = convertMinutesToDaysHoursMinutes(($diff->h + $diff->days * 24) * 60);
     }
 
     if(@$start_come_3) {
@@ -88,10 +102,10 @@
       $date5 = DateTime::createFromFormat('Y-m-d H:i', ($start_leave_3['date'].' '.$start_leave_3['time']));
 
       $diff = $date4->diff($date5);
-      $hours4_5 = $diff->h + $diff->days * 24;
+      $hours4_5 = convertMinutesToDaysHoursMinutes(($diff->h + $diff->days * 24) * 60);
 
       $diff = $date5->diff($date6);
-      $hours5_6 = $diff->h + $diff->days * 24;
+      $hours5_6 = convertMinutesToDaysHoursMinutes(($diff->h + $diff->days * 24) * 60);
     }
 
 
@@ -103,20 +117,20 @@
       $date_end3 = DateTime::createFromFormat('Y-m-d H:i', ($end_leave_2['date'].' '.$end_leave_2['time']));
 
       $diff = $date_end1->diff($date_end2);
-      $end_hours1_2 = $diff->h + $diff->days * 24;
+      $end_hours1_2 = convertMinutesToDaysHoursMinutes(($diff->h + $diff->days * 24) * 60);
 
       $diff = $date_end2->diff($date_end3);
-      $end_hours2_3 = $diff->h + $diff->days * 24;
+      $end_hours2_3 = convertMinutesToDaysHoursMinutes(($diff->h + $diff->days * 24) * 60);
     }
 
     if(@$end_come_2 && @$end_come_3) {
       $date_end3 = DateTime::createFromFormat('Y-m-d H:i', ($end_leave_2['date'].' '.$end_leave_2['time']));
       $date_end4 = DateTime::createFromFormat('Y-m-d H:i', ($end_come_3['date'].' '.$end_come_3['time']));
       $diff = $date_end3->diff($date_end4);
-      $end_hours3_4 = $diff->h + $diff->days * 24;
+      $end_hours3_4 = convertMinutesToDaysHoursMinutes(($diff->h + $diff->days * 24) * 60);
     } else {
       $diff = $date_end1->diff($date_end6);
-      $end_hours3_4 = $diff->h + $diff->days * 24;
+      $end_hours3_4 = convertMinutesToDaysHoursMinutes(($diff->h + $diff->days * 24) * 60);
     }
 
     if(@$end_come_3) {
@@ -124,10 +138,10 @@
       $date_end5 = DateTime::createFromFormat('Y-m-d H:i', ($end_leave_3['date'].' '.$end_leave_3['time']));
 
       $diff = $date_end4->diff($date_end5);
-      $end_hours4_5 = $diff->h + $diff->days * 24;
+      $end_hours4_5 = convertMinutesToDaysHoursMinutes(($diff->h + $diff->days * 24) * 60);
 
       $diff = $date_end5->diff($date_end6);
-      $end_hours5_6 = $diff->h + $diff->days * 24;
+      $end_hours5_6 = convertMinutesToDaysHoursMinutes(($diff->h + $diff->days * 24) * 60);
     }
 
 
@@ -165,7 +179,7 @@
             <div class="activite-label lead"></div>
             <i class="bi bi-alarm-fill activity-badge text-badge align-self-start"></i>
             <div class="activity-content lead">
-              {{$hours1_2}}ч
+              {{$hours1_2}}
             </div>
           </div><!-- End activity item--> --}}
 
@@ -181,7 +195,7 @@
             <div class="activite-label lead"></div>
             <i class="bi bi-alarm-fill activity-badge text-badge align-self-start"></i>
             <div class="activity-content lead">
-              {{$hours2_3}}ч
+              {{$hours2_3}}
             </div>
           </div><!-- End activity item-->
 
@@ -198,7 +212,7 @@
             <div class="activite-label lead"></div>
             <i class="bi bi-alarm-fill activity-badge text-badge align-self-start"></i>
             <div class="activity-content lead">
-              {{$hours3_4}}ч
+              {{$hours3_4}}
             </div>
           </div><!-- End activity item--> --}}
 
@@ -215,7 +229,7 @@
             <div class="activite-label lead"></div>
             <i class="bi bi-alarm-fill activity-badge text-badge align-self-start"></i>
             <div class="activity-content lead">
-              {{$hours4_5}}ч
+              {{$hours4_5}}
             </div>
           </div><!-- End activity item-->
 
@@ -231,7 +245,7 @@
             <div class="activite-label lead"></div>
             <i class="bi bi-alarm-fill activity-badge text-badge align-self-start"></i>
             <div class="activity-content lead">
-              {{$hours5_6}}ч
+              {{$hours5_6}}
             </div>
           </div><!-- End activity item--> --}}
           @endif
@@ -267,7 +281,7 @@
             <div class="activite-label lead"></div>
             <i class="bi bi-alarm-fill activity-badge text-badge align-self-start"></i>
             <div class="activity-content lead">
-              {{$end_hours1_2}}ч
+              {{$end_hours1_2}}
             </div>
           </div><!-- End activity item--> --}}
 
@@ -283,7 +297,7 @@
             <div class="activite-label lead"></div>
             <i class="bi bi-alarm-fill activity-badge text-badge align-self-start"></i>
             <div class="activity-content lead">
-              {{$end_hours2_3}}ч
+              {{$end_hours2_3}}
             </div>
           </div><!-- End activity item-->
 
@@ -300,7 +314,7 @@
             <div class="activite-label lead"></div>
             <i class="bi bi-alarm-fill activity-badge text-badge align-self-start"></i>
             <div class="activity-content lead">
-              {{$end_hours3_4}}ч
+              {{$end_hours3_4}}
             </div>
           </div><!-- End activity item--> --}}
 
@@ -317,7 +331,7 @@
             <div class="activite-label lead"></div>
             <i class="bi bi-alarm-fill activity-badge text-badge align-self-start"></i>
             <div class="activity-content lead">
-              {{$end_hours4_5}}ч
+              {{$end_hours4_5}}
             </div>
           </div><!-- End activity item-->
 
@@ -333,7 +347,7 @@
             <div class="activite-label lead"></div>
             <i class="bi bi-alarm-fill activity-badge text-badge align-self-start"></i>
             <div class="activity-content lead">
-              {{$end_hours5_6}}ч
+              {{$end_hours5_6}}
             </div>
           </div><!-- End activity item--> --}}
           @endif
