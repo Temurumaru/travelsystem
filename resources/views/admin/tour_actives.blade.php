@@ -7,6 +7,27 @@
 
 
 @section('content')
+	<div class="card">
+		<div class="card-body">
+			<div class="card-title">Поиск</div>
+			<form action="" method="get" class="row">
+				<div class="col-lg-4">
+					<label for="start_date">Дата Вылета</label>
+					<input type="date" name="start_date" class="form-control my-1" id="">
+				</div>
+				<div class="col-lg-4">
+					<label for="end_date">Дата Прилёта</label>
+					<input type="date" name="end_date" class="form-control my-1" id="">
+				</div>
+
+				<div class="col-lg-4">
+					<label for="">Начать</label>
+					<input type="submit" class="form-control my-1 btn btn-primary" id="" value="Поиск">
+				</div>
+			</form>
+		</div>
+	</div>
+
   <div class="card">
     <div class="card-body">
       <div class="card-title">Список активных туров</div>
@@ -111,7 +132,7 @@
           </div>
 
         @endforeach
-        
+
 
       </div>
       <div style="overflow-y:scroll;" class="d-block  d-md-none d-lg-none d-xl-none">
@@ -196,7 +217,7 @@
           </div>
 
         @endforeach
-        
+
 
       </div>
     </div>

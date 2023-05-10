@@ -369,7 +369,7 @@
 
     <div class="card">
       <div class="card-body">
-        <div class="card-title hdr">Информайия о туре</div>
+        <div class="card-title hdr">Информация о туре</div>
 
         <p class="lead-p">
           <b>Город: </b>{{$city_name_1}} (<b>{{$city_days_1}}</b> дней, <b>{{$city_nights_1}}</b> ночей) <br>

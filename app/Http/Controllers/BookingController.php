@@ -3,9 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 use ThreadBeanPHP\C as C;
 use Codedge\Fpdf\Fpdf\Fpdf as FP;
 use Illuminate\Support\Str;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
 class BookingController extends Controller
 {
@@ -67,12 +70,12 @@ class BookingController extends Controller
 				$busy -> company = $req -> company;
 				$busy -> places = $req -> places;
 				C::store($busy);
-				
+
 				return redirect() -> route($home) -> with('success', 'Бронь создана ✔️');
 			}
 
 			$busy = C::findOne('busy', 'tour = ? AND company = ?', [$req -> tour, $req -> company]);
-			
+
 			if($req -> places == 0) {
 				C::trash($busy);
 				return redirect() -> route($home) -> with('success', 'Бронь удалён ✔️');
@@ -114,36 +117,18 @@ class BookingController extends Controller
 		$agent = C::findOne("agents", "company = ?", [$org -> id]);
 		$busyes = C::find("busy", "tour = ?", [$tour -> id]);
 
-		// $dompdf = new Dompdf();
 
 
-		// // $content = "
-		// // <img src=\"".(@$agent -> avatar) ? public_path("uploads/avatar/".$agent -> avatar) : "../public/assets/img/profile-img.jpg"."\">
-		// // <h3>".$tour->name." - ".$org -> name."</h3>
-		// // ";
+		$spreadsheet = new Spreadsheet();
+		$activeWorksheet = $spreadsheet->getActiveSheet();
+		$activeWorksheet->setCellValue('A1', 'Hello World !');
 
+		$writer = new Xlsx($spreadsheet);
+		$writer->save(public_path('/outs/exel/tour-'.$tour -> name.'-'.$tour -> id.'.xlsx'));
 
-		// // $dompdf->loadHtml("
-		// // <!DOCTYPE html>
-		// // <html lang='en'>
-		// // 	<head>
-		// // 		<title>".$tour->name."</title>
-		// // 		<meta charset='UTF-8'>
-		// // 		<meta http-equiv='Content-Type' content='text/html; charset=utf-8'/>
-		// // 		<style>
-		// // 			body { font-family: DejaVu Sans, sans-serif; }
-		// // 		</style>
-		// // 		<meta name='viewport' content='width=device-width, initial-scale=1'>
-		// // 	</head>
-		// // 	<body>
-		// // 	".$content."	
-		// // 	</body>
-		// // </html>
-		// // ", 'UTF-8');
+		return Redirect::to('outs/exel/tour-'.$tour -> name.'-'.$tour -> id.'.xlsx');
 
-		// $dompdf->setPaper('A4', 'portrait');
-		// $dompdf->render();
-		// $dompdf->stream($tour->name);
+		
 
 		$fpdf = new FP;
 		$fpdf -> SetTitle($tour -> name." - ".$org -> name, true);
@@ -171,17 +156,17 @@ class BookingController extends Controller
 				$fpdf->Line($x1, $y1, $x2, $y2);
 
 				$fpdf -> Text(5, $y1+8, $i." |");
-				
+
 				$fpdf -> Image(
-					((@$agent_busy -> avatar) ? "../public/uploads/avatar/".$agent_busy -> avatar : "../public/assets/img/profile-img.jpg"), 
-					20, 
-					$y1+2, 
-					9, 
+					((@$agent_busy -> avatar) ? "../public/uploads/avatar/".$agent_busy -> avatar : "../public/assets/img/profile-img.jpg"),
+					20,
+					$y1+2,
+					9,
 					9
 				);
-		
+
 				$fpdf->SetFont('Courier', '', 16);
-				
+
 				$bonus = 0;
 				if($busy -> company != $tour -> company) {
 					$bonus = $tour -> bonus * $busy -> places;
@@ -213,7 +198,7 @@ class BookingController extends Controller
 
 			$j++;
 		}
-		
+
 
     $fpdf->Output("", $tour -> name." - ".$org -> name, true);
     exit;
