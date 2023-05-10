@@ -128,6 +128,7 @@ class BookingController extends Controller
 
 		return Redirect::to('outs/exel/tour-'.$tour -> name.'-'.$tour -> id.'.xlsx');
 
+
 		
 
 		$fpdf = new FP;
