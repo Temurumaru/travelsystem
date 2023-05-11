@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
+use PhpOffice\PhpSpreadsheet\Worksheet\Drawing;
 use ThreadBeanPHP\C as C;
 use Codedge\Fpdf\Fpdf\Fpdf as FP;
+use \PhpOffice\PhpSpreadsheet\Style\Alignment;
 use Illuminate\Support\Str;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
@@ -118,81 +120,104 @@ class BookingController extends Controller
 		$busyes = C::find("busy", "tour = ?", [$tour -> id]);
 
 
-
 		$spreadsheet = new Spreadsheet();
+		$sheet = $spreadsheet->getActiveSheet();
 		$activeWorksheet = $spreadsheet->getActiveSheet();
-		$activeWorksheet->setCellValue('A1', 'Hello World !');
 
-		$writer = new Xlsx($spreadsheet);
-		$writer->save(public_path('/outs/exel/tour-'.$tour -> name.'-'.$tour -> id.'.xlsx'));
+		$spreadsheet->getActiveSheet()->getColumnDimension('A')->setWidth(12.6);
+		for ($jn = 2; $jn < 19; $jn++) {
+			$spreadsheet->getActiveSheet()->getColumnDimension((string)$this->numberToColumn($jn))->setAutoSize(true);
+		}
+		$spreadsheet->getActiveSheet()->getRowDimension('1')->setRowHeight(75);
+		$spreadsheet->getActiveSheet()->getRowDimension('2')->setRowHeight(60);
 
-		return Redirect::to('outs/exel/tour-'.$tour -> name.'-'.$tour -> id.'.xlsx');
+		for ($nj = 3; $nj < 303; $nj++) {
+			$spreadsheet->getActiveSheet()->getRowDimension((string)$nj)->setRowHeight(30);
+		}
 
+		$sheet->mergeCells("B1:S1");
+		$sheet->setCellValue("B1", "B1:S1");
 
+		$sheet->mergeCells("A2:E2");
+		$sheet->setCellValue("A2", "A2:E2");
+		
+		$spreadsheet->getActiveSheet()->getStyle('A2')->getAlignment()->setVertical(Alignment::VERTICAL_TOP);
+		$sheet->getStyle("A2")->getAlignment()->setWrapText(true);
+		$sheet->getStyle("A2")->getFont()->setSize(16);
+
+		$spreadsheet->getDefaultStyle()->getFont()->setName('Arial');
+		$sheet->getStyle("B1")->getFont()->setSize(45);
+
+		$sheet->getStyle("A3:S303")->getFont()->setSize(22);
+		$spreadsheet->getActiveSheet()->getStyle('A3:S303')->getAlignment()->setHorizontal(Alignment::HORIZONTAL_LEFT);
+		$spreadsheet->getActiveSheet()->getStyle('A3:S303')->getAlignment()->setVertical(Alignment::VERTICAL_CENTER);
 		
 
-		$fpdf = new FP;
-		$fpdf -> SetTitle($tour -> name." - ".$org -> name, true);
-		$fpdf->AddPage();
-		$fpdf->SetFont('Arial', 'B', 22);
-		$fpdf -> Image((@$agent -> avatar) ? "../public/uploads/avatar/".$agent -> avatar : "../public/assets/img/profile-img.jpg", 10, 10, 15, 15);
-		$fpdf->Cell(50, 40, Str::ascii($tour -> name." - ".$org -> name));
+		$activeWorksheet->setCellValue('B1', $tour -> name." - ".$org -> name);
+		$activeWorksheet->setCellValue('A2', $tour -> description);
+		
+		
+		$drawing = new Drawing();
+		$drawing->setPath(((@$agent -> avatar) ? '../public/uploads/avatar/'.$agent -> avatar : '../public/assets/img/profile-img.jpg'));
+		$drawing->setCoordinates('A1');  
+		$drawing->setWidth(100); 
+		$drawing->setHeight(100); 
+		$drawing->setWorksheet($sheet);
 
-		$fpdf->SetFont('Arial', 'B', 16);
+		$sheet->getStyle("A3:S3")->getFont()->setBold(true);
 
-		$i = 1;
-		$x1 = 0;
-		$y1 = 45;
-		$x2 = 210;
-		$y2 = 45;
+		$activeWorksheet->setCellValue('A3', "№");
+		$activeWorksheet->setCellValue('B3', "Агентство");
+		$activeWorksheet->setCellValue('C3', "Имя Агента");
+		$activeWorksheet->setCellValue('D3', "Места");
+		$activeWorksheet->setCellValue('E3', "Бонус");
+
+		$styleArray = [
+			'borders' => [
+				'outline' => [
+					'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THICK,
+					'color' => ['argb' => '00000000'],
+				],
+			],
+		];
+
+		$activeWorksheet->getStyle('A3:E3')->applyFromArray($styleArray);
+
+
+		$i = 4;
 
 		$j = 0;
-		while($j < ((@$req -> long) ? 100 : 1)) {
+		while($j < ((@$req -> long) ? 10 : 1)) {
 
 			foreach ($busyes as $busy) {
 
 				$org_busy = C::findOne("companys", "id = ?", [$busy -> company]);
 				$agent_busy = C::findOne("agents", "company = ?", [$org_busy -> id]);
 
-				$fpdf->Line($x1, $y1, $x2, $y2);
-
-				$fpdf -> Text(5, $y1+8, $i." |");
-
-				$fpdf -> Image(
-					((@$agent_busy -> avatar) ? "../public/uploads/avatar/".$agent_busy -> avatar : "../public/assets/img/profile-img.jpg"),
-					20,
-					$y1+2,
-					9,
-					9
-				);
-
-				$fpdf->SetFont('Courier', '', 16);
+				
+				$drawing = new Drawing();
+				$drawing->setPath(((@$agent_busy -> avatar) ? "../public/uploads/avatar/".$agent_busy -> avatar : "../public/assets/img/profile-img.jpg"));
+				$drawing->setCoordinates('A'.$i);  
+				$drawing->setOffsetX(60); 
+				$drawing->setWidth(40); 
+				$drawing->setHeight(40); 
+				$drawing->setWorksheet($sheet);
+				
+				$activeWorksheet->setCellValue("A".$i, (string)$i-3);
 
 				$bonus = 0;
 				if($busy -> company != $tour -> company) {
 					$bonus = $tour -> bonus * $busy -> places;
 				}
 
-				$fpdf -> Text(30, $y1+8, Str::ascii($org_busy -> name." | ".$busy -> places." place"." | ".$bonus." $"));
+				$activeWorksheet->setCellValue("B".$i, $org_busy -> name);
+				$activeWorksheet->setCellValue("C".$i, @$agent_busy -> full_name);
+				$activeWorksheet->setCellValue("D".$i, $busy -> places);
+				$activeWorksheet->setCellValue("E".$i, $bonus."$ USD");
+				// $activeWorksheet->setCellValue("F".$i, $agent_busy -> full_name);
+				// $activeWorksheet->setCellValue("G".$i, $agent_busy -> full_name);
 
-				// | ".((@$agent_busy -> full_name) ? $agent_busy -> full_name : "Unknown")."
-
-				$fpdf->SetFont('Courier', 'B', 16);
-
-				$y1 += 12;
-				$y2 += 12;
-
-				$fpdf->Line($x1, $y1, $x2, $y2);
-
-				// $y1 += 12;
-				// $y2 += 12;
-
-				if($y1 > 284) {
-					$fpdf->AddPage();
-
-					$y1 = 0;
-					$y2 = 0;
-				}
+				$activeWorksheet->getStyle('A'.$i.':E'.$i)->applyFromArray($styleArray);
 
 				$i++;
 			}
@@ -201,7 +226,19 @@ class BookingController extends Controller
 		}
 
 
-    $fpdf->Output("", $tour -> name." - ".$org -> name, true);
-    exit;
+		$writer = new Xlsx($spreadsheet);
+		$writer->save(public_path('/outs/exel/tour-'.$tour -> name.'-'.$tour -> id.'.xlsx'));
+
+		return Redirect::to('outs/exel/tour-'.$tour -> name.'-'.$tour -> id.'.xlsx');
+	}
+
+	private function numberToColumn($number) {
+		$column = "";
+		while ($number > 0) {
+			$remainder = ($number - 1) % 26;
+			$column = chr(65 + $remainder) . $column;
+			$number = (int)(($number - $remainder) / 26);
+		}
+		return $column;
 	}
 }
