@@ -5,8 +5,8 @@
 /public/storage
 /storage/*.key
 /vendor
-/public/outs/exel/*.xlsx
-/public/outs/exel/*.xls
+*.xls
+*.xlsx
 .env
 .env.backup
 .env.production
